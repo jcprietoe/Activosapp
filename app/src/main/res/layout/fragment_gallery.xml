@@ -5,152 +5,435 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/txttitulo"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Modulo 1. Operacion y Mantenimiento"
-        android:textStyle="bold"
+        android:layout_alignParentTop="true">
 
-        android:textSize="23sp" />
 
-    <TextView
-        android:id="@+id/txtvalorreal"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/txttitulo"
-        android:layout_marginStart="4dp"
-        android:text="Valor real"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtmodulo"
-        android:layout_width="204dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/edtcodinterno"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:text="Modulo"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/edtvalorreal"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_below="@+id/txtvalorreal"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="4dp"
-        android:textSize="23sp" />
+                <TextView
+                    android:id="@+id/txttitulo"
+                    android:layout_width="180dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Modulo 1. Operacion y Mantenimiento"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+            </TableRow>
 
-    <TextView
-        android:id="@+id/txtcodinterno"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/edtvalorreal"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="4dp"
-        android:text="Codigo interno"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edtcodinterno"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/txtcodinterno"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="4dp" />
+                <TextView
+                    android:id="@+id/txtvalorreal"
+                    android:layout_width="205dp"
+                    android:layout_height="44dp"
+                    android:text="Valor real"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtcodinterno"
+                    android:layout_width="205dp"
+                    android:layout_height="44dp"
+                    android:text="Codigo interno"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtnoplaca"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/edtcodinterno"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="-88dp"
-        android:layout_marginEnd="-1dp"
-        android:layout_marginRight="-1dp"
-        android:text="No. Placa"
-        android:textSize="23sp"
-        android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtnoplaca"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/txtnoplaca"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="1dp" />
+            </TableRow>
 
-    <EditText
-        android:id="@+id/edtmodulo"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/txtmodulo"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="4dp"
-        android:textSize="23sp"
-        android:visibility="visible" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtreferencia"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/edtnoplaca"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="-1dp"
-        android:text="Referencia"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/edtvalorreal"
+                    android:layout_width="205dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/edtreferencia"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/txtmodulo"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="4dp"
-        android:textSize="23sp"
-        android:visibility="visible" />
+                <EditText
+                    android:id="@+id/edtcodinterno"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp" />
+            </TableRow>
 
-    <TextView
-        android:id="@+id/txtfechafabricacion"
-        android:layout_width="204dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/edtmodulo"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="3dp"
-        android:text="Fecha de Fabricacion"
-        android:textSize="20sp" />
-    <EditText
-        android:id="@+id/edtfechafabricacion"
-        android:layout_width="204dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/txtfechafabricacion"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="4dp"
-        android:textSize="23sp"
-        android:visibility="visible" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
 
+                <TextView
+                    android:id="@+id/txtnoplaca"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="No. Placa"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtmodelo"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Modelo"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtnoplaca"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp" />
+
+                <EditText
+                    android:id="@+id/edtmodelo"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtreferencia"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Referencia"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtfechafabricacion"
+                    android:layout_width="204dp"
+                    android:layout_height="45dp"
+                    android:text="Fecha de Fabricacion"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtreferencia"
+                    android:layout_width="204dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtfechafabricacion"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtlinea"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:text="Linea"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtfechamatricula"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Fecha Matricula"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtlinea"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtfechamatricula"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtserial1"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Serial"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtserial2"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="S/N (motor)"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtserial1"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtserial2"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtserial3"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="S/N(Subpartes)"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/edtserial3"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtpregunta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="Es de un tercero?"
+                    android:textSize="20sp"
+                    android:layout_weight="2"
+                    android:textStyle="bold" />
+
+
+
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <RadioButton
+                    android:id="@+id/rbtnsi"
+                    android:layout_width="65dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/rbtnno"
+                    android:layout_width="65dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="96dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="No" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtnombretercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Nombres"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtapellidotercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Apellidos"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtnombretercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtapellidotercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txttipoident"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="tipo Identificacion"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtnoident"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="No. Identificacion"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edttipoident"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtnoident"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <TextView
+                    android:id="@+id/txtemailtercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="email"
+                    android:inputType="textEmailAddress"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txttelefonotercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:text="Telefono"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="24dp" >
+
+                <EditText
+                    android:id="@+id/edtemailtercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edttelefonotercero"
+                    android:layout_width="204dp"
+                    android:layout_height="44dp"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="105dp" >
+
+                <EditText
+                    android:id="@+id/edtfunciones"
+                    android:layout_width="204dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="2"
+                    android:hint="Escriba las funciones principales del activo"
+                    android:gravity="top|start"
+                    android:padding="16dp"
+                    android:inputType="textMultiLine"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+
+            </TableRow>
+
+
+
+
+
+
+        </TableLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
