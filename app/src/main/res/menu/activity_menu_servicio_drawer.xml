@@ -6,16 +6,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/icono_menu_principal"
+            android:icon="@drawable/icon_menuprincial"
             android:title="Menu Principal" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/icono_menu_principal"
-            android:title="Registro de Activo" />
+            android:icon="@drawable/icon_modulo1"
+            android:title="Operacion y mantenimiento" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/icono_menu_principal"
-            android:title="Reportar Incidente" />
+            android:icon="@drawable/icon_modulo2"
+            android:title="Mantenimiento no Programado" />
 
     </group>
 
@@ -23,7 +23,7 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/icono_menu_principal"
+                android:icon="@drawable/icon_menuprincial"
                 android:title="Sitio Web" />
 
         </menu>

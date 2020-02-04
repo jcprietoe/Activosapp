@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/btnmodulo1"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/stylo_boton"
+        android:drawableLeft="@drawable/icon_modulo1"
+        android:text="Operacion y mantenimiento"
+        android:textStyle="bold"/>
+    <Button
+        android:id="@+id/btnmodulo2"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/stylo_boton"
+        android:drawableLeft="@drawable/icon_modulo2"
+        android:text="Manteniminetos no programados"
+        android:textStyle="bold"/>
 
 
 
 
-
-</RelativeLayout>
+</LinearLayout>
