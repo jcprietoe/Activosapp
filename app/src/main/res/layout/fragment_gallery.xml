@@ -9,430 +9,342 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
 
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="406dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/txttitulo"
-                    android:layout_width="180dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="Modulo 1. Operacion y Mantenimiento"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txttitulo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:text="Modulo 1. Operacion y Mantenimiento"
+                android:gravity="center"/>
 
-                <TextView
-                    android:id="@+id/txtvalorreal"
-                    android:layout_width="205dp"
-                    android:layout_height="44dp"
-                    android:text="Valor real"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtcodinterno"
-                    android:layout_width="205dp"
-                    android:layout_height="44dp"
-                    android:text="Codigo interno"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtvalorreal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="valor real" />
 
-
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtvalorreal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtvalorreal"
-                    android:layout_width="205dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/edtcodinterno"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txtcodigointerno"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Codigo interno" />
 
-                <TextView
-                    android:id="@+id/txtnoplaca"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="No. Placa"
-                    android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtmodelo"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Modelo"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtcodigointerno"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtnoplaca"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp" />
-
-                <EditText
-                    android:id="@+id/edtmodelo"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"/>
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txtnoplaca"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No placa" />
 
-                <TextView
-                    android:id="@+id/txtreferencia"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Referencia"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtfechafabricacion"
-                    android:layout_width="204dp"
-                    android:layout_height="45dp"
-                    android:text="Fecha de Fabricacion"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtnoplaca"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtreferencia"
-                    android:layout_width="204dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edtfechafabricacion"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:inputType="date"
-                    android:maxLines="1"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txtmodelo"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Modelo" />
 
-                <TextView
-                    android:id="@+id/txtlinea"
-                    android:layout_width="201dp"
-                    android:layout_height="44dp"
-                    android:text="Linea"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtfechamatricula"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Fecha Matricula"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtmodelo"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtlinea"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edtfechamatricula"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txtreferencia"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Referencia" />
 
-                <TextView
-                    android:id="@+id/txtserial1"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Serial"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtserial2"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="S/N (motor)"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtreferencia"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtserial1"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edtserial2"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-            <TableRow
+            <TextView
+                android:id="@+id/txtfabricacion"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Año de Fabricacion" />
 
-                <TextView
-                    android:id="@+id/txtserial3"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="S/N(Subpartes)"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/edtserial3"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-            <TableRow
+            <EditText
+                android:id="@+id/edtfabricacion"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/txtlinea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Linea" />
+
+            <EditText
+                android:id="@+id/edtlinea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/txtmatricula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fecha de registro (Matricula)" />
+
+            <EditText
+                android:id="@+id/edtmatricula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/txtserial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Serial" />
+
+            <EditText
+                android:id="@+id/edtserial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/serialmotor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Serial (Motor)" />
+
+            <EditText
+                android:id="@+id/edtserialmotor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/txtserialpartes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Serial (Sub-partes)" />
+
+            <EditText
+                android:id="@+id/edtserialpartes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtpregunta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:text="Es de un tercero?"
-                    android:textSize="20sp"
-                    android:layout_weight="2"
-                    android:textStyle="bold" />
-
-
-
-
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                    android:layout_width="264dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="El activo es de un tercero?" />
 
                 <RadioButton
                     android:id="@+id/rbtnsi"
-                    android:layout_width="65dp"
-                    android:layout_height="44dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Si" />
 
                 <RadioButton
                     android:id="@+id/rbtnno"
-                    android:layout_width="65dp"
-                    android:layout_height="44dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="96dp"
-                    android:layout_marginBottom="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="No" />
-            </TableRow>
+            </LinearLayout>
 
-            <TableRow
+            <TextView
+                android:id="@+id/txtnombretercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nombre completo" />
+
+            <EditText
+                android:id="@+id/edtnombretercero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtnombretercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Nombres"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:id="@+id/txttipodoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tipo de Documento" />
 
+                <Spinner
+                    android:id="@+id/spinnerdoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
                 <TextView
-                    android:id="@+id/txtapellidotercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Apellidos"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-            </TableRow>
-            <TableRow
+                    android:id="@+id/txtdocumento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textnodoctercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No de Documento" />
 
-                <EditText
-                    android:id="@+id/edtnombretercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edtapellidotercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-
-            <TableRow
+            <EditText
+                android:id="@+id/edtnodoctercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <TextView
-                    android:id="@+id/txttipoident"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="tipo Identificacion"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/txtnoident"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="No. Identificacion"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/txtemailtercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Email" />
 
-                <EditText
-                    android:id="@+id/edttipoident"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edtnoident"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-            <TableRow
+            <EditText
+                android:id="@+id/edtemailtercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <TextView
-                    android:id="@+id/txtemailtercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="email"
-                    android:inputType="textEmailAddress"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/txttelefonotercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:text="Telefono"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-            </TableRow>
-            <TableRow
+            <TextView
+                android:id="@+id/txtteltercero"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Telefono" />
 
-                <EditText
-                    android:id="@+id/edtemailtercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/edttelefonotercero"
-                    android:layout_width="204dp"
-                    android:layout_height="44dp"
-                    android:textSize="20sp"
-                    android:visibility="visible" />
-            </TableRow>
-            <TableRow
+            <EditText
+                android:id="@+id/edtteltercero"
                 android:layout_width="match_parent"
-                android:layout_height="105dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
-                <EditText
-                    android:id="@+id/edtfunciones"
-                    android:layout_width="204dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="2"
-                    android:hint="Escriba las funciones principales del activo"
-                    android:gravity="top|start"
-                    android:padding="16dp"
-                    android:inputType="textMultiLine"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txtdescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Descripcion funciones del activo" />
+
+            <EditText
+                android:id="@+id/edtdescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:maxLines="8"
+                android:hint="Principales funciones del activo"/>
 
 
-            </TableRow>
+        </LinearLayout>
 
-
-
-
-
-
-        </TableLayout>
     </ScrollView>
 
 

@@ -23,6 +23,14 @@
         android:label="Registro de Incidente"
         tools:layout="@layout/fragment_slideshow" />
 
+    <fragment
+        android:id="@+id/nav_sub_menu"
+        android:name="com.example.activosapp.Menu_modulo1"
+        android:label="sub_menu"
+        tools:layout="@layout/fragment_menu_modulo1"/>
+
+
+
 
 
 

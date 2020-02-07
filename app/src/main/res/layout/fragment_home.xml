@@ -33,7 +33,7 @@
         android:background="@drawable/stylo_boton"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/icon_modulo2"
-        android:text="Manteniminetos no programados"
+        android:text="Mantenimientos no programados"
         android:textStyle="bold"/>
     <Button
         android:id="@+id/btnmodulo3"
