@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,70 +9,104 @@
     android:orientation="vertical"
     tools:context=".Menu_modulo1">
 
+
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="24dp"
         android:text="Operacion y Mantenimineto"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:textSize="25sp"/>
-
-
-    <Button
-        android:id="@+id/btn_crear_activo"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="Crear Activo" />
-
-    <Button
-        android:id="@+id/btn_revision_preoperacional"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Revision Pre operacional" />
-
-    <Button
-        android:id="@+id/btn_reporte_novedad"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Reporte de novedad" />
-
-    <Button
-        android:id="@+id/btn_generaorden"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Generacion ordenes de trabajo, compra y cierre" />
-
-    <Button
-        android:id="@+id/btn_crear_planmante"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="creacion plan de mantenimineto" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_crear_activo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_planoperacion"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="planear la operacion" />
+        android:layout_marginBottom="23dp"
+        android:text="planear la operacion"
+        app:layout_constraintBottom_toTopOf="@+id/btn_planearmante"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_crear_planmante" />
+
+    <Button
+        android:id="@+id/btn_reporte_novedad"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="26dp"
+        android:text="Reporte de novedad"
+        app:layout_constraintBottom_toTopOf="@+id/btn_generaorden"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_revision_preoperacional" />
+
+    <Button
+        android:id="@+id/btn_generaorden"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+        android:text="Generacion ordenes de trabajo, compra y cierre"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crear_planmante"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_reporte_novedad" />
+
+    <Button
+        android:id="@+id/btn_crear_planmante"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:text="creacion plan de mantenimineto"
+        app:layout_constraintBottom_toTopOf="@+id/btn_planoperacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_generaorden" />
 
     <Button
         android:id="@+id/btn_planearmante"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="planear mantenimiento" />
+        android:layout_marginBottom="51dp"
+        android:text="planear mantenimiento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_planoperacion" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_revision_preoperacional"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="22dp"
+        android:text="Revision Pre operacional"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reporte_novedad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_crear_activo" />
+
+    <Button
+        android:id="@+id/btn_crear_activo"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:text="Crear Activo"
+        app:layout_constraintBottom_toTopOf="@+id/btn_revision_preoperacional"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

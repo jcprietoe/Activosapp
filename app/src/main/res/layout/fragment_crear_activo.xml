@@ -26,10 +26,10 @@
 
             <TextView
                 android:id="@+id/txttitulo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="Modulo 1. Operacion y Mantenimiento" />
 
             <TextView
@@ -42,7 +42,7 @@
 
             <EditText
                 android:id="@+id/edtvalorreal"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -51,14 +51,14 @@
 
             <TextView
                 android:id="@+id/txtcodigointerno"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Codigo interno" />
 
             <EditText
                 android:id="@+id/edtcodigointerno"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -67,14 +67,14 @@
 
             <TextView
                 android:id="@+id/txtnoplaca"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="No placa" />
 
             <EditText
                 android:id="@+id/edtnoplaca"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -83,14 +83,14 @@
 
             <TextView
                 android:id="@+id/txtmodelo"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Modelo" />
 
             <EditText
                 android:id="@+id/edtmodelo"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/txtreferencia"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Referencia" />
@@ -115,14 +115,14 @@
 
             <TextView
                 android:id="@+id/txtfabricacion"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Año de Fabricacion" />
 
             <EditText
                 android:id="@+id/edtfabricacion"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -131,14 +131,14 @@
 
             <TextView
                 android:id="@+id/txtlinea"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Linea" />
 
             <EditText
                 android:id="@+id/edtlinea"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -147,14 +147,14 @@
 
             <TextView
                 android:id="@+id/txtmatricula"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Fecha de registro (Matricula)" />
 
             <EditText
                 android:id="@+id/edtmatricula"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -163,14 +163,14 @@
 
             <TextView
                 android:id="@+id/txtserial"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Serial" />
 
             <EditText
                 android:id="@+id/edtserial"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -179,14 +179,14 @@
 
             <TextView
                 android:id="@+id/serialmotor"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Serial (Motor)" />
 
             <EditText
                 android:id="@+id/edtserialmotor"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -195,14 +195,14 @@
 
             <TextView
                 android:id="@+id/txtserialpartes"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Serial (Sub-partes)" />
 
             <EditText
                 android:id="@+id/edtserialpartes"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -210,8 +210,8 @@
                 android:text="" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -238,14 +238,14 @@
 
             <TextView
                 android:id="@+id/txtnombretercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Nombre completo" />
 
             <EditText
                 android:id="@+id/edtnombretercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -253,26 +253,26 @@
                 android:text="" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txttipodoc"
-                    android:layout_width="match_parent"
+                    android:layout_width="405dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Tipo de Documento" />
 
                 <Spinner
                     android:id="@+id/spinnerdoc"
-                    android:layout_width="match_parent"
+                    android:layout_width="405dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/txtdocumento"
-                    android:layout_width="match_parent"
+                    android:layout_width="405dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="" />
@@ -283,14 +283,14 @@
 
             <TextView
                 android:id="@+id/textnodoctercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="No de Documento" />
 
             <EditText
                 android:id="@+id/edtnodoctercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -299,14 +299,14 @@
 
             <TextView
                 android:id="@+id/txtemailtercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Email" />
 
             <EditText
                 android:id="@+id/edtemailtercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -315,14 +315,14 @@
 
             <TextView
                 android:id="@+id/txtteltercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Telefono" />
 
             <EditText
                 android:id="@+id/edtteltercero"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -331,14 +331,14 @@
 
             <TextView
                 android:id="@+id/txtdescripcion"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Descripcion funciones del activo" />
 
             <EditText
                 android:id="@+id/edtdescripcion"
-                android:layout_width="match_parent"
+                android:layout_width="405dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:ems="10"
