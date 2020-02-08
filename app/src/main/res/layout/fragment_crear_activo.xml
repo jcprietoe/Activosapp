@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
             android:layout_width="406dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txttitulo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Modulo 1. Operacion y Mantenimiento"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Modulo 1. Operacion y Mantenimiento" />
 
             <TextView
                 android:id="@+id/txtvalorreal"
@@ -247,6 +251,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -264,14 +269,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
                 <TextView
                     android:id="@+id/txtdocumento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="" />
-
-
 
 
             </LinearLayout>
@@ -338,9 +342,9 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Principales funciones del activo"
                 android:inputType="textPersonName"
-                android:maxLines="8"
-                android:hint="Principales funciones del activo"/>
+                android:maxLines="8" />
 
 
         </LinearLayout>
@@ -348,4 +352,4 @@
     </ScrollView>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
