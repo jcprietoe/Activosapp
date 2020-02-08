@@ -2,16 +2,6 @@ package com.example.activosapp;
 
 import android.os.Bundle;
 
-import com.example.activosapp.ui.home.HomeFragment;
-import com.example.activosapp.ui.sitioweb.WebFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,15 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.webkit.WebView;
-import android.webkit.WebViewFragment;
 
 public class MenuServicio extends AppCompatActivity {
 
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    public static  int opcion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +35,14 @@ public class MenuServicio extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_sub_menu, R.id.nav_sitioweb)
+                R.id.nav_home, R.id.nav_crear_activo, R.id.nav_slideshow,R.id.nav_sub_menu, R.id.nav_sitioweb, R.id.nav_revpreoperacional)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//opcion para la accion de los botonoes
-        FragmentManager fm=getSupportFragmentManager();
-                switch (opcion){
-                    case 1:fm.beginTransaction().replace(R.id.nav_host_fragment,new Menu_modulo1()).commit();break;
-                    default:
 
-                }
 
 
 
@@ -72,6 +54,10 @@ public class MenuServicio extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_servicio, menu);
+
+
+
+
         return true;
     }
 

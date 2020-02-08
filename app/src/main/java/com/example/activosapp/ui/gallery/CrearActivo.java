@@ -7,17 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.activosapp.R;
 
-public class GalleryFragment extends Fragment {
+public class CrearActivo extends Fragment {
 
-    public GalleryFragment(){
+    public CrearActivo(){
 
     }
 
@@ -30,7 +27,7 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        view = inflater.inflate(R.layout.fragment_crear_activo, container, false);
 
 
 

@@ -1,25 +1,19 @@
-package com.example.activosapp.ui.home;
+package com.example.activosapp.ui.menu_principal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.core.content.pm.PermissionInfoCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.example.activosapp.Menu_modulo1;
 import com.example.activosapp.R;
-import com.example.activosapp.ui.sitioweb.WebFragment;
+
+import static androidx.navigation.Navigation.findNavController;
 
 public class HomeFragment extends Fragment {
 
@@ -36,24 +30,26 @@ public class HomeFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        modulo1=vista.findViewById(R.id.btnmodulo1);//accion modulo 1
+       modulo1=vista.findViewById(R.id.btnmodulo1);//accion modulo 1
         modulo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(getContext(),"hola mundo",Toast.LENGTH_LONG).show();
-
-
+                findNavController(v).navigate(R.id.action_nav_home_to_nav_sub_menu);
+                Toast.makeText(getContext(),"modulo 1.",Toast.LENGTH_LONG).show();
             }
-
-
         });
-
-
-
-
-
-
         return vista;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //modulo1.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_sub_menu));
+
+
+
+
+
     }
 }

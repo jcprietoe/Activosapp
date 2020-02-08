@@ -8,9 +8,18 @@
     android:orientation="vertical"
     tools:context=".Menu_modulo1">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Operacion y Mantenimineto"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_crear_activo"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -18,58 +27,51 @@
         android:text="Crear Activo" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_revision_preoperacional"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Ingreso datos de identificacion" />
+        android:text="Revision Pre operacional" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_reporte_novedad"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Es de un tercero?" />
+        android:text="Reporte de novedad" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_generaorden"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Descripcion funcion del activo" />
+        android:text="Generacion ordenes de trabajo, compra y cierre" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_crear_planmante"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Ingreso ubicacion empresa" />
+        android:text="creacion plan de mantenimineto" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_planoperacion"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Button" />
+        android:text="planear la operacion" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btn_planearmante"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="adjuntar archivos" />
+        android:text="planear mantenimiento" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Activo padre si aplica" />
 </LinearLayout>

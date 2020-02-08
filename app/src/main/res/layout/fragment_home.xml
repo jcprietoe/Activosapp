@@ -15,11 +15,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/stylo_boton"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/icon_modulo1"
-        android:text="Operacion y mantenimiento"
+        android:text="Modulo 1. Operacion y mantenimiento "
         android:textStyle="bold"/>
     <Button
         android:id="@+id/btnmodulo2"
@@ -29,11 +29,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/stylo_boton"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/icon_modulo2"
-        android:text="Mantenimientos no programados"
+        android:text="MOdulo 2. Proveedores"
         android:textStyle="bold"/>
     <Button
         android:id="@+id/btnmodulo3"
@@ -43,11 +43,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/stylo_boton"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/icon_modulo2"
-        android:text="Novedades"
+        android:text="Modulo 3. indicadores de gestion"
         android:textStyle="bold"/>
 
 

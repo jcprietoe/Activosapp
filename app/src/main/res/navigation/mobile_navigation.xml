@@ -7,15 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.activosapp.ui.home.HomeFragment"
+        android:name="com.example.activosapp.ui.menu_principal.HomeFragment"
         android:label="Menu Principal"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_sub_menu"
+            app:destination="@id/nav_sub_menu" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.activosapp.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_crear_activo"
+        android:name="com.example.activosapp.ui.gallery.CrearActivo"
         android:label="Registro de Activo"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_crear_activo" />
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -26,13 +30,25 @@
     <fragment
         android:id="@+id/nav_sub_menu"
         android:name="com.example.activosapp.Menu_modulo1"
-        android:label="sub_menu"
-        tools:layout="@layout/fragment_menu_modulo1"/>
-
-
-
-
-
+        android:label="Modulo 1."
+        tools:layout="@layout/fragment_menu_modulo1" >
+        <action
+            android:id="@+id/boton_crear_activo_to_crear_activo"
+            app:destination="@id/nav_crear_activo" />
+        <action
+            android:id="@+id/action_nav_sub_menu_to_nav_revpreoperacional"
+            app:destination="@id/nav_revpreoperacional" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_sitioweb"
+        android:name="com.example.activosapp.ui.sitioweb.WebFragment"
+        android:label="Gerenciando Mantenimiento"
+        tools:layout="@layout/fragment_sitioweb" />
+    <fragment
+        android:id="@+id/nav_revpreoperacional"
+        android:name="com.example.activosapp.FragmentRevisionPreoperacional"
+        android:label="fragment_revision_preoperacional"
+        tools:layout="@layout/fragment_revision_preoperacional" />
 
 
 </navigation>
