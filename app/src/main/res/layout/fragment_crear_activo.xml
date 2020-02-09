@@ -346,6 +346,32 @@
                 android:inputType="textPersonName"
                 android:maxLines="8" />
 
+            <TextView
+                android:id="@+id/txtubicacion"
+                android:layout_width="405dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ubicacion del activo en la empresa" />
+
+            <EditText
+                android:id="@+id/edtubicacion"
+                android:layout_width="405dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/stylo_boton"
+                android:text="Guardar Registro"
+                android:textStyle="bold"/>
+
 
         </LinearLayout>
 
