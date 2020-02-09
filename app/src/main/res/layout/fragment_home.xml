@@ -9,14 +9,14 @@
 
     <Button
         android:id="@+id/btnmodulo1"
-        android:layout_width="400dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="35dp"
         android:background="@drawable/stylo_boton"
@@ -30,13 +30,14 @@
 
     <Button
         android:id="@+id/btnmodulo2"
-        android:layout_width="400dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginStart="46dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/stylo_boton"
@@ -51,7 +52,7 @@
 
     <Button
         android:id="@+id/btnmodulo3"
-        android:layout_width="400dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -59,6 +60,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="46dp"
         android:layout_marginEnd="46dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="363dp"
         android:background="@drawable/stylo_boton"
         android:drawableLeft="@drawable/icon_modulo2"
