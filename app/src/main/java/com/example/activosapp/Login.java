@@ -1,6 +1,8 @@
 package com.example.activosapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +35,10 @@ public class Login extends AppCompatActivity {
         edtusuario=findViewById(R.id.txtusuario);
         edtpassword=findViewById(R.id.txtpassword);
         btnLogin=findViewById(R.id.btnentrar);
+
+
+
+        cargarPreferencias();
 
 
 
@@ -73,6 +79,9 @@ public class Login extends AppCompatActivity {
             if(existeUsuario(resultado)){
                 JSONObject resultJson=  datos.getJSONObject("datos");
                 if(resultJson.getString("password").equals(edtpassword.getText().toString())){
+
+                    guardarPreferencias();
+
                     Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
                     startActivity(intent);
@@ -90,4 +99,30 @@ public class Login extends AppCompatActivity {
     public boolean existeUsuario(String resultado){
         return resultado.equals("CC");
     }
+
+
+    private void guardarPreferencias(){
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        final String usuario = edtusuario.getText().toString();
+        final String password = edtpassword.getText().toString();
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("user",usuario);
+        editor.putString("pass",password);
+        edtusuario.setText(usuario);
+        edtpassword.setText(password);
+        editor.commit();
+
+    }
+
+    private void cargarPreferencias(){
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String user=preferences.getString("user","");
+        String pass=preferences.getString("pass","");
+        edtusuario.setText(user);
+        edtpassword.setText(pass);
+
+    }
+
+
+
 }
