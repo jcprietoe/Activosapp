@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,8 +24,12 @@ public class Login extends AppCompatActivity {
 
     EditText edtusuario, edtpassword;
     Button btnLogin;
+    RadioButton rbtnsesion;
     private VolleyRP volley;
     private RequestQueue mRequest;
+    private boolean is_activado_rbt;
+    private static final String STRING_PREFERENCES = "mi_paquete_preferences";
+    private static final String PREFERENCE_ESTADO_BUTTON = "estado.button.sesion";
 
 
     @Override
@@ -32,19 +37,44 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (obtenerEstadoButton()){
+            Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
+            startActivity(intent);
+            finish();
+
+        }
+
         edtusuario=findViewById(R.id.txtusuario);
         edtpassword=findViewById(R.id.txtpassword);
         btnLogin=findViewById(R.id.btnentrar);
+        rbtnsesion=findViewById(R.id.rbtnsesion);
 
 
 
-        cargarPreferencias();
+
+
+
+
+        is_activado_rbt =rbtnsesion.isChecked();// desactivado
+        rbtnsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (is_activado_rbt){
+                    rbtnsesion.setChecked(false);
+                }
+                is_activado_rbt=rbtnsesion.isChecked();
+
+            }
+        });
 
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 validarUsuario("http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/Login_GETID.php?nombre=",edtusuario.getText().toString());
             }
         });
@@ -85,6 +115,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
                     startActivity(intent);
+                    finish();
 
                 }else{
                     Toast.makeText(Login.this, "contraseña errada", Toast.LENGTH_SHORT).show();
@@ -102,26 +133,18 @@ public class Login extends AppCompatActivity {
 
 
     private void guardarPreferencias(){
-        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        final String usuario = edtusuario.getText().toString();
-        final String password = edtpassword.getText().toString();
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("user",usuario);
-        editor.putString("pass",password);
-        edtusuario.setText(usuario);
-        edtpassword.setText(password);
-        editor.commit();
-
+        SharedPreferences preferences=getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON,rbtnsesion.isChecked()).apply();
     }
 
-    private void cargarPreferencias(){
-        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        String user=preferences.getString("user","");
-        String pass=preferences.getString("pass","");
-        edtusuario.setText(user);
-        edtpassword.setText(pass);
-
+    private boolean obtenerEstadoButton(){
+        SharedPreferences preferences=getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
+       return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON,false);
     }
+
+
+
+
 
 
 

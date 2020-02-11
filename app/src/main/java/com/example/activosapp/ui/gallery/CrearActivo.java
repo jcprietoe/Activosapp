@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,8 +27,10 @@ public class CrearActivo extends Fragment {
     View vista;
     Spinner spinnerdocu;
     String[] tpodocumento;
-    EditText fechamatricula, fechafabricacion;
-
+    EditText fechamatricula, fechafabricacion,edtvalorreal,edtcodigointerno,edtnoplaca,edtnodoctercero,edtemailtercero,edtteltercero;
+    EditText edtmodelo,edtreferencia, edtlinea,edtserial,edtserialmotor,edtserialpartes,edtnombretercero,edtdescripcion,edtubicacion;
+    RadioButton rbtnsi, rbtnno;
+    Button btn_guardar_registro;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,6 +43,25 @@ public class CrearActivo extends Fragment {
         tpodocumento= getResources().getStringArray(R.array.tipo_documentos);
         fechamatricula=vista.findViewById(R.id.edtfmatricula);
         fechafabricacion=vista.findViewById(R.id.edtfabricacion);
+        edtcodigointerno=vista.findViewById(R.id.edtcodigointerno);
+        edtnoplaca=vista.findViewById(R.id.edtnoplaca);
+        edtnodoctercero=vista.findViewById(R.id.edtnodoctercero);
+        edtemailtercero=vista.findViewById(R.id.edtemailtercero);
+        edtteltercero=vista.findViewById(R.id.edtteltercero);
+        edtmodelo=vista.findViewById(R.id.edtreferencia);
+        edtlinea=vista.findViewById(R.id.edtlinea);
+        edtlinea=vista.findViewById(R.id.edtlinea);
+        edtserial=vista.findViewById(R.id.edtserial);
+        edtserialmotor=vista.findViewById(R.id.edtserialmotor);
+        edtserialpartes=vista.findViewById(R.id.edtserialpartes);
+        edtnombretercero=vista.findViewById(R.id.edtnombretercero);
+        edtdescripcion=vista.findViewById(R.id.edtdescripcion);
+        edtubicacion=vista.findViewById(R.id.edtubicacion);
+        rbtnsi=vista.findViewById(R.id.rbtnsi);
+        rbtnno=vista.findViewById(R.id.rbtnno);
+        btn_guardar_registro=vista.findViewById(R.id.btn_guardar_registro);
+
+
 
         //spinner
 
@@ -53,7 +76,17 @@ public class CrearActivo extends Fragment {
 
             }
         });
-*/
+ */
+        //boton guardar
+        btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
+
         //metodo para textview fecha de matricula
         fechamatricula.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +126,8 @@ public class CrearActivo extends Fragment {
 
                 }
             }
+
+            //calendario
 
             private void showDatePickerDialog() {
                 DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
