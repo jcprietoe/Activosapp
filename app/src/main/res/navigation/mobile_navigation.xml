@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/nav_crear_activo"
-        android:name="com.example.activosapp.ui.gallery.CrearActivo"
+        android:name="com.example.activosapp.ui.crear_activo.CrearActivo"
         android:label="Registro de Activo"
         tools:layout="@layout/fragment_crear_activo" />
 

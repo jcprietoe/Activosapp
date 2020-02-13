@@ -1,4 +1,4 @@
-package com.example.activosapp.ui.gallery;
+package com.example.activosapp.ui.crear_activo;
 
 
 import android.app.DatePickerDialog;

@@ -15,13 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MenuServicio extends AppCompatActivity {
 
 
     private AppBarConfiguration mAppBarConfiguration;
 
-
+    TextView recibe_nombre_usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,19 @@ public class MenuServicio extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        /* recibir la informacion del textview
+        recibe_nombre_usuario=findViewById(R.id.recibe_nombre_usuario);
+        Bundle recibe_dato = getIntent().getExtras();
+        recibe_nombre_usuario.setText(recibe_dato.getString("nombre_usuario"));
+        */
+
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

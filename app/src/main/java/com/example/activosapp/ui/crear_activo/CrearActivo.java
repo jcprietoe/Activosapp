@@ -1,11 +1,10 @@
-package com.example.activosapp.ui.gallery;
+package com.example.activosapp.ui.crear_activo;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;

@@ -55,6 +55,11 @@ public class Login extends AppCompatActivity {
 
 
 
+
+
+
+
+
         is_activado_rbt =rbtnsesion.isChecked();// desactivado
         rbtnsesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +119,10 @@ public class Login extends AppCompatActivity {
 
                     Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
+                    /*Bundle pasardato=new Bundle();
+                    pasardato.putString("nombre_usuario", String.valueOf(edtusuario));
+                    intent.putExtras(pasardato);*/
+
                     startActivity(intent);
                     finish();
 
