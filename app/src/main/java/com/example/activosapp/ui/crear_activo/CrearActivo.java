@@ -1,19 +1,35 @@
 package com.example.activosapp.ui.crear_activo;
 
 import android.app.DatePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.example.activosapp.Login;
 import com.example.activosapp.R;
+import com.example.activosapp.ui.ServiceHandler;
+import com.example.activosapp.ui.TipoDocumento;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CrearActivo extends Fragment {
@@ -23,7 +39,9 @@ public class CrearActivo extends Fragment {
     }
 
 // declaracion de variables
-    String[] opcTipoDocumento = new String[]{"Selecione", "Cedula extranjera", "Cedula ciudadania"};
+    TipoDocumento tipoDocumento;
+    ArrayList <TipoDocumento> tipoDocumentoList;
+    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php?id=";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
@@ -32,7 +50,6 @@ public class CrearActivo extends Fragment {
     EditText edtmodelo,edtreferencia, edtlinea,edtserial,edtserialmotor,edtserialpartes,edtnombretercero,edtdescripcion,edtubicacion;
     RadioButton rbtnsi, rbtnno;
     Button btn_guardar_registro;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState){
@@ -68,22 +85,31 @@ public class CrearActivo extends Fragment {
 
        //ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(),
                 //R.array.tipo_documentos, android.R.layout.simple_spinner_item);
-        aaTipoDocumento = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, opcTipoDocumento);
-        aaTipoDocumento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerdocu.setAdapter(aaTipoDocumento);
-/* metodo de accion para el spinner crea conflicto
-        spinnerdocu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+ //       aaTipoDocumento = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, opcTipoDocumento);
+ //       aaTipoDocumento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+ //       spinnerdocu.setAdapter(aaTipoDocumento);
 
-            }
-        });
- */
+ //metodo de accion para el spinner crea conflicto
+        //new getTipoDocumento().execute();
+        //populateSpinner();
+        init();
+       spinnerdocu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+           }
+       });
+
         //boton guardar
         btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Toast.makeText(getContext(),"entro aqui",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -144,15 +170,70 @@ public class CrearActivo extends Fragment {
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
             }
         });
-
-
-
-
-
-
-
         return vista;
 
 
        }
+
+    private void populateSpinner() {
+        List<String> lables = new ArrayList<String>();
+
+        for (int i = 0; i < tipoDocumentoList.size(); i++) {
+            lables.add(tipoDocumentoList.get(i).getNombre());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, lables);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinnerdocu.setAdapter(spinnerAdapter);
+
+
+    }
+
+    public void init(){
+
+        Toast.makeText(getContext(),"entro al metodo init",Toast.LENGTH_SHORT).show();
+        ServiceHandler jsonParser = new ServiceHandler();
+        //String json = jsonParser.makeServiceCall(URL_LISTA_Documento, ServiceHandler.GET);
+    }
+
+    private class getTipoDocumento extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(URL_LISTA_Documento, ServiceHandler.GET);
+
+            if (json != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json);
+                    if (jsonObj != null) {
+
+                        JSONArray documento = jsonObj.getJSONArray("documento");
+
+                        for (int i = 0; i < documento.length(); i++) {
+                            JSONObject catObj = (JSONObject) documento.get(i);
+                            TipoDocumento cat = new TipoDocumento(catObj.getInt("id"),
+                                    catObj.getString("nombre_departamento"));
+                            tipoDocumentoList.add(cat);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("JSON Data", "¿No ha recibido ningún dato desde el servidor!");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            populateSpinner();
+        }
+    }
     }
