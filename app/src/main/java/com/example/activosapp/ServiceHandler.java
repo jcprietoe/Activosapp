@@ -1,4 +1,4 @@
-package com.example.activosapp.ui;
+package com.example.activosapp;
 
 import android.util.Log;
 

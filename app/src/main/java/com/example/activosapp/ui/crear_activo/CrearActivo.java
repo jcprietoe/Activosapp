@@ -19,10 +19,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.activosapp.Login;
 import com.example.activosapp.R;
-import com.example.activosapp.ui.ServiceHandler;
-import com.example.activosapp.ui.TipoDocumento;
+import com.example.activosapp.ServiceHandler;
+import com.example.activosapp.TipoDocumento;
 
 import org.json.JSONArray;
 import org.json.JSONException;
