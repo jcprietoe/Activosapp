@@ -23,6 +23,8 @@ public class CrearActivo extends Fragment {
     }
 
 // declaracion de variables
+    String[] opcTipoDocumento = new String[]{"Selecione", "Cedula extranjera", "Cedula ciudadania"};
+    ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
     String[] tpodocumento;
@@ -64,10 +66,11 @@ public class CrearActivo extends Fragment {
 
         //spinner
 
-       ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(),
-                R.array.tipo_documentos, android.R.layout.simple_spinner_item);
-       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerdocu.setAdapter(adapter);
+       //ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(),
+                //R.array.tipo_documentos, android.R.layout.simple_spinner_item);
+        aaTipoDocumento = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, opcTipoDocumento);
+        aaTipoDocumento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerdocu.setAdapter(aaTipoDocumento);
 /* metodo de accion para el spinner crea conflicto
         spinnerdocu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
