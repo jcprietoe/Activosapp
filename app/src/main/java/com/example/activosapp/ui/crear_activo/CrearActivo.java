@@ -19,97 +19,88 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.activosapp.Login;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.activosapp.R;
-import com.example.activosapp.ui.ServiceHandler;
-import com.example.activosapp.ui.TipoDocumento;
+import com.example.activosapp.VolleyRP;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class CrearActivo extends Fragment {
 
-    public CrearActivo(){
+    public CrearActivo() {
 
     }
+    private VolleyRP volley;
+    private RequestQueue mRequest;
+    // declaracion de variables
 
-// declaracion de variables
-    TipoDocumento tipoDocumento;
-    ArrayList <TipoDocumento> tipoDocumentoList;
-    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php?id=";
+    ArrayList<String>listPrueba;
+    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/Login_GETALL.php";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
     String[] tpodocumento;
-    EditText fechamatricula, fechafabricacion,edtvalorreal,edtcodigointerno,edtnoplaca,edtnodoctercero,edtemailtercero,edtteltercero;
-    EditText edtmodelo,edtreferencia, edtlinea,edtserial,edtserialmotor,edtserialpartes,edtnombretercero,edtdescripcion,edtubicacion;
+    EditText fechamatricula, fechafabricacion, edtvalorreal, edtcodigointerno, edtnoplaca, edtnodoctercero, edtemailtercero, edtteltercero;
+    EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtnombretercero, edtdescripcion, edtubicacion;
     RadioButton rbtnsi, rbtnno;
     Button btn_guardar_registro;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState){
+                             ViewGroup container, Bundle savedInstanceState) {
 
         vista = inflater.inflate(R.layout.fragment_crear_activo, container, false);
 
-         //llama de variable
-        spinnerdocu=vista.findViewById(R.id.spinnerdoc);
-        tpodocumento= getResources().getStringArray(R.array.tipo_documentos);
-        fechamatricula=vista.findViewById(R.id.edtfmatricula);
-        fechafabricacion=vista.findViewById(R.id.edtfabricacion);
-        edtcodigointerno=vista.findViewById(R.id.edtcodigointerno);
-        edtnoplaca=vista.findViewById(R.id.edtnoplaca);
-        edtnodoctercero=vista.findViewById(R.id.edtnodoctercero);
-        edtemailtercero=vista.findViewById(R.id.edtemailtercero);
-        edtteltercero=vista.findViewById(R.id.edtteltercero);
-        edtmodelo=vista.findViewById(R.id.edtreferencia);
-        edtlinea=vista.findViewById(R.id.edtlinea);
-        edtlinea=vista.findViewById(R.id.edtlinea);
-        edtserial=vista.findViewById(R.id.edtserial);
-        edtserialmotor=vista.findViewById(R.id.edtserialmotor);
-        edtserialpartes=vista.findViewById(R.id.edtserialpartes);
-        edtnombretercero=vista.findViewById(R.id.edtnombretercero);
-        edtdescripcion=vista.findViewById(R.id.edtdescripcion);
-        edtubicacion=vista.findViewById(R.id.edtubicacion);
-        rbtnsi=vista.findViewById(R.id.rbtnsi);
-        rbtnno=vista.findViewById(R.id.rbtnno);
-        btn_guardar_registro=vista.findViewById(R.id.btn_guardar_registro);
+        //llama de variable
+        spinnerdocu = vista.findViewById(R.id.spinnerdoc);
+        tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
+        fechamatricula = vista.findViewById(R.id.edtfmatricula);
+        fechafabricacion = vista.findViewById(R.id.edtfabricacion);
+        edtcodigointerno = vista.findViewById(R.id.edtcodigointerno);
+        edtnoplaca = vista.findViewById(R.id.edtnoplaca);
+        edtnodoctercero = vista.findViewById(R.id.edtnodoctercero);
+        edtemailtercero = vista.findViewById(R.id.edtemailtercero);
+        edtteltercero = vista.findViewById(R.id.edtteltercero);
+        edtmodelo = vista.findViewById(R.id.edtreferencia);
+        edtlinea = vista.findViewById(R.id.edtlinea);
+        edtlinea = vista.findViewById(R.id.edtlinea);
+        edtserial = vista.findViewById(R.id.edtserial);
+        edtserialmotor = vista.findViewById(R.id.edtserialmotor);
+        edtserialpartes = vista.findViewById(R.id.edtserialpartes);
+        edtnombretercero = vista.findViewById(R.id.edtnombretercero);
+        edtdescripcion = vista.findViewById(R.id.edtdescripcion);
+        edtubicacion = vista.findViewById(R.id.edtubicacion);
+        rbtnsi = vista.findViewById(R.id.rbtnsi);
+        rbtnno = vista.findViewById(R.id.rbtnno);
+        btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
 
+        //creacion de hilo para poblar spinner
+        new GetTipoDocumento().execute();
+        spinnerdocu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        //spinner
+                Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            }
 
-       //ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(),
-                //R.array.tipo_documentos, android.R.layout.simple_spinner_item);
- //       aaTipoDocumento = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, opcTipoDocumento);
- //       aaTipoDocumento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
- //       spinnerdocu.setAdapter(aaTipoDocumento);
-
- //metodo de accion para el spinner crea conflicto
-        //new getTipoDocumento().execute();
-        //populateSpinner();
-        init();
-       spinnerdocu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-           }
-       });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         //boton guardar
         btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getContext(),"entro aqui",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -173,67 +164,53 @@ public class CrearActivo extends Fragment {
         return vista;
 
 
-       }
+    }
 
-    private void populateSpinner() {
-        List<String> lables = new ArrayList<String>();
-
-        for (int i = 0; i < tipoDocumentoList.size(); i++) {
-            lables.add(tipoDocumentoList.get(i).getNombre());
+    public void poblarSpinnerTipoDocumento(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            listPrueba = new ArrayList<String>();
+            for(int i =0;i<datos.getJSONArray("datos").length();i++){
+                JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
+                listPrueba.add(dato.get("usuario").toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, lables);
+                android.R.layout.simple_spinner_item, listPrueba);
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
         spinnerdocu.setAdapter(spinnerAdapter);
-
-
     }
 
-    public void init(){
-
-        Toast.makeText(getContext(),"entro al metodo init",Toast.LENGTH_SHORT).show();
-        ServiceHandler jsonParser = new ServiceHandler();
-        //String json = jsonParser.makeServiceCall(URL_LISTA_Documento, ServiceHandler.GET);
-    }
-
-    private class getTipoDocumento extends AsyncTask<Void, Void, Void> {
-
+    private class GetTipoDocumento extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(URL_LISTA_Documento, ServiceHandler.GET);
+            volley = VolleyRP.getInstance(getContext());
+            mRequest = volley.getRequestQueue();
 
-            if (json != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-
-                        JSONArray documento = jsonObj.getJSONArray("documento");
-
-                        for (int i = 0; i < documento.length(); i++) {
-                            JSONObject catObj = (JSONObject) documento.get(i);
-                            TipoDocumento cat = new TipoDocumento(catObj.getInt("id"),
-                                    catObj.getString("nombre_departamento"));
-                            tipoDocumentoList.add(cat);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            JsonObjectRequest solicitud = new JsonObjectRequest(URL_LISTA_Documento, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject datos) {
+                    poblarSpinnerTipoDocumento(datos);
                 }
-            } else {
-                Log.e("JSON Data", "¿No ha recibido ningún dato desde el servidor!");
-            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+//                    Log.println(Log.WARN, "JOANYDERROR", error.toString());
+                }
+            });
+
+            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            populateSpinner();
+            //populateSpinner();
         }
     }
-    }
+}
