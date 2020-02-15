@@ -16,8 +16,6 @@ import com.example.activosapp.R;
 
 public class SlideshowFragment extends Fragment {
 
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
