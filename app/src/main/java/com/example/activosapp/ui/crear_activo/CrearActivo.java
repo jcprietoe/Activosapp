@@ -42,7 +42,7 @@ public class CrearActivo extends Fragment {
     // declaracion de variables
 
     ArrayList<String>listPrueba;
-    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/Login_GETALL.php";
+    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
@@ -62,7 +62,7 @@ public class CrearActivo extends Fragment {
         tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
         fechamatricula = vista.findViewById(R.id.edtfmatricula);
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
-        edtcodigointerno = vista.findViewById(R.id.edtcodigointerno);
+
         edtnoplaca = vista.findViewById(R.id.edtnoplaca);
         edtnodoctercero = vista.findViewById(R.id.edtnodoctercero);
         edtemailtercero = vista.findViewById(R.id.edtemailtercero);
@@ -76,8 +76,7 @@ public class CrearActivo extends Fragment {
         edtnombretercero = vista.findViewById(R.id.edtnombretercero);
         edtdescripcion = vista.findViewById(R.id.edtdescripcion);
         edtubicacion = vista.findViewById(R.id.edtubicacion);
-        rbtnsi = vista.findViewById(R.id.rbtnsi);
-        rbtnno = vista.findViewById(R.id.rbtnno);
+
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
 
