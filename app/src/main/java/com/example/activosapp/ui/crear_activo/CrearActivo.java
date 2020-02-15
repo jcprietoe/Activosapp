@@ -75,7 +75,7 @@ public class CrearActivo extends Fragment {
         edtserialpartes = vista.findViewById(R.id.edtserialpartes);
         edtnombretercero = vista.findViewById(R.id.edtnombretercero);
         edtdescripcion = vista.findViewById(R.id.edtdescripcion);
-        edtubicacion = vista.findViewById(R.id.edtubicacion);
+
 
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
