@@ -171,7 +171,7 @@ public class CrearActivo extends Fragment {
             listPrueba = new ArrayList<String>();
             for(int i =0;i<datos.getJSONArray("datos").length();i++){
                 JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
-                listPrueba.add(dato.get("usuario").toString());
+                listPrueba.add(dato.get("documento").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
