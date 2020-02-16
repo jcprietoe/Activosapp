@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <corners android:radius="100dp" ></corners>
+    <solid android:color="#6EA1AB"></solid>
+    <stroke android:color="#0D1213" android:width="1dp"></stroke>
     <item android:drawable="@color/boton_presionado" android:state_pressed="true"  ></item>
     <item android:drawable="@color/boton_no_presionado" android:state_pressed="false"></item>
 
-
-
-
-</selector>
+</shape>
 
