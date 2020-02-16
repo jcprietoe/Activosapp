@@ -370,7 +370,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
-                    android:id="@+id/spDepartamento"
+                    android:id="@+id/spDepartamentoEmpresa"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -400,6 +400,49 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+
+
+            <LinearLayout
+                android:layout_width="362dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/btnBuscarImagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+
+
+                <EditText
+                    android:id="@+id/edtNombreImagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                     />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivMostrarImagen"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+
+
+
             <Button
                 android:id="@+id/btn_guardar_registro"
                 android:layout_width="wrap_content"
@@ -410,6 +453,7 @@
                 android:text="Guardar Registro"
                 android:textColor="@drawable/stylo_text_boton"
                 android:textStyle="bold" />
+
 
         </LinearLayout>
 
