@@ -2,7 +2,6 @@ package com.example.activosapp.ui.crear_activo;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -66,13 +63,13 @@ public class CrearActivo extends Fragment {
 
     Bitmap bitmap;
     int PICK_IMAGE_REQUEST = 1;
-    String UPLOAD_URL = "http://IP_DEL_WEBSERVICE/ARCHIVO_QUE_RECIBE_LA_PETICION.php";
+    private static final String UPLOAD_IMAGE_URL = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
 
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
 
     ArrayList<String>listPrueba;
-    private static final String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
+    private static final String TIPO_DOCUMENTO_URL = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
@@ -229,7 +226,7 @@ public class CrearActivo extends Fragment {
             volley = VolleyRP.getInstance(getContext());
             mRequest = volley.getRequestQueue();
 
-            JsonObjectRequest solicitud = new JsonObjectRequest(URL_LISTA_Documento, null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest solicitud = new JsonObjectRequest(TIPO_DOCUMENTO_URL, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject datos) {
                     poblarSpinnerTipoDocumento(datos);
@@ -263,7 +260,7 @@ public class CrearActivo extends Fragment {
 
     public void uploadImage() {
         final ProgressDialog loading = ProgressDialog.show(getContext(), "Subiendo...", "Espere por favor");
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_IMAGE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -309,18 +306,13 @@ public class CrearActivo extends Fragment {
             Uri filePath = data.getData();
             try {
                 //Cómo obtener el mapa de bits de la Galería
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
                 //Configuración del mapa de bits en ImageView
                 ivMostrarImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    private ContentResolver getContentResolver() {
-
-        return getContentResolver();
     }
 
 }

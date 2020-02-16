@@ -450,6 +450,7 @@
                 android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:background="#CAE3F3"
                 />
 
 
