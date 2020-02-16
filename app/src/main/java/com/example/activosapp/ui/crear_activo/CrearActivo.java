@@ -42,7 +42,7 @@ public class CrearActivo extends Fragment {
     // declaracion de variables
 
     ArrayList<String>listPrueba;
-    private String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
+    private static final String URL_LISTA_Documento = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;
