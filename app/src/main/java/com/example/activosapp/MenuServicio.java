@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -36,14 +37,6 @@ public class MenuServicio extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        /* recibir la informacion del textview
-        recibe_nombre_usuario=findViewById(R.id.recibe_nombre_usuario);
-        Bundle recibe_dato = getIntent().getExtras();
-        recibe_nombre_usuario.setText(recibe_dato.getString("nombre_usuario"));
-        */
-
-
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -53,10 +46,6 @@ public class MenuServicio extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
-
-
 
 
     }

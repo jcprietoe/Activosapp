@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity {
     EditText edtusuario, edtpassword;
     Button btnLogin;
     RadioButton rbtnsesion;
+    public static String nombreUsuario;
     private VolleyRP volley;
     private RequestQueue mRequest;
     private boolean is_activado_rbt;
@@ -116,6 +117,7 @@ public class Login extends AppCompatActivity {
                 if(resultJson.getString("password").equals(edtpassword.getText().toString())){
 
                     guardarPreferencias();
+                    nombreUsuario = edtusuario.getText().toString();
 
                     Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
