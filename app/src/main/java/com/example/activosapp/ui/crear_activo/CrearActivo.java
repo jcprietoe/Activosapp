@@ -63,13 +63,13 @@ public class CrearActivo extends Fragment {
 
     Bitmap bitmap;
     int PICK_IMAGE_REQUEST = 1;
-    private static final String UPLOAD_IMAGE_URL = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
+    private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
 
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
 
     ArrayList<String>listPrueba;
-    private static final String TIPO_DOCUMENTO_URL = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
+    private static final String TIPO_DOCUMENTO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
     ArrayAdapter<String> aaTipoDocumento;
     View vista;
     Spinner spinnerdocu;

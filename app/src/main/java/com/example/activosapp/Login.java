@@ -81,7 +81,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                validarUsuario("http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/Login_GETID.php?usuario=",edtusuario.getText().toString());
+                validarUsuario("https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/Login_GETID.php?usuario=",edtusuario.getText().toString());
             }
         });
 
