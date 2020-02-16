@@ -339,6 +339,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Descripcion funciones del activo"
+                android:textSize="15sp"
+                android:textColor="#000000"
                 android:textStyle="bold"/>
 
             <EditText
@@ -357,6 +359,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Ubicacion del activo en la empresa"
+                android:textSize="15sp"
+                android:textColor="#000000"
                 android:textStyle="bold"/>
 
 
@@ -409,7 +413,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="" />
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:text="Adjuntar Imagen del Activo" />
 
 
             <LinearLayout
@@ -420,10 +426,11 @@
 
                 <Button
                     android:id="@+id/btnBuscarImagen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="116dp"
+                    android:layout_height="46dp"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:drawableLeft="@android:drawable/ic_search_category_default"
+                    android:text="Buscar" />
 
 
 
