@@ -1,6 +1,7 @@
 package com.example.activosapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -20,8 +21,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.prefs.PreferenceChangeEvent;
 
@@ -69,9 +72,20 @@ public class MenuServicio extends AppCompatActivity {
         MenuInflater cerrarSesion;
         cerrarSesion=getMenuInflater();
         cerrarSesion.inflate(R.menu.menu_servicio, menu);
-
-
-
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                SharedPreferences preferencesBoton = getSharedPreferences(Login.STRING_PREFERENCES,Context.MODE_PRIVATE);
+                SharedPreferences preferencesUsuario = getSharedPreferences(Login.PREFERENCES_USUARIO,Context.MODE_PRIVATE);
+                preferencesBoton.edit().putBoolean(Login.PREFERENCE_ESTADO_BUTTON,false).apply();
+                preferencesUsuario.edit().putString(Login.KEY_PREFERENCES_USUARIO,"").apply();
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
+                finish();
+                return false;
+            }
+        });
 
         return true;
     }
@@ -81,7 +95,6 @@ public class MenuServicio extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-
 
     }
 }
