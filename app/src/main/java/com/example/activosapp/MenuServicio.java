@@ -1,5 +1,7 @@
 package com.example.activosapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.navigation.NavController;
@@ -14,9 +16,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.TextView;
+
+import java.util.prefs.PreferenceChangeEvent;
 
 public class MenuServicio extends AppCompatActivity {
 
@@ -36,6 +43,11 @@ public class MenuServicio extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView textUsuario = header.findViewById(R.id.recibe_nombre_usuario);
+        SharedPreferences preferences= getSharedPreferences("preferencia_usuario",Context.MODE_PRIVATE);
+        Log.println(Log.INFO,"DATOSJoany", preferences.toString());
+        textUsuario.setText(preferences.getString("usuario",""));
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -54,7 +66,9 @@ public class MenuServicio extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_servicio, menu);
+        MenuInflater cerrarSesion;
+        cerrarSesion=getMenuInflater();
+        cerrarSesion.inflate(R.menu.menu_servicio, menu);
 
 
 

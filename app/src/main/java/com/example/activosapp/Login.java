@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class Login extends AppCompatActivity {
     private VolleyRP volley;
     private RequestQueue mRequest;
     private boolean is_activado_rbt;
-    private static final String STRING_PREFERENCES = "mi_paquete_preferences";
+    public static final String STRING_PREFERENCES = "mi_paquete_preferences";
     private static final String PREFERENCE_ESTADO_BUTTON = "estado.button.sesion";
 
 
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (obtenerEstadoButton()){
+            Log.println(Log.INFO,"DATOSJoanyLogin", obtenerStringUsuario().trim());
             Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
             startActivity(intent);
             finish();
@@ -116,8 +118,10 @@ public class Login extends AppCompatActivity {
                 JSONObject resultJson=  datos.getJSONObject("datos");
                 if(resultJson.getString("password").equals(edtpassword.getText().toString())){
 
-                    guardarPreferencias();
+
                     nombreUsuario = edtusuario.getText().toString();
+                    guardarPreferenciasString();
+                    guardarPreferencias();
 
                     Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
@@ -146,8 +150,18 @@ public class Login extends AppCompatActivity {
     private void guardarPreferencias(){
         SharedPreferences preferences=getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON,rbtnsesion.isChecked()).apply();
+
+    }
+    private void guardarPreferenciasString(){
+        SharedPreferences preferences=getSharedPreferences("preferencia_usuario", Context.MODE_PRIVATE);
+        preferences.edit().putString("usuario",nombreUsuario).apply();
+
     }
 
+    private String obtenerStringUsuario(){
+        SharedPreferences preferences=getSharedPreferences("preferencia_usuario", Context.MODE_PRIVATE);
+        return preferences.getString("usuario",nombreUsuario);
+    }
     private boolean obtenerEstadoButton(){
         SharedPreferences preferences=getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
        return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON,false);
