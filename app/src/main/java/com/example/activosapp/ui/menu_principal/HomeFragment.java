@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         vista2 = inflater.inflate(R.layout.nav_header_menu_servicio,container,false);
         recibeNombreUsuario = vista2.findViewById(R.id.recibe_nombre_usuario);
         recibeNombreUsuario.setText(Login.nombreUsuario);
-        Log.println(Log.WARN, "ERROR", Login.nombreUsuario);
+        //Log.println(Log.WARN, "ERROR", Login.nombreUsuario);
 
        modulo1=vista.findViewById(R.id.btnmodulo1);//accion modulo 1
         modulo1.setOnClickListener(new View.OnClickListener() {
