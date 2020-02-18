@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="No. placa"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -79,6 +80,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Modelo"
                 android:textStyle="bold" />
 
@@ -96,6 +98,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Referencia"
                 android:textStyle="bold" />
 
@@ -113,6 +116,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Año de Fabricacion"
                 android:textStyle="bold" />
 
@@ -132,6 +136,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Linea"
                 android:textStyle="bold" />
 
@@ -149,6 +154,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Fecha de registro (Matricula)"
                 android:textStyle="bold" />
 
@@ -168,6 +174,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Serial"
                 android:textStyle="bold" />
 
@@ -185,6 +192,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Serial (Motor)"
                 android:textStyle="bold" />
 
@@ -202,6 +210,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Serial (Sub-partes)"
                 android:textStyle="bold" />
 
@@ -219,125 +228,40 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="El activo es de un tercero?"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spPregunta"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spTercero"
                     android:layout_width="175dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtnombretercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Nombre completo"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/edtnombretercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txttipodoc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tipo de Documento:  "
-                    android:textStyle="bold"/>
-
-                <Spinner
-                    android:id="@+id/spinnerdoc"
-                    android:layout_width="238dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/textnodoctercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="No de Documento"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/edtnodoctercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/txtemailtercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Email"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/edtemailtercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/txtteltercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Telefono"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/edtteltercero"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
 
             <TextView
                 android:id="@+id/txtdescripcion"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Descripcion funciones del activo"
                 android:textSize="15sp"
                 android:textColor="#000000"
@@ -358,6 +282,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:text="Ubicacion del activo en la empresa"
                 android:textSize="15sp"
                 android:textColor="#000000"
@@ -367,14 +292,15 @@
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/txtdepartamento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Departamento"
+                    android:text="Departamento      "
                     android:textStyle="bold" />
 
                 <Spinner
@@ -389,7 +315,8 @@
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/txtarea"
@@ -413,7 +340,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:text="Adjuntar Imagen del Activo" />
 
@@ -421,7 +350,8 @@
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
 
                 <Button

@@ -43,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
@@ -53,9 +54,12 @@ public class CrearActivo extends Fragment {
     public CrearActivo() {
 
     }
+
     private VolleyRP volley;
     private RequestQueue mRequest;
-    // declaracion de variables
+    public static ArrayList<String> listTercero;
+    private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
+
 
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
@@ -68,16 +72,14 @@ public class CrearActivo extends Fragment {
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
 
-    ArrayList<String>listPrueba;
-    private static final String TIPO_DOCUMENTO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
-    ArrayAdapter<String> aaTipoDocumento;
-    View vista;
-    Spinner spinnerdocu;
-    String[] tpodocumento;
-    EditText fechamatricula, fechafabricacion, edtvalorreal, edtcodigointerno, edtnoplaca, edtnodoctercero, edtemailtercero, edtteltercero,edtNombreImagen;
-    EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtnombretercero, edtdescripcion, edtubicacion;
 
-    Button btn_guardar_registro,btnAdjuntarImagen;
+    View vista;
+    Spinner spSiNo, spTercero;
+    String[] tpodocumento;
+    EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen;
+    EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
+
+    Button btn_guardar_registro;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -85,31 +87,30 @@ public class CrearActivo extends Fragment {
         vista = inflater.inflate(R.layout.fragment_crear_activo, container, false);
 
         //llama de variable
-        spinnerdocu = vista.findViewById(R.id.spinnerdoc);
+
+        spTercero = vista.findViewById(R.id.spTercero);
+        spSiNo = vista.findViewById(R.id.spPregunta);
         tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
         fechamatricula = vista.findViewById(R.id.edtfmatricula);
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
-        btnBuscarImagen=vista.findViewById(R.id.btnBuscarImagen);
+        btnBuscarImagen = vista.findViewById(R.id.btnBuscarImagen);
         edtnoplaca = vista.findViewById(R.id.edtnoplaca);
-        edtnodoctercero = vista.findViewById(R.id.edtnodoctercero);
-        edtemailtercero = vista.findViewById(R.id.edtemailtercero);
-        edtteltercero = vista.findViewById(R.id.edtteltercero);
+
         edtmodelo = vista.findViewById(R.id.edtreferencia);
         edtlinea = vista.findViewById(R.id.edtlinea);
         edtlinea = vista.findViewById(R.id.edtlinea);
         edtserial = vista.findViewById(R.id.edtserial);
         edtserialmotor = vista.findViewById(R.id.edtserialmotor);
         edtserialpartes = vista.findViewById(R.id.edtserialpartes);
-        edtnombretercero = vista.findViewById(R.id.edtnombretercero);
+
         edtdescripcion = vista.findViewById(R.id.edtdescripcion);
-        ivMostrarImagen=vista.findViewById(R.id.ivMostrarImagen);
-        edtNombreImagen=vista.findViewById(R.id.edtNombreImagen);
+        ivMostrarImagen = vista.findViewById(R.id.ivMostrarImagen);
+        edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
-
-        //creacion de hilo para poblar spinner
-        new GetTipoDocumento().execute();
-        spinnerdocu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //spinner terceros
+        new GetTercero().execute();
+        spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -120,6 +121,41 @@ public class CrearActivo extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
+
+        //Spiner Pregunta
+        final List<String> list = new ArrayList<String>();
+        list.add("Seleccionar");
+        list.add("No");
+        list.add("Si");
+
+        ArrayAdapter<String> arrayAdapter;
+        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spSiNo.setAdapter(arrayAdapter);
+        spSiNo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String text = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
+
+                if (i == 2) {
+                    spTercero.setVisibility(View.VISIBLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         btnBuscarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,35 +237,35 @@ public class CrearActivo extends Fragment {
 
     }
 
-    public void poblarSpinnerTipoDocumento(JSONObject datos) {
+    public void poblarSpinnerTerceros(JSONObject datos) {
 //        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
         try {
-            listPrueba = new ArrayList<String>();
-            for(int i =0;i<datos.getJSONArray("datos").length();i++){
+            listTercero = new ArrayList<String>();
+            for (int i = 0; i < datos.getJSONArray("datos").length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
-                listPrueba.add(dato.get("documento").toString());
+                listTercero.add(dato.get("Tercero").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, listPrueba);
+                android.R.layout.simple_spinner_item, listTercero);
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerdocu.setAdapter(spinnerAdapter);
+        spTercero.setAdapter(spinnerAdapter);
     }
 
-    private class GetTipoDocumento extends AsyncTask<Void, Void, Void> {
+    private class GetTercero extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
             volley = VolleyRP.getInstance(getContext());
             mRequest = volley.getRequestQueue();
 
-            JsonObjectRequest solicitud = new JsonObjectRequest(TIPO_DOCUMENTO_URL, null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest solicitud = new JsonObjectRequest(TERCERO_URL, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject datos) {
-                    poblarSpinnerTipoDocumento(datos);
+                    poblarSpinnerTerceros(datos);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -273,7 +309,7 @@ public class CrearActivo extends Fragment {
                 loading.dismiss();
                 Toast.makeText(getContext(), error.getMessage().toString(), Toast.LENGTH_LONG).show();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 String imagen = getStringImagen(bitmap);
