@@ -1,4 +1,4 @@
-package com.example.activosapp;
+package com.example.activosapp.ui.crear_activo;
 
 
 import android.os.AsyncTask;
@@ -19,6 +19,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.activosapp.R;
+import com.example.activosapp.VolleyRP;
 import com.example.activosapp.ui.crear_activo.CrearActivo;
 
 import org.json.JSONException;

@@ -34,10 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textStyle="bold"
+                android:text="Modulo 1. Operacion y Mantenimiento"
                 android:textColor="#072FB1"
                 android:textSize="18dp"
-                android:text="Modulo 1. Operacion y Mantenimiento" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtNombreActivo"
@@ -61,9 +61,9 @@
                 android:id="@+id/txtnoplaca"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:text="No. placa"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -79,8 +79,8 @@
                 android:id="@+id/txtmodelo"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Modelo"
                 android:textStyle="bold" />
 
@@ -97,8 +97,8 @@
                 android:id="@+id/txtreferencia"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Referencia"
                 android:textStyle="bold" />
 
@@ -115,8 +115,8 @@
                 android:id="@+id/txtfabricacion"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Año de Fabricacion"
                 android:textStyle="bold" />
 
@@ -135,8 +135,8 @@
                 android:id="@+id/txtlinea"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Linea"
                 android:textStyle="bold" />
 
@@ -153,8 +153,8 @@
                 android:id="@+id/txtfmatricula"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Fecha de registro (Matricula)"
                 android:textStyle="bold" />
 
@@ -173,8 +173,8 @@
                 android:id="@+id/txtserial"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Serial"
                 android:textStyle="bold" />
 
@@ -191,8 +191,8 @@
                 android:id="@+id/serialmotor"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Serial (Motor)"
                 android:textStyle="bold" />
 
@@ -209,8 +209,8 @@
                 android:id="@+id/txtserialpartes"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Serial (Sub-partes)"
                 android:textStyle="bold" />
 
@@ -227,16 +227,16 @@
                 android:id="@+id/txtpregunta"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="El activo es de un tercero?"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
 
                 <Spinner
@@ -250,50 +250,49 @@
                     android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
             </LinearLayout>
-
 
 
             <TextView
                 android:id="@+id/txtdescripcion"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Descripcion funciones del activo"
-                android:textSize="15sp"
                 android:textColor="#000000"
-                android:textStyle="bold"/>
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edtdescripcion"
                 android:layout_width="380dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_weight="3"
                 android:ems="10"
                 android:hint="Principales funciones del activo"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textMultiLine"
                 android:maxLines="8" />
+
 
             <TextView
                 android:id="@+id/txtubicacion"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Ubicacion del activo en la empresa"
-                android:textSize="15sp"
                 android:textColor="#000000"
-                android:textStyle="bold"/>
-
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtdepartamento"
@@ -315,14 +314,15 @@
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtarea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="Area Dependencia"
                     android:textStyle="bold" />
 
@@ -330,6 +330,7 @@
                     android:id="@+id/spAreaDependencia"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
                     android:layout_weight="1" />
 
 
@@ -339,19 +340,19 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:layout_weight="1"
+                android:text="Adjuntar Imagen del Activo"
                 android:textColor="#000000"
-                android:text="Adjuntar Imagen del Activo" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
 
             <LinearLayout
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
 
                 <Button
@@ -363,7 +364,6 @@
                     android:text="Buscar" />
 
 
-
                 <EditText
                     android:id="@+id/edtNombreImagen"
                     android:layout_width="wrap_content"
@@ -371,8 +371,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Nombre de la Imagen"
-                    android:inputType="textPersonName"
-                     />
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <ImageView
@@ -381,17 +380,15 @@
                 android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="#CAE3F3"
-                />
-
+                android:background="#CAE3F3" />
 
 
             <Button
                 android:id="@+id/btn_guardar_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:background="@drawable/stylo_boton"
                 android:text="Guardar"
                 android:textColor="@drawable/stylo_text_boton"
