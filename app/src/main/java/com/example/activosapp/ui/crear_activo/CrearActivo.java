@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.navigation.Navigation.findNavController;
 
 
 public class CrearActivo extends Fragment {
@@ -115,7 +116,11 @@ public class CrearActivo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                if(parent.getSelectedItem().toString().equals("Otro")){
+                    findNavController(view).navigate(R.id.action_nav_crear_tercero_to_nav_Tercero);
+                }
+
+               // Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static androidx.navigation.Navigation.findNavController;
+
 
 public class FragmentTercero extends Fragment {
 
@@ -42,6 +45,7 @@ public class FragmentTercero extends Fragment {
     // declaracion de variables
     View vista;
     Spinner spinnerdocu;
+    Button btnGuardarTercero;
     EditText edtNombreTercero,edtNoDocTercero,edtEmailTercero,edtTelTercero;
     public  static ArrayList<String> listPrueba;
     private static final String TIPO_DOCUMENTO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
@@ -54,6 +58,17 @@ public class FragmentTercero extends Fragment {
         vista=inflater.inflate(R.layout.fragment_fragment_tercero, container, false);
 
         spinnerdocu = vista.findViewById(R.id.spinnerdoc);
+        btnGuardarTercero = vista.findViewById(R.id.btnGuardarTercero);
+
+
+
+
+        btnGuardarTercero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findNavController(view).navigate(R.id.action_nav_Tercero_to_nav_crear_activo);
+            }
+        });
 
 
         //creacion de hilo para poblar spinner
@@ -63,6 +78,7 @@ public class FragmentTercero extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+
                 Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -70,6 +86,8 @@ public class FragmentTercero extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
 
 
 

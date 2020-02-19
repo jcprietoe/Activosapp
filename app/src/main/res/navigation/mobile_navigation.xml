@@ -19,7 +19,11 @@
         android:id="@+id/nav_crear_activo"
         android:name="com.example.activosapp.ui.crear_activo.CrearActivo"
         android:label="Registro de Activo"
-        tools:layout="@layout/fragment_crear_activo" />
+        tools:layout="@layout/fragment_crear_activo" >
+        <action
+            android:id="@+id/action_nav_crear_tercero_to_nav_Tercero"
+            app:destination="@id/nav_Tercero" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -49,6 +53,15 @@
         android:name="com.example.activosapp.FragmentRevisionPreoperacional"
         android:label="fragment_revision_preoperacional"
         tools:layout="@layout/fragment_revision_preoperacional" />
+    <fragment
+        android:id="@+id/nav_Tercero"
+        android:name="com.example.activosapp.ui.crear_activo.FragmentTercero"
+        android:label="Registrar Tercero"
+        tools:layout="@layout/fragment_fragment_tercero" >
+        <action
+            android:id="@+id/action_nav_Tercero_to_nav_crear_activo"
+            app:destination="@id/nav_crear_activo" />
+    </fragment>
 
 
 </navigation>
