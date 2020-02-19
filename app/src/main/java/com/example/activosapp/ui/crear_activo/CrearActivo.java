@@ -111,11 +111,10 @@ public class CrearActivo extends Fragment {
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
         //spinner terceros
-
+        new GetTercero().execute();
         spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 if(parent.getSelectedItem().toString().equals("Otro")){
                     findNavController(view).navigate(R.id.action_nav_crear_tercero_to_nav_Tercero);
                 }
@@ -253,6 +252,7 @@ public class CrearActivo extends Fragment {
                 JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
                 listTercero.add(dato.get("ter_nombre").toString());
             }
+            listTercero.add("Otro");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -269,7 +269,7 @@ public class CrearActivo extends Fragment {
         protected Void doInBackground(Void... arg0) {
             volley = VolleyRP.getInstance(getContext());
             mRequest = volley.getRequestQueue();
-
+//            listTercero.clear();
             JsonObjectRequest solicitud = new JsonObjectRequest(TERCERO_URL, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject datos) {
