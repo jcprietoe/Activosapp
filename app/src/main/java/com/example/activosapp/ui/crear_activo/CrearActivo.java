@@ -49,6 +49,7 @@ import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.navigation.Navigation.findNavController;
+import static com.example.activosapp.ui.crear_activo.DatePickerFragment.*;
 
 
 public class CrearActivo extends Fragment {
@@ -107,7 +108,7 @@ public class CrearActivo extends Fragment {
 
         edtdescripcion = vista.findViewById(R.id.edtdescripcion);
         ivMostrarImagen = vista.findViewById(R.id.ivMostrarImagen);
-        edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
+        //edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
         //spinner terceros
