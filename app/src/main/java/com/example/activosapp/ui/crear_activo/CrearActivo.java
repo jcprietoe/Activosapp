@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +110,7 @@ public class CrearActivo extends Fragment {
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
         //spinner terceros
-        new GetTercero().execute();
+
         spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -143,9 +144,11 @@ public class CrearActivo extends Fragment {
                 Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
 
                 if (i == 2) {
+                    new GetTercero().execute();
                     spTercero.setVisibility(View.VISIBLE);
 
-
+                }else{
+                    spTercero.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -243,7 +246,7 @@ public class CrearActivo extends Fragment {
             listTercero = new ArrayList<String>();
             for (int i = 0; i < datos.getJSONArray("datos").length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
-                listTercero.add(dato.get("Tercero").toString());
+                listTercero.add(dato.get("ter_nombre").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -270,7 +273,7 @@ public class CrearActivo extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-//                    Log.println(Log.WARN, "JOANYDERROR", error.toString());
+                    Log.println(Log.WARN, "JOANYERROR", error.toString());
                 }
             });
 
