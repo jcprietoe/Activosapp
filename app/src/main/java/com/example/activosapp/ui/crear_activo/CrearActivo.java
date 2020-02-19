@@ -146,7 +146,7 @@ public class CrearActivo extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String text = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
+ //               Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
 
                 if (i == 2) {
                     new GetTercero().execute();
@@ -179,7 +179,7 @@ public class CrearActivo extends Fragment {
 
                 uploadImage();
 
-                Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();
+  //              Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -66,7 +66,7 @@ public class FragmentTercero extends Fragment {
         btnGuardarTercero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                findNavController(view).navigate(R.id.action_nav_Tercero_to_nav_crear_activo);
+                getFragmentManager().popBackStack();
             }
         });
 
