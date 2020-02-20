@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -47,8 +50,11 @@ public class FragmentTercero extends Fragment {
     Spinner spinnerdocu;
     Button btnGuardarTercero;
     EditText edtNombreTercero,edtNoDocTercero,edtEmailTercero,edtTelTercero;
+    String tipoDocumento;
     public  static ArrayList<String> listPrueba;
+    private static HashMap<String,String> hashTipoDocumento;
     private static final String TIPO_DOCUMENTO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoDocumento.php";
+    private static final String URL_REG_TERCERO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/registrar_tercero.php";
 
 
     @Override
@@ -59,6 +65,11 @@ public class FragmentTercero extends Fragment {
 
         spinnerdocu = vista.findViewById(R.id.spinnerdoc);
         btnGuardarTercero = vista.findViewById(R.id.btnGuardarTercero);
+        edtNombreTercero = vista.findViewById(R.id.edtNombreTercero);
+        edtNoDocTercero = vista.findViewById(R.id.edtNoDocTercero);
+        edtEmailTercero = vista.findViewById(R.id.edtEmailTercero);
+        edtTelTercero = vista.findViewById(R.id.edtTelTercero);
+
 
 
 
@@ -66,7 +77,35 @@ public class FragmentTercero extends Fragment {
         btnGuardarTercero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
+                if(!edtNombreTercero.getText().toString().trim().equals("")&&!edtNoDocTercero.getText().toString().trim().equals("")
+                &&!edtTelTercero.getText().toString().trim().equals("")) {
+                    volley = VolleyRP.getInstance(getContext());
+                    mRequest = volley.getRequestQueue();
+                    HashMap<String, String> hashDatos = new HashMap<>();
+                    hashDatos.put("ter_nombre", edtNombreTercero.getText().toString().trim());
+                    hashDatos.put("ter_tipid", tipoDocumento);
+                    hashDatos.put("ter_iden", edtNoDocTercero.getText().toString().trim());
+                    hashDatos.put("ter_email", edtEmailTercero.getText().toString().trim());
+                    hashDatos.put("ter_telef", edtTelTercero.getText().toString().trim());
+                    hashDatos.put("estado", "A");
+
+                    JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_TERCERO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject datos) {
+                            Toast.makeText(getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.println(Log.WARN, "JOANY:ERROR", error.toString());
+                        }
+                    });
+
+                    VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+                    getFragmentManager().popBackStack();
+                }else{
+                    Toast.makeText(getContext(), "LLenar todos los campos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -77,21 +116,14 @@ public class FragmentTercero extends Fragment {
         spinnerdocu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-                Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                tipoDocumento = hashTipoDocumento.get(parent.getSelectedItem().toString());
+                Toast.makeText(getContext(), tipoDocumento, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
-
-
-
 
         return vista;
     }
@@ -102,9 +134,11 @@ public class FragmentTercero extends Fragment {
 //        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
         try {
             listPrueba = new ArrayList<String>();
+            hashTipoDocumento = new HashMap<>();
             for(int i =0;i<datos.getJSONArray("datos").length();i++){
                 JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
                 listPrueba.add(dato.get("documento").toString());
+                hashTipoDocumento.put(dato.getString("documento"),dato.getString("id"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
