@@ -43,13 +43,13 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.navigation.Navigation.findNavController;
-import static com.example.activosapp.ui.crear_activo.DatePickerFragment.*;
 
 
 public class CrearActivo extends Fragment {
@@ -61,8 +61,12 @@ public class CrearActivo extends Fragment {
     private VolleyRP volley;
     private RequestQueue mRequest;
     public static ArrayList<String> listTercero;
-    private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
+    public static ArrayList<String> listTipoAtivo;
+    public static HashMap<String,String> hashTipoActivo;
 
+    private static final String URL_TIPO_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
+    private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
+    private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
 
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
@@ -70,14 +74,14 @@ public class CrearActivo extends Fragment {
 
     Bitmap bitmap;
     int PICK_IMAGE_REQUEST = 1;
-    private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
+
 
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
 
 
     View vista;
-    Spinner spSiNo, spTercero;
+    Spinner spSiNo, spTercero,spTipoActivo,spEstadoActivo;
     String[] tpodocumento;
     EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen;
     EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
@@ -90,9 +94,19 @@ public class CrearActivo extends Fragment {
         vista = inflater.inflate(R.layout.fragment_crear_activo, container, false);
 
         //llama de variable
+        ArrayList<String>listEstadoActivo = new ArrayList<>();
+        listEstadoActivo.add("ACTIVO");
+        listEstadoActivo.add("INACTIVO");
+        listEstadoActivo.add("DAÑADO");
+
+        ArrayAdapter arrayAdapter1;
+        arrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listEstadoActivo);
+        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spTercero = vista.findViewById(R.id.spTercero);
         spSiNo = vista.findViewById(R.id.spPregunta);
+        spTipoActivo = vista.findViewById(R.id.spTipoActivo);
+        spEstadoActivo = vista.findViewById(R.id.spEstadoActivo);
         tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
         fechamatricula = vista.findViewById(R.id.edtfmatricula);
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
@@ -111,7 +125,32 @@ public class CrearActivo extends Fragment {
         //edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
-        //spinner terceros
+        spEstadoActivo.setAdapter(arrayAdapter1);
+        spEstadoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        new GetTipoActivo().execute();
+        spTipoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         new GetTercero().execute();
         spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -137,7 +176,7 @@ public class CrearActivo extends Fragment {
         list.add("Si");
 
         ArrayAdapter<String> arrayAdapter;
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spSiNo.setAdapter(arrayAdapter);
@@ -220,8 +259,6 @@ public class CrearActivo extends Fragment {
                     case R.id.edtfabricacion:
                         showDatePickerDialog();
                         break;
-
-
                 }
             }
 
@@ -262,6 +299,57 @@ public class CrearActivo extends Fragment {
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTercero.setAdapter(spinnerAdapter);
+    }
+
+    public void poblarSpinnerTipoActivo(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashTipoActivo = new HashMap<>();
+            listTipoAtivo = new ArrayList<>();
+            listTipoAtivo.add("Seleccione Tipo de Activo");
+            for (int i = 0; i < datos.getJSONArray("datos").length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
+                hashTipoActivo.put(dato.getString("tip_id"),dato.getString("tip_tipo"));
+                listTipoAtivo.add(dato.getString("tip_tipo"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, listTipoAtivo);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTipoActivo.setAdapter(spinnerAdapter);
+    }
+
+    private class GetTipoActivo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            volley = VolleyRP.getInstance(getContext());
+            mRequest = volley.getRequestQueue();
+//            listTercero.clear();
+            JsonObjectRequest solicitud = new JsonObjectRequest(URL_TIPO_ACTIVO, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject datos) {
+                    poblarSpinnerTipoActivo(datos);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.println(Log.WARN, "JOANYERROR", error.toString());
+                }
+            });
+
+            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
     }
 
     private class GetTercero extends AsyncTask<Void, Void, Void> {

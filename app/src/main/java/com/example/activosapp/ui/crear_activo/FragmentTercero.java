@@ -92,7 +92,7 @@ public class FragmentTercero extends Fragment {
                     JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_TERCERO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject datos) {
-                            Toast.makeText(getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(vista.getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
