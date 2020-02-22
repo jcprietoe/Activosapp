@@ -67,7 +67,7 @@
     </fragment>
     <activity
         android:id="@+id/listaActivoGuardado"
-        android:name="com.example.activosapp.ListaActivoGuardado"
+        android:name="com.example.activosapp.VistaActivos"
         android:label="activity_lista_activo_guardado"
         tools:layout="@layout/activity_lista_activo_guardado" />
 

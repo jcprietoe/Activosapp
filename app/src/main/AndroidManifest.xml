@@ -21,7 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListaActivoGuardado"></activity>
+        <activity
+            android:name=".VistaActivos"
+            android:label="@string/title_Lista_Activo_Guarda"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <activity android:name=".RevisionPreOperacional" />
         <activity
             android:name=".MenuServicio"
