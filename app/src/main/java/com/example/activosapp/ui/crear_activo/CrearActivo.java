@@ -16,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,17 +66,17 @@ public class CrearActivo extends Fragment {
     public static ArrayList<String> listTipoAtivo;
     public static ArrayList<String> listDepartamentoEmpresa;
     public static ArrayList<String> listAreaEmpresa;
-    public static HashMap<String,String> hashDepartamentoEmpresa;
-    public static HashMap<String,String> hashTipoActivo;
-    public static HashMap<String,String> hashAreaEmpresa;
+    public static HashMap<String, String> hashDepartamentoEmpresa;
+    public static HashMap<String, String> hashTipoActivo;
+    public static HashMap<String, String> hashAreaEmpresa;
 
-    public static final String DATOS="datos";
+    public static final String DATOS = "datos";
 
     private static final String URL_TIPO_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
     private static final String URL_DEPARTAMENTO_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerDepartamentoEmpresa.php";
     private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
     private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
-    private static final String URL_AREA_EMPRESA ="https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_demid=";
+    private static final String URL_AREA_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_demid=";
 
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
@@ -86,14 +88,18 @@ public class CrearActivo extends Fragment {
 
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
-    String id_departamento ="";
+    String id_departamento = "";
+    String idAreaDependencia;
+    String idEstadoActivo;
+    String idTipoActivo;
 
 
     View vista;
-    Spinner spSiNo, spTercero,spTipoActivo,spEstadoActivo, spDepartamentoEmpresa, spAreaDependencia;
+    Spinner spSiNo, spTercero, spTipoActivo, spEstadoActivo, spDepartamentoEmpresa, spAreaDependencia;
     String[] tpodocumento;
     EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen;
     EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
+    CheckBox cbSi, cbNo;
 
     Button btn_guardar_registro;
 
@@ -113,7 +119,10 @@ public class CrearActivo extends Fragment {
         spEstadoActivo = vista.findViewById(R.id.spEstadoActivo);
         spDepartamentoEmpresa = vista.findViewById(R.id.spDepartamentoEmpresa);
         spAreaDependencia = vista.findViewById(R.id.spAreaDependencia);
+
         tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
+        cbNo = vista.findViewById(R.id.cbNo);
+        cbSi = vista.findViewById(R.id.cbSi);
         fechamatricula = vista.findViewById(R.id.edtfmatricula);
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
         btnBuscarImagen = vista.findViewById(R.id.btnBuscarImagen);
@@ -138,7 +147,8 @@ public class CrearActivo extends Fragment {
 
 
         //carga adapter de estado activo
-        ArrayList<String>listEstadoActivo = new ArrayList<>();
+        ArrayList<String> listEstadoActivo = new ArrayList<>();
+        listEstadoActivo.add("Seleccione");
         listEstadoActivo.add("ACTIVO");
         listEstadoActivo.add("INACTIVO");
         listEstadoActivo.add("DAÑADO");
@@ -157,10 +167,28 @@ public class CrearActivo extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSiNo.setAdapter(arrayAdapter);
 
+        cbNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cbNo.isChecked()) {
+                    cbSi.setChecked(false);
+                }
+            }
+        });
+        cbSi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cbSi.isChecked()) {
+                    cbNo.setChecked(false);
+                }
+            }
+        });
+
         spAreaDependencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                idAreaDependencia= hashAreaEmpresa.get(parent.getSelectedItem().toString());
+//                Toast.makeText(getContext(), areaDependencia, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -186,6 +214,21 @@ public class CrearActivo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                switch (parent.getSelectedItem().toString()){
+                    case "Seleccione":
+                        idEstadoActivo= "";
+                    case "ACTIVO":
+                        idEstadoActivo = "A";
+                        break;
+                    case "INACTIVO":
+                        idEstadoActivo="I";
+                        break;
+                    case "DAÑADO":
+                        idEstadoActivo = "D";
+                        break;
+                }
+//                Toast.makeText(getContext(), idEstadoActivo, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -197,7 +240,7 @@ public class CrearActivo extends Fragment {
         spTipoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                idTipoActivo = hashTipoActivo.get(parent.getSelectedItem().toString());
             }
 
             @Override
@@ -209,11 +252,11 @@ public class CrearActivo extends Fragment {
         spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getSelectedItem().toString().equals("Otro")){
+                if (parent.getSelectedItem().toString().equals("Otro")) {
                     findNavController(view).navigate(R.id.action_nav_crear_tercero_to_nav_Tercero);
                 }
 
-               // Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -226,13 +269,13 @@ public class CrearActivo extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String text = adapterView.getItemAtPosition(i).toString();
- //               Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
+                //               Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
 
                 if (i == 2) {
                     new GetTercero().execute();
                     spTercero.setVisibility(View.VISIBLE);
 
-                }else{
+                } else {
                     spTercero.setVisibility(View.INVISIBLE);
                 }
 
@@ -243,7 +286,6 @@ public class CrearActivo extends Fragment {
 
             }
         });
-
 
         btnBuscarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,13 +298,12 @@ public class CrearActivo extends Fragment {
         btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                uploadImage();
+//                if(){
+//
+//                }
+//                uploadImage();
+                Toast.makeText(getContext(), "Guardado Exitosamente", Toast.LENGTH_LONG).show();
                 findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
-                Toast.makeText(getContext(),"Guardado Exitosamente",Toast.LENGTH_LONG).show();
-
-  //              Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -352,7 +393,7 @@ public class CrearActivo extends Fragment {
             listTipoAtivo.add("Seleccione Tipo de Activo");
             for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
-                hashTipoActivo.put(dato.getString("tip_tipo"),dato.getString("tip_id"));
+                hashTipoActivo.put(dato.getString("tip_tipo"), dato.getString("tip_id"));
                 listTipoAtivo.add(dato.getString("tip_tipo"));
             }
         } catch (JSONException e) {
@@ -373,7 +414,7 @@ public class CrearActivo extends Fragment {
             listDepartamentoEmpresa.add("Seleccione");
             for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
-                hashDepartamentoEmpresa.put(dato.getString("dem_descrip"),dato.getString("dem_id"));
+                hashDepartamentoEmpresa.put(dato.getString("dem_descrip"), dato.getString("dem_id"));
                 listDepartamentoEmpresa.add(dato.getString("dem_descrip"));
             }
         } catch (JSONException e) {
@@ -394,7 +435,7 @@ public class CrearActivo extends Fragment {
             listAreaEmpresa.add("Seleccione");
             for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
-                hashAreaEmpresa.put(dato.getString("are_descrip"),dato.getString("are_id"));
+                hashAreaEmpresa.put(dato.getString("are_descrip"), dato.getString("are_id"));
                 listAreaEmpresa.add(dato.getString("are_descrip"));
             }
         } catch (JSONException e) {
@@ -466,8 +507,8 @@ public class CrearActivo extends Fragment {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            if(null!=id_departamento) {
-                JsonObjectRequest solicitud = new JsonObjectRequest(URL_AREA_EMPRESA+id_departamento, null, new Response.Listener<JSONObject>() {
+            if (null != id_departamento) {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_AREA_EMPRESA + id_departamento, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
                         poblarSpinnerAreaEmpresa(datos);
