@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_nav_crear_tercero_to_nav_Tercero"
             app:destination="@id/nav_Tercero" />
+        <action
+            android:id="@+id/action_nav_crear_activo_to_listaActivoGuardado"
+            app:destination="@id/listaActivoGuardado" />
     </fragment>
 
     <fragment
@@ -62,6 +65,11 @@
             android:id="@+id/action_nav_Tercero_to_nav_crear_activo"
             app:destination="@id/nav_crear_activo" />
     </fragment>
+    <activity
+        android:id="@+id/listaActivoGuardado"
+        android:name="com.example.activosapp.ListaActivoGuardado"
+        android:label="activity_lista_activo_guardado"
+        tools:layout="@layout/activity_lista_activo_guardado" />
 
 
 </navigation>

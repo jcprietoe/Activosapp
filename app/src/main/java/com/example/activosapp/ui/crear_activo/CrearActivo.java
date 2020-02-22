@@ -125,6 +125,9 @@ public class CrearActivo extends Fragment {
         //edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
+
+
+
         spEstadoActivo.setAdapter(arrayAdapter1);
         spEstadoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -217,6 +220,8 @@ public class CrearActivo extends Fragment {
             public void onClick(View view) {
 
                 uploadImage();
+                findNavController(view).navigate(R.id.action_nav_crear_activo_to_listaActivoGuardado);
+                Toast.makeText(getContext(),"Guardado Exitosamente",Toast.LENGTH_LONG).show();
 
   //              Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();
 

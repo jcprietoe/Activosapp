@@ -21,12 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RevisionPreOperacional"></activity>
+        <activity android:name=".ListaActivoGuardado"></activity>
+        <activity android:name=".RevisionPreOperacional" />
         <activity
             android:name=".MenuServicio"
             android:label="@string/title_activity_menu_servicio"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
