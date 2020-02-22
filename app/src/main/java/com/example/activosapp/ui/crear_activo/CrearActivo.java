@@ -62,11 +62,19 @@ public class CrearActivo extends Fragment {
     private RequestQueue mRequest;
     public static ArrayList<String> listTercero;
     public static ArrayList<String> listTipoAtivo;
+    public static ArrayList<String> listDepartamentoEmpresa;
+    public static ArrayList<String> listAreaEmpresa;
+    public static HashMap<String,String> hashDepartamentoEmpresa;
     public static HashMap<String,String> hashTipoActivo;
+    public static HashMap<String,String> hashAreaEmpresa;
+
+    public static final String DATOS="datos";
 
     private static final String URL_TIPO_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
+    private static final String URL_DEPARTAMENTO_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerDepartamentoEmpresa.php";
     private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
     private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
+    private static final String URL_AREA_EMPRESA ="https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_demid=";
 
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
@@ -78,10 +86,11 @@ public class CrearActivo extends Fragment {
 
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
+    String id_departamento ="";
 
 
     View vista;
-    Spinner spSiNo, spTercero,spTipoActivo,spEstadoActivo;
+    Spinner spSiNo, spTercero,spTipoActivo,spEstadoActivo, spDepartamentoEmpresa, spAreaDependencia;
     String[] tpodocumento;
     EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen;
     EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
@@ -93,20 +102,17 @@ public class CrearActivo extends Fragment {
 
         vista = inflater.inflate(R.layout.fragment_crear_activo, container, false);
 
-        //llama de variable
-        ArrayList<String>listEstadoActivo = new ArrayList<>();
-        listEstadoActivo.add("ACTIVO");
-        listEstadoActivo.add("INACTIVO");
-        listEstadoActivo.add("DAÑADO");
+        //Solicitudes de web service
+        volley = VolleyRP.getInstance(getContext());
+        mRequest = volley.getRequestQueue();
 
-        ArrayAdapter arrayAdapter1;
-        arrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listEstadoActivo);
-        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        //asociacion variable a vista
         spTercero = vista.findViewById(R.id.spTercero);
         spSiNo = vista.findViewById(R.id.spPregunta);
         spTipoActivo = vista.findViewById(R.id.spTipoActivo);
         spEstadoActivo = vista.findViewById(R.id.spEstadoActivo);
+        spDepartamentoEmpresa = vista.findViewById(R.id.spDepartamentoEmpresa);
+        spAreaDependencia = vista.findViewById(R.id.spAreaDependencia);
         tpodocumento = getResources().getStringArray(R.array.tipo_documentos);
         fechamatricula = vista.findViewById(R.id.edtfmatricula);
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
@@ -125,10 +131,57 @@ public class CrearActivo extends Fragment {
         //edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
 
+        //Carga el adapter de los spinner
+        new GetTipoActivo().execute();
+        new GetTercero().execute();
+        new GetDepartamentoEmpresa().execute();
 
 
-
+        //carga adapter de estado activo
+        ArrayList<String>listEstadoActivo = new ArrayList<>();
+        listEstadoActivo.add("ACTIVO");
+        listEstadoActivo.add("INACTIVO");
+        listEstadoActivo.add("DAÑADO");
+        ArrayAdapter arrayAdapter1;
+        arrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listEstadoActivo);
+        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spEstadoActivo.setAdapter(arrayAdapter1);
+
+        //Spiner Pregunta
+        final List<String> list = new ArrayList<String>();
+        list.add("Seleccionar");
+        list.add("No");
+        list.add("Si");
+        ArrayAdapter<String> arrayAdapter;
+        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSiNo.setAdapter(arrayAdapter);
+
+        spAreaDependencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spDepartamentoEmpresa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                id_departamento = hashDepartamentoEmpresa.get(parent.getSelectedItem().toString());
+                new GetAreaEmpresa().execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         spEstadoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -141,7 +194,6 @@ public class CrearActivo extends Fragment {
             }
         });
 
-        new GetTipoActivo().execute();
         spTipoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -154,7 +206,6 @@ public class CrearActivo extends Fragment {
             }
         });
 
-        new GetTercero().execute();
         spTercero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -170,19 +221,6 @@ public class CrearActivo extends Fragment {
             }
         });
 
-
-
-        //Spiner Pregunta
-        final List<String> list = new ArrayList<String>();
-        list.add("Seleccionar");
-        list.add("No");
-        list.add("Si");
-
-        ArrayAdapter<String> arrayAdapter;
-        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spSiNo.setAdapter(arrayAdapter);
         spSiNo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -291,8 +329,8 @@ public class CrearActivo extends Fragment {
 //        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
         try {
             listTercero = new ArrayList<String>();
-            for (int i = 0; i < datos.getJSONArray("datos").length(); i++) {
-                JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
                 listTercero.add(dato.get("ter_nombre").toString());
             }
             listTercero.add("Otro");
@@ -312,9 +350,9 @@ public class CrearActivo extends Fragment {
             hashTipoActivo = new HashMap<>();
             listTipoAtivo = new ArrayList<>();
             listTipoAtivo.add("Seleccione Tipo de Activo");
-            for (int i = 0; i < datos.getJSONArray("datos").length(); i++) {
-                JSONObject dato = (JSONObject) datos.getJSONArray("datos").get(i);
-                hashTipoActivo.put(dato.getString("tip_id"),dato.getString("tip_tipo"));
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashTipoActivo.put(dato.getString("tip_tipo"),dato.getString("tip_id"));
                 listTipoAtivo.add(dato.getString("tip_tipo"));
             }
         } catch (JSONException e) {
@@ -327,12 +365,52 @@ public class CrearActivo extends Fragment {
         spTipoActivo.setAdapter(spinnerAdapter);
     }
 
+    public void poblarSpinnerDepartamentoEmpresa(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashDepartamentoEmpresa = new HashMap<>();
+            listDepartamentoEmpresa = new ArrayList<>();
+            listDepartamentoEmpresa.add("Seleccione");
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashDepartamentoEmpresa.put(dato.getString("dem_descrip"),dato.getString("dem_id"));
+                listDepartamentoEmpresa.add(dato.getString("dem_descrip"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, listDepartamentoEmpresa);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spDepartamentoEmpresa.setAdapter(spinnerAdapter);
+    }
+
+    public void poblarSpinnerAreaEmpresa(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashAreaEmpresa = new HashMap<>();
+            listAreaEmpresa = new ArrayList<>();
+            listAreaEmpresa.add("Seleccione");
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashAreaEmpresa.put(dato.getString("are_descrip"),dato.getString("are_id"));
+                listAreaEmpresa.add(dato.getString("are_descrip"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, listAreaEmpresa);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spAreaDependencia.setAdapter(spinnerAdapter);
+    }
+
     private class GetTipoActivo extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            volley = VolleyRP.getInstance(getContext());
-            mRequest = volley.getRequestQueue();
 //            listTercero.clear();
             JsonObjectRequest solicitud = new JsonObjectRequest(URL_TIPO_ACTIVO, null, new Response.Listener<JSONObject>() {
                 @Override
@@ -357,12 +435,66 @@ public class CrearActivo extends Fragment {
         }
     }
 
+    private class GetDepartamentoEmpresa extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            JsonObjectRequest solicitud = new JsonObjectRequest(URL_DEPARTAMENTO_EMPRESA, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject datos) {
+                    poblarSpinnerDepartamentoEmpresa(datos);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.println(Log.WARN, "JOANYERROR", error.toString());
+                }
+            });
+
+            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
+    }
+
+    private class GetAreaEmpresa extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            if(null!=id_departamento) {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_AREA_EMPRESA+id_departamento, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        poblarSpinnerAreaEmpresa(datos);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANYERROR", error.toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
+    }
+
     private class GetTercero extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            volley = VolleyRP.getInstance(getContext());
-            mRequest = volley.getRequestQueue();
 //            listTercero.clear();
             JsonObjectRequest solicitud = new JsonObjectRequest(TERCERO_URL, null, new Response.Listener<JSONObject>() {
                 @Override
