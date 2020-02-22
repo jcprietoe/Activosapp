@@ -25,7 +25,7 @@
             app:destination="@id/nav_Tercero" />
         <action
             android:id="@+id/action_nav_crear_activo_to_listaActivoGuardado"
-            app:destination="@id/listaActivoGuardado" />
+            app:destination="@id/nav_VistaActivo" />
     </fragment>
 
     <fragment
@@ -43,19 +43,14 @@
             android:id="@+id/boton_crear_activo_to_crear_activo"
             app:destination="@id/nav_crear_activo" />
         <action
-            android:id="@+id/action_nav_sub_menu_to_nav_revpreoperacional"
-            app:destination="@id/nav_revpreoperacional" />
+            android:id="@+id/action_nav_sub_menu_to_revisionPreOperacional"
+            app:destination="@+id/nav_RevPreOperacional" />
     </fragment>
     <fragment
         android:id="@+id/nav_sitioweb"
         android:name="com.example.activosapp.ui.sitioweb.WebFragment"
         android:label="Gerenciando Mantenimiento"
         tools:layout="@layout/fragment_sitioweb" />
-    <fragment
-        android:id="@+id/nav_revpreoperacional"
-        android:name="com.example.activosapp.FragmentRevisionPreoperacional"
-        android:label="fragment_revision_preoperacional"
-        tools:layout="@layout/fragment_revision_preoperacional" />
     <fragment
         android:id="@+id/nav_Tercero"
         android:name="com.example.activosapp.ui.crear_activo.FragmentTercero"
@@ -66,10 +61,15 @@
             app:destination="@id/nav_crear_activo" />
     </fragment>
     <activity
-        android:id="@+id/listaActivoGuardado"
+        android:id="@+id/nav_VistaActivo"
         android:name="com.example.activosapp.VistaActivos"
         android:label="activity_lista_activo_guardado"
         tools:layout="@layout/activity_lista_activo_guardado" />
+    <activity
+        android:id="@+id/nav_RevPreOperacional"
+        android:name="com.example.activosapp.RevisionPreOperacional"
+        android:label="activity_revision_pre_operacional"
+        tools:layout="@layout/activity_revision_pre_operacional" />
 
 
 </navigation>

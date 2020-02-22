@@ -43,7 +43,7 @@ public class Menu_modulo1 extends Fragment {
         btnrevpreoperacional.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findNavController(v).navigate(R.id.action_nav_sub_menu_to_nav_revpreoperacional);
+                findNavController(v).navigate(R.id.action_nav_sub_menu_to_revisionPreOperacional);
                 Toast.makeText(getContext(),"Revision Preoperacional",Toast.LENGTH_LONG).show();
             }
         });
