@@ -258,7 +258,7 @@ public class CrearActivo extends Fragment {
             public void onClick(View view) {
 
                 uploadImage();
-                findNavController(view).navigate(R.id.action_nav_crear_activo_to_listaActivoGuardado);
+                findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
                 Toast.makeText(getContext(),"Guardado Exitosamente",Toast.LENGTH_LONG).show();
 
   //              Toast.makeText(getContext(), "entro aqui", Toast.LENGTH_SHORT).show();

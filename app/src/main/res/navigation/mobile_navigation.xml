@@ -24,8 +24,8 @@
             android:id="@+id/action_nav_crear_tercero_to_nav_Tercero"
             app:destination="@id/nav_Tercero" />
         <action
-            android:id="@+id/action_nav_crear_activo_to_listaActivoGuardado"
-            app:destination="@id/nav_VistaActivo" />
+            android:id="@+id/action_nav_crear_activo_to_nav_VistaActivos"
+            app:destination="@id/nav_VistaActivos" />
     </fragment>
 
     <fragment
@@ -43,7 +43,7 @@
             android:id="@+id/boton_crear_activo_to_crear_activo"
             app:destination="@id/nav_crear_activo" />
         <action
-            android:id="@+id/action_nav_sub_menu_to_revisionPreOperacional"
+            android:id="@+id/action_nav_sub_menu_to_revPreOperacional"
             app:destination="@+id/nav_RevPreOperacional" />
     </fragment>
     <fragment
@@ -60,16 +60,16 @@
             android:id="@+id/action_nav_Tercero_to_nav_crear_activo"
             app:destination="@id/nav_crear_activo" />
     </fragment>
-    <activity
-        android:id="@+id/nav_VistaActivo"
+    <fragment
+        android:id="@+id/nav_VistaActivos"
         android:name="com.example.activosapp.VistaActivos"
-        android:label="activity_lista_activo_guardado"
-        tools:layout="@layout/activity_lista_activo_guardado" />
-    <activity
+        android:label="fragment_vista_activos"
+        tools:layout="@layout/fragment_vista_activos" />
+    <fragment
         android:id="@+id/nav_RevPreOperacional"
-        android:name="com.example.activosapp.RevisionPreOperacional"
-        android:label="activity_revision_pre_operacional"
-        tools:layout="@layout/activity_revision_pre_operacional" />
+        android:name="com.example.activosapp.RevPreOperacional"
+        android:label="fragment_rev_pre_operacional"
+        tools:layout="@layout/fragment_rev_pre_operacional" />
 
 
 </navigation>
