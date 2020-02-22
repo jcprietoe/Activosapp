@@ -20,13 +20,15 @@
             android:layout_marginStart="10dp"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
                 android:id="@+id/editText"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 android:gravity="center"
                 android:text="Revision Pre operacional" />
 
@@ -105,20 +107,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_weight="1" />
-
-            <EditText
-                android:id="@+id/edtobser"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:gravity="center"
-                android:focusable="false"
-                android:text="Revision Pre operacional" />
-
-
-
 
 
         </LinearLayout>
