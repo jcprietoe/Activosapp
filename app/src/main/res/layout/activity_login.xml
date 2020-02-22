@@ -36,8 +36,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/stylo_boton"
-        android:textColor="@drawable/stylo_text_boton"
         android:text="Iniciar Sesión"
+        android:textColor="@drawable/stylo_text_boton"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +66,30 @@
         android:hint="Nombre usuario"
         android:inputType="text"
         android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:gravity="center"
+        android:text="Al iniciar sesion ud, acepta nuestros"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtTerminosCondiciones"
+        app:layout_constraintStart_toStartOf="@+id/btnentrar" />
+
+    <TextView
+        android:id="@+id/txtTerminosCondiciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:text="TERMINOS Y CONDICIONES, POLITICAS DE PRIVACIDAD"
+        android:textColor="#000000"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
