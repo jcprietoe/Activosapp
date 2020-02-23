@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_sub_menu"
             app:destination="@id/nav_sub_menu" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_Modulo2"
+            app:destination="@id/nav_Modulo2" />
     </fragment>
 
     <fragment
@@ -29,9 +32,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_Modulo2"
         android:name="com.example.activosapp.ui.slideshow.SlideshowFragment"
-        android:label="Registro de Incidente"
+        android:label="Modulo 2."
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
@@ -63,7 +66,7 @@
     <fragment
         android:id="@+id/nav_VistaActivos"
         android:name="com.example.activosapp.VistaActivos"
-        android:label="fragment_vista_activos"
+        android:label="Lista de Activos"
         tools:layout="@layout/fragment_vista_activos" />
     <fragment
         android:id="@+id/nav_RevPreOperacional"

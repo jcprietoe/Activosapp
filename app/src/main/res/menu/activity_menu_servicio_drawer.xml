@@ -13,9 +13,13 @@
             android:icon="@drawable/icon_modulo1"
             android:title="Modulo1" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_Modulo2"
             android:icon="@drawable/icon_modulo2"
             android:title="modulo2" />
+        <item
+            android:id="@+id/nav_VistaActivos"
+            android:icon="@drawable/icon_modulo2"
+            android:title="Lista de Activos" />
 
     </group>
 

@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment {
 
     View vista;  //puente para reconocer el metodo
     View vista2;
-    Button modulo1;
+    Button modulo1, modulo2;
     TextView recibeNombreUsuario,recibeCargoUsuario;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,6 +39,14 @@ public class HomeFragment extends Fragment {
         recibeNombreUsuario.setText(Login.nombreUsuario);
 
         //Log.println(Log.WARN, "ERROR", Login.nombreUsuario);
+
+        modulo2=vista.findViewById(R.id.btnmodulo2);
+        modulo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findNavController(view).navigate(R.id.action_nav_home_to_nav_Modulo2);
+            }
+        });
 
         modulo1 = vista.findViewById(R.id.btnmodulo1);//accion modulo 1
         modulo1.setOnClickListener(new View.OnClickListener() {
