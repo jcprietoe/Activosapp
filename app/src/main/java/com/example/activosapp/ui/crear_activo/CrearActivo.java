@@ -69,6 +69,7 @@ public class CrearActivo extends Fragment {
     public static HashMap<String, String> hashDepartamentoEmpresa;
     public static HashMap<String, String> hashTipoActivo;
     public static HashMap<String, String> hashAreaEmpresa;
+    public static HashMap<String, String> hashTercero;
 
     public static final String DATOS = "datos";
 
@@ -92,12 +93,17 @@ public class CrearActivo extends Fragment {
     String idAreaDependencia;
     String idEstadoActivo;
     String idTipoActivo;
+    String idSiNo;
+    String idTercero;
+    String nomTercero;
+
+    String nombreActivo,noPlaca, modelo, referencia, anofabricacion, linea, fechaMatricula, serial1, serial2, serial3, variableControl, descripActivo, fechaRegistro;
 
 
     View vista;
     Spinner spSiNo, spTercero, spTipoActivo, spEstadoActivo, spDepartamentoEmpresa, spAreaDependencia;
     String[] tpodocumento;
-    EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen;
+    EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen, edtNombreActivo;
     EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
     CheckBox cbSi, cbNo;
 
@@ -127,9 +133,9 @@ public class CrearActivo extends Fragment {
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
         btnBuscarImagen = vista.findViewById(R.id.btnBuscarImagen);
         edtnoplaca = vista.findViewById(R.id.edtnoplaca);
+        edtNombreActivo=vista.findViewById(R.id.edtNombreActivo);
 
         edtmodelo = vista.findViewById(R.id.edtreferencia);
-        edtlinea = vista.findViewById(R.id.edtlinea);
         edtlinea = vista.findViewById(R.id.edtlinea);
         edtserial = vista.findViewById(R.id.edtserial);
         edtserialmotor = vista.findViewById(R.id.edtserialmotor);
@@ -144,6 +150,23 @@ public class CrearActivo extends Fragment {
         new GetTipoActivo().execute();
         new GetTercero().execute();
         new GetDepartamentoEmpresa().execute();
+
+        noPlaca=edtnoplaca.getText().toString().trim();
+        nombreActivo=edtNombreActivo.getText().toString().trim();
+        modelo=edtmodelo.getText().toString().trim();
+        referencia=edtreferencia.getText().toString().trim();
+        anofabricacion=fechafabricacion.getText().toString().trim();
+        linea=edtlinea.getText().toString().trim();
+        fechaMatricula=fechamatricula.getText().toString().trim();
+        serial1=edtserial.getText().toString().trim();
+        serial2=edtserialmotor.getText().toString().trim();
+        serial3=edtserialpartes.getText().toString().trim();
+        descripActivo=edtdescripcion.getText().toString().trim();
+
+
+
+
+
 
 
         //carga adapter de estado activo
@@ -187,7 +210,7 @@ public class CrearActivo extends Fragment {
         spAreaDependencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idAreaDependencia= hashAreaEmpresa.get(parent.getSelectedItem().toString());
+                idAreaDependencia = hashAreaEmpresa.get(parent.getSelectedItem().toString());
 //                Toast.makeText(getContext(), areaDependencia, Toast.LENGTH_SHORT).show();
             }
 
@@ -214,14 +237,14 @@ public class CrearActivo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                switch (parent.getSelectedItem().toString()){
+                switch (parent.getSelectedItem().toString()) {
                     case "Seleccione":
-                        idEstadoActivo= "";
+                        idEstadoActivo = "";
                     case "ACTIVO":
                         idEstadoActivo = "A";
                         break;
                     case "INACTIVO":
-                        idEstadoActivo="I";
+                        idEstadoActivo = "I";
                         break;
                     case "DAÑADO":
                         idEstadoActivo = "D";
@@ -254,7 +277,14 @@ public class CrearActivo extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getSelectedItem().toString().equals("Otro")) {
                     findNavController(view).navigate(R.id.action_nav_crear_tercero_to_nav_Tercero);
+                }else{
+                    nomTercero=parent.getSelectedItem().toString();
+                    idTercero=hashTercero.get(nomTercero);
+                    Toast.makeText(getContext(),idTercero + "  : " + nomTercero,Toast.LENGTH_SHORT).show();
                 }
+
+
+
 
                 // Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
@@ -268,15 +298,25 @@ public class CrearActivo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String text = adapterView.getItemAtPosition(i).toString();
-                //               Toast.makeText(adapterView.getContext(), "Ha Seleccionado:  " + text + "la posicion es:" + i, Toast.LENGTH_LONG).show();
+                switch (i) {
+                    case 0:
+                        idSiNo = "0";
+                        break;
 
-                if (i == 2) {
-                    new GetTercero().execute();
-                    spTercero.setVisibility(View.VISIBLE);
+                    case 1:
+                        spTercero.setVisibility(View.INVISIBLE);
+                        idSiNo = "N";
+                        idTercero="NULL";
+                        nomTercero="Ninguno";
+                        Toast.makeText(getContext(),idTercero + "  : " + nomTercero,Toast.LENGTH_SHORT).show();
+                        break;
 
-                } else {
-                    spTercero.setVisibility(View.INVISIBLE);
+                    case 2:
+                        new GetTercero().execute();
+                        spTercero.setVisibility(View.VISIBLE);
+                        idSiNo = "S";
+
+                        break;
                 }
 
             }
@@ -298,9 +338,35 @@ public class CrearActivo extends Fragment {
         btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(){
-//
-//                }
+                if(!edtnoplaca.getText().toString().trim().equals("")&&!edtNoDocTercero.getText().toString().trim().equals("")
+                        &&!edtTelTercero.getText().toString().trim().equals("")) {
+                    volley = VolleyRP.getInstance(getContext());
+                    mRequest = volley.getRequestQueue();
+                    HashMap<String, String> hashDatos = new HashMap<>();
+                    hashDatos.put("ter_nombre", edtNombreTercero.getText().toString().trim());
+                    hashDatos.put("ter_tipid", tipoDocumento);
+                    hashDatos.put("ter_iden", edtNoDocTercero.getText().toString().trim());
+                    hashDatos.put("ter_email", edtEmailTercero.getText().toString().trim());
+                    hashDatos.put("ter_telef", edtTelTercero.getText().toString().trim());
+                    hashDatos.put("estado", "A");
+
+                    JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_TERCERO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject datos) {
+                            Toast.makeText(vista.getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.println(Log.WARN, "JOANY:ERROR", error.toString());
+                        }
+                    });
+
+                    VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+                    getFragmentManager().popBackStack();
+                }else{
+                    Toast.makeText(getContext(), "LLenar todos los campos", Toast.LENGTH_SHORT).show();
+                }
 //                uploadImage();
                 Toast.makeText(getContext(), "Guardado Exitosamente", Toast.LENGTH_LONG).show();
                 findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
@@ -369,10 +435,12 @@ public class CrearActivo extends Fragment {
     public void poblarSpinnerTerceros(JSONObject datos) {
 //        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
         try {
+            hashTercero = new HashMap<>();
             listTercero = new ArrayList<String>();
             for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
                 listTercero.add(dato.get("ter_nombre").toString());
+                hashTercero.put(dato.get("ter_nombre").toString(), dato.get("ter_id").toString());
             }
             listTercero.add("Otro");
         } catch (JSONException e) {

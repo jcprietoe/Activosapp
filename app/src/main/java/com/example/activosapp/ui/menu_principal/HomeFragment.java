@@ -20,7 +20,7 @@ import static androidx.navigation.Navigation.findNavController;
 
 public class HomeFragment extends Fragment {
 
-    public HomeFragment(){
+    public HomeFragment() {
 
     }
 
@@ -33,17 +33,16 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         vista = inflater.inflate(R.layout.fragment_home, container, false);
-        vista2 = inflater.inflate(R.layout.nav_header_menu_servicio,container,false);
+        vista2 = inflater.inflate(R.layout.nav_header_menu_servicio, container, false);
         recibeNombreUsuario = vista2.findViewById(R.id.recibe_nombre_usuario);
         recibeNombreUsuario.setText(Login.nombreUsuario);
         //Log.println(Log.WARN, "ERROR", Login.nombreUsuario);
 
-       modulo1=vista.findViewById(R.id.btnmodulo1);//accion modulo 1
+        modulo1 = vista.findViewById(R.id.btnmodulo1);//accion modulo 1
         modulo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findNavController(v).navigate(R.id.action_nav_home_to_nav_sub_menu);
-                Toast.makeText(getContext(),"modulo 1.",Toast.LENGTH_LONG).show();
             }
         });
         return vista;
@@ -54,9 +53,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //modulo1.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_sub_menu));
-
-
-
 
 
     }

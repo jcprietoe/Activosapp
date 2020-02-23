@@ -36,7 +36,7 @@ public class Menu_modulo1 extends Fragment {
             @Override
             public void onClick(View v) {
                 findNavController(v).navigate(R.id.boton_crear_activo_to_crear_activo);
-                Toast.makeText(getContext(),"Crear activo",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"Crear activo",Toast.LENGTH_LONG).show();
             }
         });
         btnrevpreoperacional=vista.findViewById(R.id.btn_revision_preoperacional);
@@ -44,7 +44,7 @@ public class Menu_modulo1 extends Fragment {
             @Override
             public void onClick(View v) {
                 findNavController(v).navigate(R.id.action_nav_sub_menu_to_revPreOperacional);
-                Toast.makeText(getContext(),"Revision Preoperacional",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"Revision Preoperacional",Toast.LENGTH_LONG).show();
             }
         });
 

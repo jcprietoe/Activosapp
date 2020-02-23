@@ -369,9 +369,6 @@
                 android:inputType="textPersonName"
                 android:text="" />
 
-
-
-
             <TextView
                 android:id="@+id/txtActivopadre"
                 android:layout_width="380dp"

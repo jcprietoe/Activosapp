@@ -112,7 +112,6 @@ public class Login extends AppCompatActivity {
                     guardarPreferenciasString();
                     guardarPreferencias();
 
-                    Toast.makeText(Login.this, "Logueo existoso", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
                     /*Bundle pasardato=new Bundle();
                     pasardato.putString("nombre_usuario", String.valueOf(edtusuario));
