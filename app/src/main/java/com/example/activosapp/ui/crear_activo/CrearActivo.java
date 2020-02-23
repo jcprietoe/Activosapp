@@ -2,7 +2,9 @@ package com.example.activosapp.ui.crear_activo;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -21,7 +23,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.activosapp.Login;
 import com.example.activosapp.R;
 import com.example.activosapp.VolleyRP;
 
@@ -45,6 +47,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -56,10 +59,6 @@ import static androidx.navigation.Navigation.findNavController;
 
 public class CrearActivo extends Fragment {
 
-    public CrearActivo() {
-
-    }
-
     private VolleyRP volley;
     private RequestQueue mRequest;
     public static ArrayList<String> listTercero;
@@ -70,44 +69,46 @@ public class CrearActivo extends Fragment {
     public static HashMap<String, String> hashTipoActivo;
     public static HashMap<String, String> hashAreaEmpresa;
     public static HashMap<String, String> hashTercero;
-
     public static final String DATOS = "datos";
-
     private static final String URL_TIPO_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
     private static final String URL_DEPARTAMENTO_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerDepartamentoEmpresa.php";
     private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
     private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
     private static final String URL_AREA_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_demid=";
-
+    private static final String URL_REG_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/registrar_activo.php";
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
-
-
     Bitmap bitmap;
     int PICK_IMAGE_REQUEST = 1;
-
-
     String KEY_IMAGE = "foto";
     String KEY_NOMBRE = "nombre";
     String id_departamento = "";
     String idAreaDependencia;
     String idEstadoActivo;
     String idTipoActivo;
+    String tipoActivo;
     String idSiNo;
     String idTercero;
     String nomTercero;
+    String departamento;
+    String areaDependencia;
 
-    String nombreActivo,noPlaca, modelo, referencia, anofabricacion, linea, fechaMatricula, serial1, serial2, serial3, variableControl, descripActivo, fechaRegistro;
+    String nombreActivo, noPlaca, modelo, referencia, anofabricacion, linea, fechaMatricula, serial1, serial2, serial3, variableControl, descripActivo, fechaRegistro;
 
+    CustomDialogFragment customDialogFragment;
 
     View vista;
     Spinner spSiNo, spTercero, spTipoActivo, spEstadoActivo, spDepartamentoEmpresa, spAreaDependencia;
     String[] tpodocumento;
     EditText fechamatricula, fechafabricacion, edtnoplaca, edtNombreImagen, edtNombreActivo;
-    EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion;
+    EditText edtmodelo, edtreferencia, edtlinea, edtserial, edtserialmotor, edtserialpartes, edtdescripcion, edtVariableControl;
     CheckBox cbSi, cbNo;
 
     Button btn_guardar_registro;
+
+    public CrearActivo() {
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -133,15 +134,15 @@ public class CrearActivo extends Fragment {
         fechafabricacion = vista.findViewById(R.id.edtfabricacion);
         btnBuscarImagen = vista.findViewById(R.id.btnBuscarImagen);
         edtnoplaca = vista.findViewById(R.id.edtnoplaca);
-        edtNombreActivo=vista.findViewById(R.id.edtNombreActivo);
-
-        edtmodelo = vista.findViewById(R.id.edtreferencia);
+        edtNombreActivo = vista.findViewById(R.id.edtNombreActivo);
+        edtreferencia = vista.findViewById(R.id.edtreferencia);
+        edtmodelo = vista.findViewById(R.id.edtmodelo);
         edtlinea = vista.findViewById(R.id.edtlinea);
         edtserial = vista.findViewById(R.id.edtserial);
         edtserialmotor = vista.findViewById(R.id.edtserialmotor);
         edtserialpartes = vista.findViewById(R.id.edtserialpartes);
-
         edtdescripcion = vista.findViewById(R.id.edtdescripcion);
+        edtVariableControl = vista.findViewById(R.id.edtVariableControl);
         ivMostrarImagen = vista.findViewById(R.id.ivMostrarImagen);
         //edtNombreImagen = vista.findViewById(R.id.edtNombreImagen);
         btn_guardar_registro = vista.findViewById(R.id.btn_guardar_registro);
@@ -150,24 +151,6 @@ public class CrearActivo extends Fragment {
         new GetTipoActivo().execute();
         new GetTercero().execute();
         new GetDepartamentoEmpresa().execute();
-
-        noPlaca=edtnoplaca.getText().toString().trim();
-        nombreActivo=edtNombreActivo.getText().toString().trim();
-        modelo=edtmodelo.getText().toString().trim();
-        referencia=edtreferencia.getText().toString().trim();
-        anofabricacion=fechafabricacion.getText().toString().trim();
-        linea=edtlinea.getText().toString().trim();
-        fechaMatricula=fechamatricula.getText().toString().trim();
-        serial1=edtserial.getText().toString().trim();
-        serial2=edtserialmotor.getText().toString().trim();
-        serial3=edtserialpartes.getText().toString().trim();
-        descripActivo=edtdescripcion.getText().toString().trim();
-
-
-
-
-
-
 
         //carga adapter de estado activo
         ArrayList<String> listEstadoActivo = new ArrayList<>();
@@ -210,8 +193,9 @@ public class CrearActivo extends Fragment {
         spAreaDependencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idAreaDependencia = hashAreaEmpresa.get(parent.getSelectedItem().toString());
-//                Toast.makeText(getContext(), areaDependencia, Toast.LENGTH_SHORT).show();
+                areaDependencia = parent.getSelectedItem().toString();
+                idAreaDependencia = hashAreaEmpresa.get(areaDependencia);
+                Toast.makeText(getContext(), areaDependencia, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -223,7 +207,8 @@ public class CrearActivo extends Fragment {
         spDepartamentoEmpresa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                id_departamento = hashDepartamentoEmpresa.get(parent.getSelectedItem().toString());
+                departamento = parent.getSelectedItem().toString();
+                id_departamento = hashDepartamentoEmpresa.get(departamento);
                 new GetAreaEmpresa().execute();
             }
 
@@ -239,7 +224,7 @@ public class CrearActivo extends Fragment {
 
                 switch (parent.getSelectedItem().toString()) {
                     case "Seleccione":
-                        idEstadoActivo = "";
+                        idEstadoActivo = "Seleccione";
                     case "ACTIVO":
                         idEstadoActivo = "A";
                         break;
@@ -263,7 +248,9 @@ public class CrearActivo extends Fragment {
         spTipoActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idTipoActivo = hashTipoActivo.get(parent.getSelectedItem().toString());
+                tipoActivo = parent.getSelectedItem().toString();
+//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                idTipoActivo = hashTipoActivo.get(tipoActivo);
             }
 
             @Override
@@ -277,14 +264,11 @@ public class CrearActivo extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getSelectedItem().toString().equals("Otro")) {
                     findNavController(view).navigate(R.id.action_nav_crear_tercero_to_nav_Tercero);
-                }else{
-                    nomTercero=parent.getSelectedItem().toString();
-                    idTercero=hashTercero.get(nomTercero);
-                    Toast.makeText(getContext(),idTercero + "  : " + nomTercero,Toast.LENGTH_SHORT).show();
+                } else {
+                    nomTercero = parent.getSelectedItem().toString();
+                    idTercero = hashTercero.get(nomTercero);
+                    Toast.makeText(getContext(), idTercero + "  : " + nomTercero, Toast.LENGTH_SHORT).show();
                 }
-
-
-
 
                 // Toast.makeText(getContext(), parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
@@ -302,28 +286,23 @@ public class CrearActivo extends Fragment {
                     case 0:
                         idSiNo = "0";
                         break;
-
                     case 1:
                         spTercero.setVisibility(View.INVISIBLE);
                         idSiNo = "N";
-                        idTercero="NULL";
-                        nomTercero="Ninguno";
-                        Toast.makeText(getContext(),idTercero + "  : " + nomTercero,Toast.LENGTH_SHORT).show();
+                        idTercero = "NULL";
+                        nomTercero = "Ninguno";
+                        Toast.makeText(getContext(), idTercero + "  : " + nomTercero, Toast.LENGTH_SHORT).show();
                         break;
-
                     case 2:
                         new GetTercero().execute();
                         spTercero.setVisibility(View.VISIBLE);
                         idSiNo = "S";
-
                         break;
                 }
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -338,38 +317,178 @@ public class CrearActivo extends Fragment {
         btn_guardar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!edtnoplaca.getText().toString().trim().equals("")&&!edtNoDocTercero.getText().toString().trim().equals("")
-                        &&!edtTelTercero.getText().toString().trim().equals("")) {
-                    volley = VolleyRP.getInstance(getContext());
-                    mRequest = volley.getRequestQueue();
-                    HashMap<String, String> hashDatos = new HashMap<>();
-                    hashDatos.put("ter_nombre", edtNombreTercero.getText().toString().trim());
-                    hashDatos.put("ter_tipid", tipoDocumento);
-                    hashDatos.put("ter_iden", edtNoDocTercero.getText().toString().trim());
-                    hashDatos.put("ter_email", edtEmailTercero.getText().toString().trim());
-                    hashDatos.put("ter_telef", edtTelTercero.getText().toString().trim());
-                    hashDatos.put("estado", "A");
+                HashMap<String, String> hashDatos = new HashMap<>();
 
-                    JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_TERCERO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject datos) {
-                            Toast.makeText(vista.getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.println(Log.WARN, "JOANY:ERROR", error.toString());
-                        }
-                    });
+                noPlaca = edtnoplaca.getText().toString().trim();
+                nombreActivo = edtNombreActivo.getText().toString().trim();
+                modelo = edtmodelo.getText().toString().trim();
+                referencia = edtreferencia.getText().toString().trim();
+                anofabricacion = fechafabricacion.getText().toString().trim();
+                linea = edtlinea.getText().toString().trim();
+                fechaMatricula = fechamatricula.getText().toString().trim();
+                serial1 = edtserial.getText().toString().trim();
+                serial2 = edtserialmotor.getText().toString().trim();
+                serial3 = edtserialpartes.getText().toString().trim();
+                descripActivo = edtdescripcion.getText().toString().trim();
+                variableControl = edtVariableControl.getText().toString().trim();
 
-                    VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
-                    getFragmentManager().popBackStack();
-                }else{
-                    Toast.makeText(getContext(), "LLenar todos los campos", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = getContext().getSharedPreferences(Login.PREFERENCES_USUARIO, Context.MODE_PRIVATE);
+                String idEmpresa = preferences.getString(Login.KEY_PREFERENCES_IDEMPRESA, "");
+                hashDatos.put("act_empresaid", idEmpresa);
+                String usuario = preferences.getString(Login.KEY_PREFERENCES_USUARIO, "");
+                hashDatos.put("act_usureg", usuario);
+                Calendar fecha = Calendar.getInstance();
+                String fechaString = fecha.get(Calendar.YEAR) + "-" + fecha.get(Calendar.MONTH)
+                        + "-" + fecha.get(Calendar.DATE) + " " + fecha.get(Calendar.HOUR)
+                        +":"+fecha.get(Calendar.MINUTE)+":"+fecha.get(Calendar.SECOND);
+                hashDatos.put("act_fecreg", fechaString);
+                customDialogFragment = new CustomDialogFragment();
+                Log.println(Log.WARN, "JOANY:REGISTRO", usuario);
+                if (!tipoActivo.equals("Seleccione")) {
+                    hashDatos.put("act_tipoid", idTipoActivo);
+                } else {
+                    customDialogFragment.setMessage("Ingrese el tipo de activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
                 }
+                if (!nombreActivo.trim().equals("")) {
+                    hashDatos.put("act_nombre", nombreActivo);
+                } else {
+                    customDialogFragment.setMessage("Ingrese el nombre del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!noPlaca.trim().equals("")) {
+                    hashDatos.put("act_placa", noPlaca);
+                } else {
+                    customDialogFragment.setMessage("Ingrese el número de placa");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!modelo.trim().equals("")) {
+                    hashDatos.put("act_modelo", modelo);
+                } else {
+                    customDialogFragment.setMessage("Ingrese el modelo del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!referencia.trim().equals("")) {
+                    hashDatos.put("act_referencia", referencia);
+                } else {
+                    customDialogFragment.setMessage("Ingrese la referencia");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!anofabricacion.trim().equals("")) {
+                    hashDatos.put("act_anofab", anofabricacion);
+                } else {
+                    customDialogFragment.setMessage("Ingrese el año de fabricación");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!linea.trim().equals("")) {
+                    hashDatos.put("act_linea", linea);
+                } else {
+                    customDialogFragment.setMessage("Ingrese la línea del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!fechaMatricula.trim().equals("")) {
+                    hashDatos.put("act_fecmat", fechaMatricula);
+                } else {
+                    customDialogFragment.setMessage("Ingrese fecha de matrícula");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!serial1.trim().equals("")) {
+                    hashDatos.put("act_serialvin", serial1);
+                } else {
+                    customDialogFragment.setMessage("Ingrese serial del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!serial2.trim().equals("")) {
+                    hashDatos.put("act_serial2", serial2);
+                } else {
+                    customDialogFragment.setMessage("Ingrese serial del motor");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!serial3.trim().equals("")) {
+                    hashDatos.put("act_serial3", serial3);
+                } else {
+                    customDialogFragment.setMessage("Ingrese serial de subpartes");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!idSiNo.trim().equals("0")) {
+                    hashDatos.put("act_tercero", idSiNo);
+                    hashDatos.put("act_terceroid", idTercero);
+                } else {
+                    customDialogFragment.setMessage("Seleccione si es de un tercero el activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!descripActivo.trim().equals("")) {
+                    hashDatos.put("act_descrip", descripActivo);
+                } else {
+                    customDialogFragment.setMessage("Ingrese las funciones del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!departamento.trim().equals("Seleccione")) {
+//                    hashDatos.put("ter_nombre", id_departamento);
+                    if (!areaDependencia.trim().equals("Seleccione")) {
+                        hashDatos.put("act_aremprid", idAreaDependencia);
+                    } else {
+                        customDialogFragment.setMessage("Ingrese el área al que pertenece el activo");
+                        customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                        return;
+                    }
+                } else {
+                    customDialogFragment.setMessage("Seleccione el departamento al que pertenece el activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                if (!variableControl.trim().equals("")) {
+                    hashDatos.put("act_varcontrol", variableControl);
+                } else {
+                    customDialogFragment.setMessage("Ingrese variable de control del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                //activo padre
+                if (cbSi.isChecked()) {
+                    hashDatos.put("act_padre", null);
+                } else {
+                    //si no es activo padre debe generarme un spinner con los activos que pueden ser padre
+                    hashDatos.put("act_padre", "0");
+                }
+                if (!idEstadoActivo.trim().equals("Seleccione")) {
+                    hashDatos.put("estado", idEstadoActivo);
+                } else {
+                    customDialogFragment.setMessage("Seleccione el estado del activo");
+                    customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                    return;
+                }
+                volley = VolleyRP.getInstance(getContext());
+                mRequest = volley.getRequestQueue();
+                JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_ACTIVO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        Toast.makeText(vista.getContext(), datos.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANY:ERROR", error.getMessage().toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+                getFragmentManager().popBackStack();
 //                uploadImage();
-                Toast.makeText(getContext(), "Guardado Exitosamente", Toast.LENGTH_LONG).show();
-                findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
+//                findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
             }
         });
 
@@ -392,7 +511,8 @@ public class CrearActivo extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         // +1 because January is zero
-                        final String selectedDate = day + " / " + (month + 1) + " / " + year;
+                        final String selectedDate = year + "-" + (month + 1) + "-" + day;
+
                         fechamatricula.setText(selectedDate);
                     }
                 });
@@ -400,37 +520,37 @@ public class CrearActivo extends Fragment {
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
             }
         });
-
-        //metodo fecha año de fabricacion
-        fechafabricacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.edtfabricacion:
-                        showDatePickerDialog();
-                        break;
-                }
-            }
-
-            //calendario
-
-            private void showDatePickerDialog() {
-                DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        // +1 because January is zero
-                        final String selectedDate = day + " / " + (month + 1) + " / " + year;
-                        fechafabricacion.setText(selectedDate);
-                    }
-                });
-
-                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-            }
-        });
+//        metodo fecha año de fabricacion
+//        fechafabricacion.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch (view.getId()) {
+//                    case R.id.edtfabricacion:
+//                        showDatePickerDialog();
+//                        break;
+//                }
+//            }
+//
+//            //calendario
+//
+//            private void showDatePickerDialog() {
+//                DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+//                        // +1 because January is zero
+//                        final String selectedDate = day + " / " + (month + 1) + " / " + year;
+//                        fechafabricacion.setText(selectedDate);
+//                    }
+//                });
+//
+//                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+//            }
+//        });
         return vista;
 
 
     }
+
 
     public void poblarSpinnerTerceros(JSONObject datos) {
 //        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
@@ -458,7 +578,7 @@ public class CrearActivo extends Fragment {
         try {
             hashTipoActivo = new HashMap<>();
             listTipoAtivo = new ArrayList<>();
-            listTipoAtivo.add("Seleccione Tipo de Activo");
+            listTipoAtivo.add("Seleccione");
             for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
                 hashTipoActivo.put(dato.getString("tip_tipo"), dato.getString("tip_id"));

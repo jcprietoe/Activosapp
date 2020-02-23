@@ -43,10 +43,14 @@ public class MenuServicio extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
-        TextView textUsuario = header.findViewById(R.id.recibe_nombre_usuario);
+        TextView txtNombreUsuario = header.findViewById(R.id.recibe_nombre_usuario);
+        TextView txtCargo = header.findViewById(R.id.txtCargoUsuario);
+        TextView txtNombreEmpresa = header.findViewById(R.id.txtNombreEmpresa);
         SharedPreferences preferences= getSharedPreferences("preferencia_usuario",Context.MODE_PRIVATE);
         Log.println(Log.INFO,"DATOSJoany", preferences.toString());
-        textUsuario.setText(preferences.getString("usuario",""));
+        txtNombreUsuario.setText(preferences.getString(Login.KEY_PREFERENCES_NOMBRE,""));
+        txtCargo.setText(preferences.getString(Login.KEY_PREFERENCES_CARGO,""));
+        txtNombreEmpresa.setText("Custom Maintenance Software CMS");
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -75,6 +79,8 @@ public class MenuServicio extends AppCompatActivity {
                 SharedPreferences preferencesBoton = getSharedPreferences(Login.STRING_PREFERENCES,Context.MODE_PRIVATE);
                 SharedPreferences preferencesUsuario = getSharedPreferences(Login.PREFERENCES_USUARIO,Context.MODE_PRIVATE);
                 preferencesBoton.edit().putBoolean(Login.PREFERENCE_ESTADO_BUTTON,false).apply();
+                preferencesUsuario.edit().putString(Login.KEY_PREFERENCES_NOMBRE,"").apply();
+                preferencesUsuario.edit().putString(Login.KEY_PREFERENCES_CARGO,"").apply();
                 preferencesUsuario.edit().putString(Login.KEY_PREFERENCES_USUARIO,"").apply();
                 Intent intent = new Intent(getApplicationContext(),Login.class);
                 startActivity(intent);

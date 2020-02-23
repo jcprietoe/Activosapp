@@ -70,10 +70,6 @@ public class FragmentTercero extends Fragment {
         edtEmailTercero = vista.findViewById(R.id.edtEmailTercero);
         edtTelTercero = vista.findViewById(R.id.edtTelTercero);
 
-
-
-
-
         btnGuardarTercero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
     View vista;  //puente para reconocer el metodo
     View vista2;
     Button modulo1;
-    TextView recibeNombreUsuario;
+    TextView recibeNombreUsuario,recibeCargoUsuario;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +35,9 @@ public class HomeFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_home, container, false);
         vista2 = inflater.inflate(R.layout.nav_header_menu_servicio, container, false);
         recibeNombreUsuario = vista2.findViewById(R.id.recibe_nombre_usuario);
+        recibeCargoUsuario = vista2.findViewById(R.id.txtCargoUsuario);
         recibeNombreUsuario.setText(Login.nombreUsuario);
+
         //Log.println(Log.WARN, "ERROR", Login.nombreUsuario);
 
         modulo1 = vista.findViewById(R.id.btnmodulo1);//accion modulo 1

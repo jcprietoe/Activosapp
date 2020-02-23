@@ -140,10 +140,8 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
                 android:ems="10"
-                android:focusable="false"
-                android:inputType="datetime"
+                android:inputType="textPersonName"
                 android:text="" />
 
             <TextView
