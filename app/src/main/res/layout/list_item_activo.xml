@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?listPreferredItemHeight"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_nombre_activo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="72dp"
+        android:text="New Text"
+        android:textAppearance="?textAppearanceListItem"
+        tools:text="Nombre Activo" />
+
+    <TextView
+        android:id="@+id/tv_area_activo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="72dp"
+        android:text="New Text"
+        android:textAppearance="?textAppearanceListItem"
+        tools:text="Area activo" />
+
+    <TextView
+        android:id="@+id/tv_estado_activo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="72dp"
+        android:text="New Text"
+        android:textAppearance="?textAppearanceListItem"
+        tools:text="Estado activo" />
+
+    <TextView
+        android:id="@+id/tv_variable_control_activo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="200dp"
+        android:text="New Text"
+        android:textAppearance="?textAppearanceListItem"
+        tools:text="Variable de control" />
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_activo_circle" />
+</RelativeLayout>

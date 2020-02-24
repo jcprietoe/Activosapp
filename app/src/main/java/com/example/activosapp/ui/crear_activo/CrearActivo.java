@@ -488,7 +488,7 @@ public class CrearActivo extends Fragment {
                 VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
                 getFragmentManager().popBackStack();
 //                uploadImage();
-//                findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
+                findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
             }
         });
 
