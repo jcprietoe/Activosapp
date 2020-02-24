@@ -49,6 +49,8 @@ public class VistaActivos extends Fragment {
     private VolleyRP volley;
     private RequestQueue mRequest;
 
+    private static  final String URL_VER_ACTIVOS = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerActivos.php?act_empresaid=";
+    private static  final String URL_VER_AREA = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_id=";
     //private LawyersDbHelper mLawyersDbHelper;
 
     private ListView listActivo;
