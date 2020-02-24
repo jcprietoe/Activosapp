@@ -74,7 +74,7 @@ public class CrearActivo extends Fragment {
     private static final String URL_DEPARTAMENTO_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerDepartamentoEmpresa.php";
     private static final String TERCERO_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTercero.php";
     private static final String UPLOAD_IMAGE_URL = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/upload_image.php";
-    private static final String URL_AREA_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_demid=";
+    private static final String URL_AREA_EMPRESA = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresaPorId.php?are_demid=";
     private static final String URL_REG_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/registrar_activo.php";
     Button btnBuscarImagen;
     ImageView ivMostrarImagen;
@@ -486,7 +486,6 @@ public class CrearActivo extends Fragment {
                 });
 
                 VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
-                getFragmentManager().popBackStack();
 //                uploadImage();
                 findNavController(view).navigate(R.id.action_nav_crear_activo_to_nav_VistaActivos);
             }
