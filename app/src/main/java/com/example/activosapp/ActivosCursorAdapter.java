@@ -38,20 +38,37 @@ public class ActivosCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
-
+//"_id","nombre", "areid", "est","ctrl"
         // Referencias UI.
         TextView nameText = (TextView) view.findViewById(R.id.tv_nombre_activo);
+        TextView areaText = (TextView) view.findViewById(R.id.tv_area_activo);
+        TextView estadoText = (TextView) view.findViewById(R.id.tv_estado_activo);
+        TextView variableControlText = (TextView) view.findViewById(R.id.tv_variable_control_activo);
         final ImageView avatarImage = (ImageView) view.findViewById(R.id.iv_avatar);
 
         // Get valores.
-        String name = cursor.getString(cursor.getColumnIndex("nombre_Activo"));
-        String avatarUri = cursor.getString(cursor.getColumnIndex("imagen_activo"));
+        String name = cursor.getString(cursor.getColumnIndex("nombre"));
+        String area = cursor.getString(cursor.getColumnIndex("areid"));
+        String estado = cursor.getString(cursor.getColumnIndex("est"));
+        switch (estado){
+            case "A":
+                estado="Estado: Activo";
+                break;
+            case "I":
+                estado="Estado: Inactivo";
+                break;
+        }
+        String variableControl = cursor.getString(cursor.getColumnIndex("ctrl"));
+//        String avatarUri = cursor.getString(cursor.getColumnIndex("imagen_activo"));
 
         // Setup.
         nameText.setText(name);
+        areaText.setText("Area: "+area);
+        estadoText.setText(estado);
+        variableControlText.setText("Variable: "+variableControl);
         Glide
                 .with(context)
-                .load(Uri.parse("file:///android_asset/" + avatarUri))
+                .load(R.drawable.ic_activo_circle)
                 .asBitmap()
                 .error(R.drawable.ic_activo_circle)
                 .centerCrop()

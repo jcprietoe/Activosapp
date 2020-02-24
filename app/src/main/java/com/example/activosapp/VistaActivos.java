@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.activosapp.ui.crear_activo.CrearActivo;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -48,6 +54,7 @@ public class VistaActivos extends Fragment {
     public static final int REQUEST_UPDATE_DELETE_LAWYER = 2;
     private VolleyRP volley;
     private RequestQueue mRequest;
+    private MatrixCursor cursor;
 
     private static  final String URL_VER_ACTIVOS = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerActivos.php?act_empresaid=";
     private static  final String URL_VER_AREA = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_id=";
@@ -74,10 +81,11 @@ public class VistaActivos extends Fragment {
         mRequest = volley.getRequestQueue();
 
         // Referencias UI
-        listActivo = (ListView) root.findViewById(R.id.activo_list);
+        listActivo = root.findViewById(R.id.activo_list);
         activosCursorAdapter = new ActivosCursorAdapter(getActivity(), null);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
+        loadActivos();
         // Setup
         listActivo.setAdapter(activosCursorAdapter);
 
@@ -106,7 +114,7 @@ public class VistaActivos extends Fragment {
 //        mLawyersDbHelper = new LawyersDbHelper(getActivity());
 
         // Carga de datos
-        loadActivos();
+
 
         return root;
     }
@@ -146,35 +154,52 @@ public class VistaActivos extends Fragment {
 //        startActivityForResult(intent, REQUEST_UPDATE_DELETE_LAWYER);
 //    }
 
-    private class ActivosLoadTask extends AsyncTask<Void, Void, Cursor> {
-
-        @Override
-        protected Cursor doInBackground(Void... voids) {
-            JsonObjectRequest solicitud = new JsonObjectRequest("", null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject datos) {
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-//                    Log.println(Log.WARN, "JOANYDERROR", error.toString());
-                }
-            });
-
-            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
-
-            Cursor cursor = new MatrixCursor(new String[]{});
-//            return mLawyersDbHelper.getAllLawyers();
-            return cursor;
-        }
-
-        @Override
-        protected void onPostExecute(Cursor cursor) {
+    private void poblarCursorAdapter(JSONObject datos){
+        try {
+            cursor = new MatrixCursor(new String[]{"_id","nombre", "areid", "est","ctrl"});
+            for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
+                cursor.addRow(new Object[]{0,dato.getString("act_nombre"),
+                        dato.getString("act_aremprid"),dato.getString("estado"),dato.getString("act_varcontrol")});
+            }
+            Log.println(Log.WARN, "CURSOR:Cantidad", String.valueOf(cursor.getCount()));
             if (cursor != null && cursor.getCount() > 0) {
                 activosCursorAdapter.swapCursor(cursor);
             } else {
                 // Mostrar empty state
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private class ActivosLoadTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_ACTIVOS+"1", null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject datos) {
+                    poblarCursorAdapter(datos);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.println(Log.WARN, "JOANYDERROR", error.toString());
+                }
+            });
+
+            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+//            if (cursor != null && cursor.getCount() > 0) {
+//                activosCursorAdapter.swapCursor(cursor);
+//            } else {
+//                // Mostrar empty state
+//            }
         }
     }
 
