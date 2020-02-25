@@ -68,9 +68,9 @@ public class ActivosCursorAdapter extends CursorAdapter {
         variableControlText.setText("Variable: "+variableControl);
         Glide
                 .with(context)
-                .load(R.drawable.ic_activo_circle)
+                .load(R.drawable.icon_listview)
                 .asBitmap()
-                .error(R.drawable.ic_activo_circle)
+                .error(R.drawable.icon_listview)
                 .centerCrop()
                 .into(new BitmapImageViewTarget(avatarImage) {
                     @Override
