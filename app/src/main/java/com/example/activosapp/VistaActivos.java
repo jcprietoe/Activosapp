@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +101,13 @@ public class VistaActivos extends Fragment {
 //                showDetailScreen(currentLawyerId);
             }
         });
+
+        (new Handler()).postDelayed(new Runnable() {
+
+            public void run() {
+                loadActivos();
+            }
+        }, 42000);
 //        mAddButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -121,17 +129,7 @@ public class VistaActivos extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (Activity.RESULT_OK == resultCode) {
-            switch (requestCode) {
-//                case AddEditLawyerActivity.REQUEST_ADD_LAWYER:
-//                    showSuccessfullSavedMessage();
-//                    loadActivos();
-//                    break;
-                case REQUEST_UPDATE_DELETE_LAWYER:
-                    loadActivos();
-                    break;
-            }
-        }
+            loadActivos();
     }
 
     private void loadActivos() {
@@ -160,7 +158,7 @@ public class VistaActivos extends Fragment {
             for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
                 cursor.addRow(new Object[]{0,dato.getString("act_nombre"),
-                        dato.getString("act_aremprid"),dato.getString("estado"),dato.getString("act_varcontrol")});
+                        dato.getString("are_descrip"),dato.getString("estado"),dato.getString("act_varcontrol")});
             }
             Log.println(Log.WARN, "CURSOR:Cantidad", String.valueOf(cursor.getCount()));
             if (cursor != null && cursor.getCount() > 0) {
