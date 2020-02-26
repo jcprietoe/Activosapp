@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/nav_RevPreOperacional"
         android:name="com.example.activosapp.RevPreOperacional"
-        android:label="fragment_rev_pre_operacional"
+        android:label="Revision "
         tools:layout="@layout/fragment_rev_pre_operacional" />
 
 

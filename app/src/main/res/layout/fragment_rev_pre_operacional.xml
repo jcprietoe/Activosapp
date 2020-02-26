@@ -1,115 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RevPreOperacional">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ScrollView
-        android:id="@+id/scrollView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:gravity="center"
+            android:text="Revision Pre operacional"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="362dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/editText"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:text="Revision Pre operacional" />
-
-            <LinearLayout
-                android:layout_width="362dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtSelectTipoActivo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:text="Seleccionar Tipo de Activo:"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spSelecTipotActivo"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="362dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtSelectActivo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:text="Seleccionar  Activo:               "
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spSelectActivo"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtDepartamento"
+                android:id="@+id/txtSelectTipoActivo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Departamento donde se realiza la revision"
+                android:text="Seleccionar Tipo de Activo:"
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spDepartamento"
+                android:id="@+id/spSelecTipotActivo"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
+                android:layout_gravity="center|right"
                 android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/txtCiudad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Ciudad donde se realiza la revision"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/spCiudad"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:layout_weight="1" />
-
-
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="362dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtSelectActivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Seleccionar  Activo:               "
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spSelectActivo"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDepartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Departamento donde se realiza la revision"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spDepartamento"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/txtCiudad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ciudad donde se realiza la revision"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spCiudad"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_weight="1" />
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.activosapp.FragmentRevision"
+            android:layout_width="match_parent"
+            android:layout_height="364dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar Revision" />
+
+
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
