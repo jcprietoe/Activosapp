@@ -1,9 +1,11 @@
 package com.example.activosapp;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,9 +43,15 @@ public class RevPreOperacional extends Fragment {
     public static HashMap<String, String> hashTipoActivo2;
     private static final String URL_TIPO_ACTIVO2 = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
 
+public Enviar envia;
 
     public RevPreOperacional() {
         // Required empty public constructor
+    }
+
+    public interface Enviar{
+
+        void comunicar(String mensaje);
     }
 
     String tipoActivo2;
@@ -50,13 +59,20 @@ public class RevPreOperacional extends Fragment {
     View vista;
 
     Spinner spTipoActivo2;
+    Button boton;
 
+    @Override
+    public void onAttach(Context context) {
+        envia = (Enviar) context;
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          vista=inflater.inflate(R.layout.fragment_rev_pre_operacional, container, false);
+         boton = vista.findViewById(R.id.button2);
 
          //Solicitudes de web service
         volley = VolleyRP.getInstance(getContext());
@@ -66,6 +82,13 @@ public class RevPreOperacional extends Fragment {
 
          new GetTipoActivo().execute();
 
+         boton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 envia.comunicar("Funciono Joany");
+                 Toast.makeText(getContext(), "Boton joany", Toast.LENGTH_SHORT).show();
+             }
+         });
         spTipoActivo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -80,11 +103,6 @@ public class RevPreOperacional extends Fragment {
 
             }
         });
-
-
-
-
-
 
 
             return vista;

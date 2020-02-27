@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,6 +34,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
     private VolleyRP volley;
     private RequestQueue mRequest;
     private MatrixCursor cursor;
+    private TextView tvPrueba;
 
     private static  final String URL_REVISION = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php";
 
@@ -56,13 +58,14 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         View root = inflater.inflate(R.layout.fragment_revision, container, false);
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
+        tvPrueba = (TextView) root.findViewById(R.id.tv_prueba);
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
-        loadRevision();
+//        loadRevision();
         // Setup
         listRevision.setAdapter(revisionCursorAdapter);
 
@@ -78,12 +81,12 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
             }
         });
 
-        (new Handler()).postDelayed(new Runnable() {
-
-            public void run() {
-                loadRevision();
-            }
-        }, 42000);
+//        (new Handler()).postDelayed(new Runnable() {
+//
+//            public void run() {
+//                loadRevision();
+//            }
+//        }, 42000);
 //        mAddButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -103,9 +106,16 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         return root;
     }
 
+    public void recibirTexto(String datos){
+        if(null!=tvPrueba){
+            tvPrueba.setText(datos);
+        }
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        loadRevision();
+//        loadRevision();
     }
 
     private void loadRevision() {
