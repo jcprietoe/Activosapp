@@ -25,13 +25,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class MenuServicio extends AppCompatActivity implements RevPreOperacional.Enviar {
+public class MenuServicio extends AppCompatActivity{
 
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    TextView recibe_nombre_usuario;
-    private FragmentRevision fragmentRevision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +52,6 @@ public class MenuServicio extends AppCompatActivity implements RevPreOperacional
         txtCargo.setText(preferences.getString(Login.KEY_PREFERENCES_CARGO,""));
         txtNombreEmpresa.setText("Custom Maintenance Software CMS");
 
-        fragmentRevision = new FragmentRevision();
-        RevPreOperacional preoperacional = new RevPreOperacional();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -104,11 +100,4 @@ public class MenuServicio extends AppCompatActivity implements RevPreOperacional
 
     }
 
-    @Override
-    public void comunicar(String mensaje) {
-        FragmentRevision fragment = (FragmentRevision) getSupportFragmentManager().findFragmentById(R.id.fragment);
-        if(fragment!=null){
-           fragment.recibirTexto(mensaje);
-        }
-    }
 }

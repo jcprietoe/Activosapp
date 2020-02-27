@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -62,12 +63,6 @@ public Enviar envia;
     Button boton;
 
     @Override
-    public void onAttach(Context context) {
-        envia = (Enviar) context;
-        super.onAttach(context);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -85,8 +80,7 @@ public Enviar envia;
          boton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 envia.comunicar("Funciono Joany");
-                 Toast.makeText(getContext(), "Boton joany", Toast.LENGTH_SHORT).show();
+
              }
          });
         spTipoActivo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

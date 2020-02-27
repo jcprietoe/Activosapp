@@ -34,7 +34,6 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
     private VolleyRP volley;
     private RequestQueue mRequest;
     private MatrixCursor cursor;
-    private TextView tvPrueba;
 
     private static  final String URL_REVISION = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php";
 
@@ -58,14 +57,13 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         View root = inflater.inflate(R.layout.fragment_revision, container, false);
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
-        tvPrueba = (TextView) root.findViewById(R.id.tv_prueba);
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
-//        loadRevision();
+        loadRevision();
         // Setup
         listRevision.setAdapter(revisionCursorAdapter);
 
@@ -106,19 +104,13 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         return root;
     }
 
-    public void recibirTexto(String datos){
-        if(null!=tvPrueba){
-            tvPrueba.setText(datos);
-        }
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        loadRevision();
+        loadRevision();
     }
 
-    private void loadRevision() {
+    public void loadRevision() {
         new FragmentRevision.RevisionLoadTask().execute();
     }
 
