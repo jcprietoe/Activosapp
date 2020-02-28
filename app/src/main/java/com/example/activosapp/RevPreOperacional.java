@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static androidx.navigation.Navigation.findNavController;
 import static com.example.activosapp.ui.crear_activo.CrearActivo.DATOS;
 
 
@@ -80,6 +81,7 @@ public Enviar envia;
          boton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 findNavController(v).navigate(R.id.action_nav_RevPreOperacional_to_fragmentRevision);
 
              }
          });

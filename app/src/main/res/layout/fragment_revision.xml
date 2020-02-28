@@ -1,14 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FragmentRevision">
+
     <ListView
         android:id="@+id/revision_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="396dp"
+        android:baselineAligned="false"
         android:divider="@null"
-        tools:listitem="@layout/list_item_revision" >
-    </ListView>
+        tools:listitem="@layout/list_item_revision"></ListView>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar Revision" />
+
+
+</LinearLayout>

@@ -108,19 +108,11 @@
             android:layout_gravity="center|left"
             android:layout_weight="1" />
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.example.activosapp.FragmentRevision"
-            android:layout_width="match_parent"
-            android:layout_height="364dp" />
-
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enviar Revision" />
-
-
 
 
     </LinearLayout>

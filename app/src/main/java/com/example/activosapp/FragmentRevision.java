@@ -2,6 +2,7 @@ package com.example.activosapp;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
-        loadRevision();
+
         // Setup
         listRevision.setAdapter(revisionCursorAdapter);
 
@@ -71,7 +72,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         listRevision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Cursor currentItem = (Cursor) activosCursorAdapter.getItem(i);
+//                Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
 //                String currentLawyerId = currentItem.getString(
 //                        currentItem.getColumnIndex(LawyerEntry.ID));
 //
@@ -99,7 +100,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 //        mLawyersDbHelper = new LawyersDbHelper(getActivity());
 
         // Carga de datos
-
+        loadRevision();
 
         return root;
     }
@@ -107,7 +108,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        loadRevision();
+//        loadRevision();
     }
 
     public void loadRevision() {

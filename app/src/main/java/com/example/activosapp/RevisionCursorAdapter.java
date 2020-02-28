@@ -3,6 +3,7 @@ package com.example.activosapp;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -33,16 +35,22 @@ public class RevisionCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
 //"_id","nombre", "areid", "est","ctrl"
         // Referencias UI.
-        TextView revisionText = (TextView) view.findViewById(R.id.tv_des_revision);
-        CheckBox cbSi=(CheckBox) view.findViewById(R.id.cbrevisionSi);
-        CheckBox cbNo=(CheckBox) view.findViewById(R.id.cbrevisionNo);
+        TextView revisionText =view.findViewById(R.id.tv_des_revision);
+        CheckBox cbSi=view.findViewById(R.id.cbrevisionSi);
+        CheckBox cbNo=view.findViewById(R.id.cbrevisionNo);
 
         // Get valores.
-        String desRevision = cursor.getString(cursor.getColumnIndex("des_revision"));
+        final String desRevision = cursor.getString(cursor.getColumnIndex("des_revision"));
 
 
         // Setup.
         revisionText.setText(desRevision);
+        cbSi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.println(Log.WARN, "PruebaAdapter",desRevision );
+            }
+        });
 
 
     }
