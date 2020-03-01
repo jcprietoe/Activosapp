@@ -40,10 +40,19 @@ public class RevPreOperacional extends Fragment {
     private VolleyRP volley;
     private RequestQueue mRequest;
 
-    public static ArrayList<String> listTipoAtivo2;
+    public static HashMap<String, String> hashCiudad;
     public static HashMap<String, String> hashTipoActivo2;
-    private static final String URL_TIPO_ACTIVO2 = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
+    public static HashMap<String, String> hashDepartamento;
+    public static HashMap<String, String> hashSelectActivo;
+    public static ArrayList<String> listCiudad;
+    public static ArrayList<String> listSelectActivo;
+    public static ArrayList<String> listTipoAtivo2;
+    public static ArrayList<String> listDepartamento;
 
+    private static final String URL_TIPO_ACTIVO2 = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerTipoActivo.php";
+    private static final String URL_SELECT_ACTIVO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerSelectActivo.php?act_tipoid=";
+    private static final String URL_DEPARTAMENTO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerDepartamento.php";
+    private static final String URL_CIUDAD = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerCiudad.php?ciu_depid=";
 public Enviar envia;
 
     public RevPreOperacional() {
@@ -54,12 +63,16 @@ public Enviar envia;
 
         void comunicar(String mensaje);
     }
-
+    String SeleccionarActivo;
     String tipoActivo2;
     String idTipoActivo2;
+    String idDepartamento;
+    String departamento1;
+    String SeleccionarCiudad;
     View vista;
 
-    Spinner spTipoActivo2;
+    Spinner spTipoActivo2,spSelectActivo, spDepartamento, spCiudad;
+
     Button boton;
 
     @Override
@@ -74,8 +87,13 @@ public Enviar envia;
         mRequest = volley.getRequestQueue();
 
          spTipoActivo2=vista.findViewById(R.id.spSelecTipotActivo);
+         spSelectActivo=vista.findViewById(R.id.spSelectActivo);
+         spDepartamento=vista.findViewById(R.id.spDepartamento);
+         spCiudad=vista.findViewById(R.id.spCiudad);
 
          new GetTipoActivo().execute();
+         new  GetDepartamento().execute();
+
 
          boton.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -89,6 +107,55 @@ public Enviar envia;
                 tipoActivo2 = parent.getSelectedItem().toString();
 //                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                 idTipoActivo2 = hashTipoActivo2.get(tipoActivo2);
+                new GetSelectActivo().execute();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spSelectActivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SeleccionarActivo = parent.getSelectedItem().toString();
+//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+//                SeleccionarActivo = hashSelectActivo.get(SeleccionarActivo);
+                new GetSelectActivo().execute();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spDepartamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                departamento1 = parent.getSelectedItem().toString();
+//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+//                idDepartamento = hashDepartamento.get(idDepartamento);
+                new GetCiudad().execute();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spCiudad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SeleccionarCiudad = parent.getSelectedItem().toString();
+//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+//                SeleccionarCiudad = hashCiudad.get(SeleccionarCiudad);
+                new GetSelectActivo().execute();
 
             }
 
@@ -99,8 +166,169 @@ public Enviar envia;
         });
 
 
+
             return vista;
         }
+
+        //Spinner Ciudad
+
+    public void poblarSpinnerCiudad(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashCiudad = new HashMap<>();
+            listCiudad = new ArrayList<>();
+            listCiudad.add("Seleccione");
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashCiudad.put(dato.getString("ciu_nombre"), dato.getString("ciu_id"));
+                listCiudad.add(dato.getString("ciu_nombre"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, listCiudad);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       spCiudad .setAdapter(spinnerAdapter);
+    }
+
+
+    private class GetCiudad extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            if (null != idDepartamento) {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_CIUDAD + idDepartamento, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        poblarSpinnerCiudad(datos);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANYERROR", error.toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
+    }
+
+
+        //Spinner Departamento
+
+    public void poblarSpinnerDepartamento(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashDepartamento = new HashMap<>();
+            listDepartamento = new ArrayList<>();
+            listDepartamento.add("Seleccione");
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashDepartamento.put(dato.getString("dep_nombre"), dato.getString("dep_id"));
+                listDepartamento.add(dato.getString("dep_nombre"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, listDepartamento);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spDepartamento.setAdapter(spinnerAdapter);
+    }
+
+    private class GetDepartamento extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            if (null != idDepartamento) {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_DEPARTAMENTO + idDepartamento, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        poblarSpinnerDepartamento(datos);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANYERROR", error.toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
+    }
+
+
+        //Spinner SeletActivo
+
+    public void poblarSpinnerSelectActivo(JSONObject datos) {
+//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        try {
+            hashSelectActivo = new HashMap<>();
+            listSelectActivo = new ArrayList<>();
+            listSelectActivo.add("Seleccione");
+            for (int i = 0; i < datos.getJSONArray(DATOS).length(); i++) {
+                JSONObject dato = (JSONObject) datos.getJSONArray(DATOS).get(i);
+                hashSelectActivo.put(dato.getString("act_nombre"), dato.getString("act_id"));
+                listSelectActivo.add(dato.getString("act_nombre"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, listSelectActivo);
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSelectActivo.setAdapter(spinnerAdapter);
+    }
+
+
+    private class GetSelectActivo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            if (null != idTipoActivo2) {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_SELECT_ACTIVO + idTipoActivo2, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        poblarSpinnerSelectActivo(datos);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANYERROR", error.toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //populateSpinner();
+        }
+    }
 
         //Spinner Tipo Activo
         public void poblarSpinnerTipoActivo(JSONObject datos) {
@@ -134,6 +362,7 @@ public Enviar envia;
                 @Override
                 public void onResponse(JSONObject datos) {
                     poblarSpinnerTipoActivo(datos);
+
                 }
             }, new Response.ErrorListener() {
                 @Override
