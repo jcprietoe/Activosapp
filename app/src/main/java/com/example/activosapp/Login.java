@@ -3,11 +3,16 @@ package com.example.activosapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +28,7 @@ import org.json.JSONObject;
 public class Login extends AppCompatActivity {
 
     EditText edtusuario, edtpassword;
+    TextView  txtTerminosCondiciones;
     Button btnLogin;
     RadioButton rbtnsesion;
     public static String usuario;
@@ -57,6 +63,19 @@ public class Login extends AppCompatActivity {
         edtpassword=findViewById(R.id.txtpassword);
         btnLogin=findViewById(R.id.btnentrar);
         rbtnsesion=findViewById(R.id.rbtnsesion);
+        txtTerminosCondiciones = findViewById(R.id.txtTerminosCondiciones);
+
+        SpannableString content = new SpannableString(txtTerminosCondiciones.getText());
+        content.setSpan(new UnderlineSpan(), 0, txtTerminosCondiciones.length(), 0);
+        txtTerminosCondiciones.setText(content);
+        txtTerminosCondiciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("https://www.gerenciandomantenimiento.com"));
+                startActivity(i);
+            }
+        });
 
         is_activado_rbt =rbtnsesion.isChecked();// desactivado
         rbtnsesion.setOnClickListener(new View.OnClickListener() {
