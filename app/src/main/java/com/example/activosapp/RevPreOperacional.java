@@ -64,11 +64,13 @@ public Enviar envia;
         void comunicar(String mensaje);
     }
     String SeleccionarActivo;
+    String idSeleccionarActivo;
     String tipoActivo2;
     String idTipoActivo2;
     String idDepartamento;
     String departamento1;
     String SeleccionarCiudad;
+    String idSeleccionarCiudad;
     View vista;
 
     Spinner spTipoActivo2,spSelectActivo, spDepartamento, spCiudad;
@@ -122,7 +124,7 @@ public Enviar envia;
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SeleccionarActivo = parent.getSelectedItem().toString();
 //                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-//                SeleccionarActivo = hashSelectActivo.get(SeleccionarActivo);
+                idSeleccionarActivo = hashSelectActivo.get(SeleccionarActivo);
                 new GetSelectActivo().execute();
 
             }
@@ -138,7 +140,7 @@ public Enviar envia;
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 departamento1 = parent.getSelectedItem().toString();
 //                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-//                idDepartamento = hashDepartamento.get(idDepartamento);
+               idDepartamento = hashDepartamento.get(departamento1);
                 new GetCiudad().execute();
 
             }
@@ -154,7 +156,7 @@ public Enviar envia;
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SeleccionarCiudad = parent.getSelectedItem().toString();
 //                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-//                SeleccionarCiudad = hashCiudad.get(SeleccionarCiudad);
+                idSeleccionarCiudad = hashCiudad.get(SeleccionarCiudad);
                 new GetSelectActivo().execute();
 
             }
@@ -227,7 +229,7 @@ public Enviar envia;
         //Spinner Departamento
 
     public void poblarSpinnerDepartamento(JSONObject datos) {
-//        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
         try {
             hashDepartamento = new HashMap<>();
             listDepartamento = new ArrayList<>();
