@@ -253,8 +253,8 @@ public Enviar envia;
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            if (null != idDepartamento) {
-                JsonObjectRequest solicitud = new JsonObjectRequest(URL_DEPARTAMENTO + idDepartamento, null, new Response.Listener<JSONObject>() {
+
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_DEPARTAMENTO , null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
                         poblarSpinnerDepartamento(datos);
@@ -267,7 +267,7 @@ public Enviar envia;
                 });
 
                 VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
-            }
+
             return null;
         }
 
