@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,38 +7,19 @@
     android:minHeight="?listPreferredItemHeight"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-
-    android:paddingRight="@dimen/activity_horizontal_margin"
-   >
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/tv_des_revision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="16dp"
-        android:inputType="textMultiLine"
+        android:layout_centerVertical="false"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="New Text"
-        android:layout_weight="1"
         android:textAppearance="?textAppearanceListItem"
         android:textColor="#000000"
-        android:textSize="11sp"
-        tools:text="Nombre Activo" />
-
-    <CheckBox
-        android:id="@+id/cbrevisionSi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-
-        android:text="Si"
-        />
-
-    <CheckBox
-        android:id="@+id/cbrevisionNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="No" />
-</LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Item revision" />
+</androidx.constraintlayout.widget.ConstraintLayout>

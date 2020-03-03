@@ -36,22 +36,15 @@ public class RevisionCursorAdapter extends CursorAdapter {
 //"_id","nombre", "areid", "est","ctrl"
         // Referencias UI.
         TextView revisionText =view.findViewById(R.id.tv_des_revision);
-        CheckBox cbSi=view.findViewById(R.id.cbrevisionSi);
-        CheckBox cbNo=view.findViewById(R.id.cbrevisionNo);
+//        CheckBox cbSi=view.findViewById(R.id.cbrevisionSi);
+//        CheckBox cbNo=view.findViewById(R.id.cbrevisionNo);
 
         // Get valores.
-        final String desRevision = cursor.getString(cursor.getColumnIndex("des_revision"));
+        String desRevision = cursor.getString(cursor.getColumnIndex("des_revision"));
 
 
         // Setup.
         revisionText.setText(desRevision);
-        cbSi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.println(Log.WARN, "PruebaAdapter",desRevision );
-            }
-        });
-
 
     }
 

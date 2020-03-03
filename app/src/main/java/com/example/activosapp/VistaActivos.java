@@ -94,9 +94,10 @@ public class VistaActivos extends Fragment {
         listActivo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Cursor currentItem = (Cursor) activosCursorAdapter.getItem(i);
-//                String currentLawyerId = currentItem.getString(
-//                        currentItem.getColumnIndex(LawyerEntry.ID));
+                Cursor currentItem = (Cursor) activosCursorAdapter.getItem(i);
+                String currentLawyerId = currentItem.getString(
+                        currentItem.getColumnIndex("nombre"));
+                Toast.makeText(getContext(),currentLawyerId,Toast.LENGTH_SHORT).show();
 //
 //                showDetailScreen(currentLawyerId);
             }

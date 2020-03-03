@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,6 +42,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
 
     private ListView listRevision;
+    private Button boton;
     private RevisionCursorAdapter revisionCursorAdapter;
     //private FloatingActionButton mAddButton;
 
@@ -62,6 +65,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
+        boton = root.findViewById(R.id.button2);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
 
@@ -72,11 +76,19 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         listRevision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
-//                String currentLawyerId = currentItem.getString(
-//                        currentItem.getColumnIndex(LawyerEntry.ID));
-//
+
+                Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
+                String currentLawyerId = currentItem.getString(
+                        currentItem.getColumnIndex("des_revision"));
+                Toast.makeText(getContext(),currentLawyerId,Toast.LENGTH_SHORT).show();
+
 //                showDetailScreen(currentLawyerId);
+            }
+        });
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"funciona",Toast.LENGTH_SHORT).show();
             }
         });
 
