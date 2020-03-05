@@ -85,6 +85,11 @@ public Enviar envia;
          vista=inflater.inflate(R.layout.fragment_rev_pre_operacional, container, false);
          boton = vista.findViewById(R.id.button2);
 
+
+
+
+
+
          //Solicitudes de web service
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
@@ -101,15 +106,25 @@ public Enviar envia;
          boton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 //pasar dato
+
+                 FragmentRevision fragmentRevision = new FragmentRevision();
+                 Bundle args = new Bundle();
+                 args.putString("enviaTipoActivo", idTipoActivo2);
+                 fragmentRevision.setArguments(args);
+
+
                  findNavController(v).navigate(R.id.action_nav_RevPreOperacional_to_fragmentRevision);
+
 
              }
          });
+
+
         spTipoActivo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tipoActivo2 = parent.getSelectedItem().toString();
-//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                 idTipoActivo2 = hashTipoActivo2.get(tipoActivo2);
                 new GetSelectActivo().execute();
 
@@ -125,9 +140,8 @@ public Enviar envia;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SeleccionarActivo = parent.getSelectedItem().toString();
-//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                 idSeleccionarActivo = hashSelectActivo.get(SeleccionarActivo);
-                new GetSelectActivo().execute();
+
 
             }
 
@@ -141,7 +155,6 @@ public Enviar envia;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 departamento1 = parent.getSelectedItem().toString();
-//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                idDepartamento = hashDepartamento.get(departamento1);
                 new GetCiudad().execute();
 
@@ -157,9 +170,8 @@ public Enviar envia;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SeleccionarCiudad = parent.getSelectedItem().toString();
-//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                 idSeleccionarCiudad = hashCiudad.get(SeleccionarCiudad);
-                new GetSelectActivo().execute();
+
 
             }
 
@@ -231,7 +243,7 @@ public Enviar envia;
         //Spinner Departamento
 
     public void poblarSpinnerDepartamento(JSONObject datos) {
-        Log.println(Log.WARN, "JOANYDDDDDDDDDDDDD", datos.toString());
+
         try {
             hashDepartamento = new HashMap<>();
             listDepartamento = new ArrayList<>();

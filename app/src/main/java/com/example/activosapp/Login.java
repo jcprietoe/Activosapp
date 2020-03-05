@@ -138,9 +138,7 @@ public class Login extends AppCompatActivity {
                     guardarPreferencias();
 
                     Intent intent = new Intent(getApplicationContext(),MenuServicio.class);
-                    /*Bundle pasardato=new Bundle();
-                    pasardato.putString("nombre_usuario", String.valueOf(edtusuario));
-                    intent.putExtras(pasardato);*/
+
                     startActivity(intent);
                     finish();
 

@@ -39,6 +39,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
     private MatrixCursor cursor;
 
     private static  final String URL_REVISION = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php";
+    private static  final String URL_VER_REVISION_ID = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php?item_tipid=";
 
 
     private ListView listRevision;
@@ -61,6 +62,11 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         View root = inflater.inflate(R.layout.fragment_revision, container, false);
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
+
+        //Recibo
+
+
+
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
@@ -165,7 +171,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            JsonObjectRequest solicitud = new JsonObjectRequest(URL_REVISION, null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + "2", null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject datos) {
                     poblarCursorAdapter(datos);
