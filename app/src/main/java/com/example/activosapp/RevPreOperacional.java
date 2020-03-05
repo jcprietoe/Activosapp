@@ -2,11 +2,14 @@ package com.example.activosapp;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,10 +89,6 @@ public Enviar envia;
          boton = vista.findViewById(R.id.button2);
 
 
-
-
-
-
          //Solicitudes de web service
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
@@ -106,16 +105,10 @@ public Enviar envia;
          boton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 //pasar dato
 
-                 FragmentRevision fragmentRevision = new FragmentRevision();
-                 Bundle args = new Bundle();
-                 args.putString("enviaTipoActivo", idTipoActivo2);
-                 fragmentRevision.setArguments(args);
-
-
+                 SharedPreferences preferences=getActivity().getSharedPreferences("id_tipo", Context.MODE_PRIVATE);
+                 preferences.edit().putString("tipo_Activo",idTipoActivo2).apply();
                  findNavController(v).navigate(R.id.action_nav_RevPreOperacional_to_fragmentRevision);
-
 
              }
          });

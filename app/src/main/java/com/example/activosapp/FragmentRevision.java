@@ -1,7 +1,9 @@
 package com.example.activosapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
@@ -44,6 +46,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
     private ListView listRevision;
     private Button boton;
+    private String tipoActivo;
     private RevisionCursorAdapter revisionCursorAdapter;
     //private FloatingActionButton mAddButton;
 
@@ -64,9 +67,8 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         mRequest = volley.getRequestQueue();
 
         //Recibo
-
-
-
+        SharedPreferences preferencias = getActivity().getSharedPreferences("id_tipo",Context.MODE_PRIVATE);
+        tipoActivo = preferencias.getString("tipo_Activo","");
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
@@ -171,19 +173,22 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + "2", null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject datos) {
-                    poblarCursorAdapter(datos);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.println(Log.WARN, "JOANYDERROR", error.toString());
-                }
-            });
+            if(tipoActivo!=null&&tipoActivo.trim()!="") {
 
-            VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject datos) {
+                        poblarCursorAdapter(datos);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.println(Log.WARN, "JOANYDERROR", error.toString());
+                    }
+                });
+
+                VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
+            }
             return null;
         }
 
