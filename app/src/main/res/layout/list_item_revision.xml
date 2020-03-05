@@ -14,12 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="false"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="New Text"
+        android:layout_marginTop="20dp"
+        android:gravity="center|left"
+        android:inputType="textImeMultiLine"
+        android:lineSpacingMultiplier="@android:integer/config_longAnimTime"
+        android:text=""
         android:textAppearance="?textAppearanceListItem"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Item revision" />
+
+    <CheckBox
+        android:id="@+id/cbValidaItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

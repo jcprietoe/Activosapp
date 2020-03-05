@@ -19,5 +19,11 @@
         android:layout_height="wrap_content"
         android:text="Enviar Revision" />
 
+    <Button
+        android:id="@+id/btnAgregarItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar nuevo item de revision" />
+
 
 </LinearLayout>

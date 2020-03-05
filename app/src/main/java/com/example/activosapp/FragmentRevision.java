@@ -45,7 +45,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
 
     private ListView listRevision;
-    private Button boton;
+    private Button boton,btnAddItem;
     private String tipoActivo;
     private RevisionCursorAdapter revisionCursorAdapter;
     //private FloatingActionButton mAddButton;
@@ -74,6 +74,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         listRevision = root.findViewById(R.id.revision_list);
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         boton = root.findViewById(R.id.button2);
+        btnAddItem  = root.findViewById(R.id.btnAgregarItem);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
 
@@ -99,6 +100,15 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
                 Toast.makeText(getContext(),"funciona",Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
 //        (new Handler()).postDelayed(new Runnable() {
 //
