@@ -27,11 +27,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.activosapp.ui.crear_activo.CustomDialogFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -73,10 +75,10 @@ public Enviar envia;
     String idTipoActivo2;
     String idDepartamento;
     String departamento1;
-    String SeleccionarCiudad;
+    String seleccionarCiudad;
     String idSeleccionarCiudad;
     View vista;
-
+    CustomDialogFragment customDialogFragment;
     Spinner spTipoActivo2,spSelectActivo, spDepartamento, spCiudad;
 
     Button boton;
@@ -106,8 +108,56 @@ public Enviar envia;
              @Override
              public void onClick(View v) {
 
+                 HashMap<String, String> hashDatosRev = new HashMap<>();
+
+//                 SharedPreferences preferences1 = getContext().getSharedPreferences(Login.PREFERENCES_USUARIO, Context.MODE_PRIVATE);
+//                 String idEmpresa = preferences1.getString(Login.KEY_PREFERENCES_IDEMPRESA, "");
+//                 hashDatosRev.put("act_empresaid", idEmpresa);
+//                 String usuario = preferences1.getString(Login.KEY_PREFERENCES_USUARIO, "");
+//                 hashDatosRev.put("act_usureg", usuario);
+
+                 Calendar fecha = Calendar.getInstance();
+                 String fechaString = fecha.get(Calendar.YEAR) + "-" + fecha.get(Calendar.MONTH)
+                         + "-" + fecha.get(Calendar.DATE) + " " + fecha.get(Calendar.HOUR)
+                         +":"+fecha.get(Calendar.MINUTE)+":"+fecha.get(Calendar.SECOND);
+                 hashDatosRev.put("act_fecreg", fechaString);
+                 customDialogFragment = new CustomDialogFragment();
+
+                 if (!tipoActivo2.equals("Seleccione")) {
+                   //  hashDatosRev.put("act_tipoid", idTipoActivo2);
+                 } else {
+                     customDialogFragment.setMessage("Seleccione el tipo de activo");
+                     customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                     return;
+                 }
+                 if (!SeleccionarActivo.equals("Seleccione")) {
+//                     hashDatosRev.put("act_tipoid", idTipoActivo);
+                 } else {
+                     customDialogFragment.setMessage("Seleccione un activo");
+                     customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                     return;
+                 }
+                 if (!departamento1.equals("Seleccione")) {
+//                     hashDatosRev.put("act_tipoid", idTipoActivo);
+                 } else {
+                     customDialogFragment.setMessage("Seleccione Departamento donde se realiza la Revicion");
+                     customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                     return;
+                 }
+                 if (!seleccionarCiudad.equals("Seleccione")) {
+//                     hashDatosRev.put("act_tipoid", idTipoActivo);
+                 } else {
+                     customDialogFragment.setMessage("Seleccione Ciudad donde se realiza la Revicion");
+                     customDialogFragment.show(getActivity().getFragmentManager(), "customPicker");
+                     return;
+                 }
+
                  SharedPreferences preferences=getActivity().getSharedPreferences("id_tipo", Context.MODE_PRIVATE);
                  preferences.edit().putString("tipo_Activo",idTipoActivo2).apply();
+
+//                 SharedPreferences preferences1=getActivity().getSharedPreferences("id_activo", Context.MODE_PRIVATE);
+//                 preferences1.edit().putString("select_Activo",idSeleccionarActivo).apply();
+
                  findNavController(v).navigate(R.id.action_nav_RevPreOperacional_to_fragmentRevision);
 
              }
@@ -162,8 +212,8 @@ public Enviar envia;
         spCiudad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SeleccionarCiudad = parent.getSelectedItem().toString();
-                idSeleccionarCiudad = hashCiudad.get(SeleccionarCiudad);
+                seleccionarCiudad = parent.getSelectedItem().toString();
+                idSeleccionarCiudad = hashCiudad.get(seleccionarCiudad);
 
 
             }

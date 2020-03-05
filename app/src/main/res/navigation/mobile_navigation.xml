@@ -76,6 +76,10 @@
         <action
             android:id="@+id/action_nav_RevPreOperacional_to_fragmentRevision"
             app:destination="@id/fragmentRevision" />
+        <argument
+            android:name="EnviaTipoActivo"
+            app:argType="string"
+            android:defaultValue="idTipoActivo2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRevision"
