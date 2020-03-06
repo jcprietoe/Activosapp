@@ -110,18 +110,9 @@ public Enviar envia;
 
                  HashMap<String, String> hashDatosRev = new HashMap<>();
 
-//                 SharedPreferences preferences1 = getContext().getSharedPreferences(Login.PREFERENCES_USUARIO, Context.MODE_PRIVATE);
-//                 String idEmpresa = preferences1.getString(Login.KEY_PREFERENCES_IDEMPRESA, "");
-//                 hashDatosRev.put("act_empresaid", idEmpresa);
-//                 String usuario = preferences1.getString(Login.KEY_PREFERENCES_USUARIO, "");
-//                 hashDatosRev.put("act_usureg", usuario);
+//
 
-                 Calendar fecha = Calendar.getInstance();
-                 String fechaString = fecha.get(Calendar.YEAR) + "-" + fecha.get(Calendar.MONTH)
-                         + "-" + fecha.get(Calendar.DATE) + " " + fecha.get(Calendar.HOUR)
-                         +":"+fecha.get(Calendar.MINUTE)+":"+fecha.get(Calendar.SECOND);
-                 hashDatosRev.put("act_fecreg", fechaString);
-                 customDialogFragment = new CustomDialogFragment();
+                  customDialogFragment = new CustomDialogFragment();
 
                  if (!tipoActivo2.equals("Seleccione")) {
                    //  hashDatosRev.put("act_tipoid", idTipoActivo2);
@@ -155,8 +146,8 @@ public Enviar envia;
                  SharedPreferences preferences=getActivity().getSharedPreferences("id_tipo", Context.MODE_PRIVATE);
                  preferences.edit().putString("tipo_Activo",idTipoActivo2).apply();
 
-//                 SharedPreferences preferences1=getActivity().getSharedPreferences("id_activo", Context.MODE_PRIVATE);
-//                 preferences1.edit().putString("select_Activo",idSeleccionarActivo).apply();
+                 SharedPreferences preferences1=getActivity().getSharedPreferences("id_activo", Context.MODE_PRIVATE);
+                 preferences1.edit().putString("select_Activo",idSeleccionarActivo).apply();
 
                  findNavController(v).navigate(R.id.action_nav_RevPreOperacional_to_fragmentRevision);
 

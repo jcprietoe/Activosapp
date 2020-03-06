@@ -42,11 +42,12 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
     private static  final String URL_REVISION = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php";
     private static  final String URL_VER_REVISION_ID = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php?item_tipid=";
-
+    private static  final String URL_VER_REVISION_PERSO = "httpS://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevisionPerso.php?itemperso_actid=";
 
     private ListView listRevision;
     private Button boton,btnAddItem;
     private String tipoActivo;
+    private String itemPerso;
     private RevisionCursorAdapter revisionCursorAdapter;
     //private FloatingActionButton mAddButton;
 
@@ -69,6 +70,9 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         //Recibo
         SharedPreferences preferencias = getActivity().getSharedPreferences("id_tipo",Context.MODE_PRIVATE);
         tipoActivo = preferencias.getString("tipo_Activo","");
+
+        SharedPreferences preferencesperso = getActivity().getSharedPreferences("id_activo",Context.MODE_PRIVATE);
+        itemPerso = preferencesperso.getString("select_Activo","");
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
@@ -104,6 +108,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(),itemPerso,Toast.LENGTH_LONG).show();
 
             }
         });
@@ -183,9 +188,9 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            if(tipoActivo!=null&&tipoActivo.trim()!="") {
+            if(tipoActivo!=null&&tipoActivo.trim()!="" &&itemPerso!=null&&itemPerso.trim()!="") {
 
-                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo, null, new Response.Listener<JSONObject>() {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo ,null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
                         poblarCursorAdapter(datos);
@@ -200,6 +205,8 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
                 VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
             }
             return null;
+
+
         }
 
         @Override
