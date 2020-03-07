@@ -37,19 +37,20 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentRevision extends Fragment { public static final int REQUEST_UPDATE_DELETE_LAWYER = 2;
+public class FragmentRevision extends Fragment {
+    public static final int REQUEST_UPDATE_DELETE_LAWYER = 2;
     private VolleyRP volley;
     private RequestQueue mRequest;
     private MatrixCursor cursor;
 
-    private static  final String URL_REVISION = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php";
-    private static  final String URL_VER_REVISION_ID = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevision.php?item_tipid=";
-    private static  final String URL_VER_REVISION_PERSO = "httpS://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItemsRevisionPerso.php?itemperso_actid=";
+
+    private static final String URL_VER_REVISION_ID = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItems.php?item_tipid=";
+    private static final String URL_VER_REVISION_ID2 = "&itemperso_actid=";
 
 
-    private ArrayList <String>desItemPerso;
+    private ArrayList<String> desItemPerso;
     private ListView listRevision;
-    private Button boton,btnAddItem;
+    private Button boton, btnAddItem;
     private String tipoActivo;
     private String itemPerso;
     private RevisionCursorAdapter revisionCursorAdapter;
@@ -72,17 +73,17 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         mRequest = volley.getRequestQueue();
 
         //Recibo
-        SharedPreferences preferencias = getActivity().getSharedPreferences("id_tipo",Context.MODE_PRIVATE);
-        tipoActivo = preferencias.getString("tipo_Activo","");
+        SharedPreferences preferencias = getActivity().getSharedPreferences("id_tipo", Context.MODE_PRIVATE);
+        tipoActivo = preferencias.getString("tipo_Activo", "");
 
-        SharedPreferences preferencesperso = getActivity().getSharedPreferences("id_activo",Context.MODE_PRIVATE);
-        itemPerso = preferencesperso.getString("select_Activo","");
+        SharedPreferences preferencesperso = getActivity().getSharedPreferences("id_activo", Context.MODE_PRIVATE);
+        itemPerso = preferencesperso.getString("select_Activo", "");
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
         revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         boton = root.findViewById(R.id.button2);
-        btnAddItem  = root.findViewById(R.id.btnAgregarItem);
+        btnAddItem = root.findViewById(R.id.btnAgregarItem);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
 
@@ -97,7 +98,7 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
                 Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
                 String currentLawyerId = currentItem.getString(
                         currentItem.getColumnIndex("des_revision"));
-                Toast.makeText(getContext(),currentLawyerId,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), currentLawyerId, Toast.LENGTH_SHORT).show();
 
 //                showDetailScreen(currentLawyerId);
             }
@@ -105,20 +106,19 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"funciona",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "funciona", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),itemPerso,Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), itemPerso, Toast.LENGTH_LONG).show();
 //                ItemsPersoFragmentDialog pruebaItem = new ItemsPersoFragmentDialog();
 //                pruebaItem.showDialog(getActivity().getFragmentManager(),"View view");
 
             }
         });
-
 
 
 //        (new Handler()).postDelayed(new Runnable() {
@@ -172,20 +172,15 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
 //        startActivityForResult(intent, REQUEST_UPDATE_DELETE_LAWYER);
 //    }
 
-    private void poblarCursorAdapter(JSONObject datos){
+    private void poblarCursorAdapter(JSONObject datos) {
         try {
-            cursor = new MatrixCursor(new String[]{"_id","des_revision"});
+            cursor = new MatrixCursor(new String[]{"_id", "des_revision"});
             for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
                 JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
-                cursor.addRow(new Object[]{0,dato.getString("descrip_rev")
-                        });
-            }
-           if(desItemPerso!=null){
-               for (int i=0; i< desItemPerso.size(); i++){
-                   cursor.addRow(new Object[]{0,desItemPerso.get(i)});
-               }
-           }
+                cursor.addRow(new Object[]{0, dato.getString("campo")
 
+                });
+            }
             Log.println(Log.WARN, "CURSOR:Cantidad", String.valueOf(cursor.getCount()));
             if (cursor != null && cursor.getCount() > 0) {
                 revisionCursorAdapter.swapCursor(cursor);
@@ -197,45 +192,17 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
         }
     }
 
-    public void poblarItemPersonalizado(JSONObject datos){
-        desItemPerso = new ArrayList<>();
-        try {
-            for (int i=0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++){
-                JSONObject dato = (JSONObject)datos.getJSONArray(CrearActivo.DATOS).get(i);
-                desItemPerso.add(dato.getString("descrip_itemperso"));
-            }
-            if (desItemPerso.size()>0){
-                Toast.makeText(getContext(),desItemPerso.toString(),Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException j ){
-
-        }
-    }
     private class RevisionLoadTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            if(tipoActivo!=null&&tipoActivo.trim()!="" && itemPerso!=null&&itemPerso.trim()!="") {
+            if (tipoActivo != null && tipoActivo.trim() != "" && itemPerso != null && itemPerso.trim() != "") {
 
-                JsonObjectRequest solicitud1 = new JsonObjectRequest(URL_VER_REVISION_PERSO + itemPerso ,null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject datos) {
-                        //poblarCursorAdapter(datos);
-                        poblarItemPersonalizado(datos);
-
-                        Log.println(Log.WARN, "JOANYDERROR",datos.toString() );
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.println(Log.WARN, "JOANYDERROR", error.toString());
-                    }
-                });
-
-                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo ,null, new Response.Listener<JSONObject>() {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo + URL_VER_REVISION_ID2 + itemPerso , null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
                         poblarCursorAdapter(datos);
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -244,13 +211,10 @@ public class FragmentRevision extends Fragment { public static final int REQUEST
                     }
                 });
 
-                VolleyRP.addToQueue(solicitud1, mRequest, getContext(), volley);
                 VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
 
             }
             return null;
-
-
         }
 
         @Override
