@@ -6,4 +6,6 @@
 
     <color name="boton_presionado">#263238</color>
     <color name="boton_no_presionado">#B0BEC5</color>
+    <drawable name="highlight_pressed">#98dff3</drawable>
+    <drawable name="highlight_focused">#b9e6f3</drawable>
 </resources>

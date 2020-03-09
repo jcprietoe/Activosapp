@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,10 +51,10 @@ public class FragmentRevision extends Fragment {
 
     private ArrayList<String> desItemPerso;
     private ListView listRevision;
+    List<Row> rows;
     private Button boton, btnAddItem;
     private String tipoActivo;
     private String itemPerso;
-    private RevisionCursorAdapter revisionCursorAdapter;
     //private FloatingActionButton mAddButton;
 
 
@@ -81,26 +82,26 @@ public class FragmentRevision extends Fragment {
 
         // Referencias UI
         listRevision = root.findViewById(R.id.revision_list);
-        revisionCursorAdapter = new RevisionCursorAdapter(getActivity(), null);
         boton = root.findViewById(R.id.button2);
         btnAddItem = root.findViewById(R.id.btnAgregarItem);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-
-
+        rows = new ArrayList<Row>(50);
         // Setup
-        listRevision.setAdapter(revisionCursorAdapter);
+
+
+
 
         // Eventos
         listRevision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
-                String currentLawyerId = currentItem.getString(
-                        currentItem.getColumnIndex("des_revision"));
-                Toast.makeText(getContext(), currentLawyerId, Toast.LENGTH_SHORT).show();
+//                Cursor currentItem = (Cursor) revisionCursorAdapter.getItem(i);
+//                String currentItemId = currentItem.getString(
+//                        currentItem.getColumnIndex("des_revision"));
+//                Toast.makeText(getContext(), currentItemId, Toast.LENGTH_SHORT).show();
 
-//                showDetailScreen(currentLawyerId);
+//                showDetailScreen(currentItemId);
             }
         });
         boton.setOnClickListener(new View.OnClickListener() {
@@ -174,18 +175,14 @@ public class FragmentRevision extends Fragment {
 
     private void poblarCursorAdapter(JSONObject datos) {
         try {
-            cursor = new MatrixCursor(new String[]{"_id", "des_revision"});
             for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
+                Row row = new Row();
                 JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
-                cursor.addRow(new Object[]{0, dato.getString("campo")
-
-                });
+                row.setTitle(dato.getString("campo"));
+                rows.add(row);
             }
-            Log.println(Log.WARN, "CURSOR:Cantidad", String.valueOf(cursor.getCount()));
-            if (cursor != null && cursor.getCount() > 0) {
-                revisionCursorAdapter.swapCursor(cursor);
-            } else {
-                // Mostrar empty state
+            if(rows!=null&&rows.size()>0){
+                listRevision.setAdapter(new CustomArrayAdapter(getContext(), rows));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -197,7 +194,6 @@ public class FragmentRevision extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             if (tipoActivo != null && tipoActivo.trim() != "" && itemPerso != null && itemPerso.trim() != "") {
-
                 JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo + URL_VER_REVISION_ID2 + itemPerso , null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
