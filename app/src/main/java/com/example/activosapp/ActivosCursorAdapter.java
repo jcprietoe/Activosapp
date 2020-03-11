@@ -4,9 +4,12 @@ package com.example.activosapp;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 //import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 //import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,8 @@ public class ActivosCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
 //"_id","nombre", "areid", "est","ctrl"
         // Referencias UI.
+        Drawable tema = view.getBackground();
+        Log.println(Log.WARN,"TEMA",tema.toString());
         TextView nameText = (TextView) view.findViewById(R.id.tv_nombre_activo);
         TextView areaText = (TextView) view.findViewById(R.id.tv_area_activo);
         TextView estadoText = (TextView) view.findViewById(R.id.tv_estado_activo);
@@ -53,9 +58,12 @@ public class ActivosCursorAdapter extends CursorAdapter {
         switch (estado){
             case "A":
                 estado="Estado: Activo";
+
+                view.setBackgroundResource(R.drawable.stylo_caja_text);
                 break;
             case "I":
                 estado="Estado: Inactivo";
+                view.setBackgroundResource(R.drawable.stylo_item_inactivo);
                 break;
         }
         String variableControl = cursor.getString(cursor.getColumnIndex("ctrl"));
