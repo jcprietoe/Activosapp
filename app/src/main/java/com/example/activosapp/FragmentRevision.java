@@ -4,14 +4,12 @@ package com.example.activosapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -27,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.activosapp.ui.crear_activo.CrearActivo;
-import com.example.activosapp.ui.crear_activo.CustomDialogFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +48,7 @@ public class FragmentRevision extends Fragment {
 
     private ArrayList<String> desItemPerso;
     private ListView listRevision;
-    List<Row> rows;
+    List<ItemRevision> itemRevisions;
     private Button boton, btnAddItem;
     private String tipoActivo;
     private String itemPerso;
@@ -86,7 +82,7 @@ public class FragmentRevision extends Fragment {
         boton = root.findViewById(R.id.button2);
         btnAddItem = root.findViewById(R.id.btnAgregarItem);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        rows = new ArrayList<Row>(50);
+        itemRevisions = new ArrayList<ItemRevision>(50);
         // Setup
 
 
@@ -176,13 +172,13 @@ public class FragmentRevision extends Fragment {
     private void poblarCursorAdapter(JSONObject datos) {
         try {
             for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
-                Row row = new Row();
+                ItemRevision itemRevision = new ItemRevision();
                 JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
-                row.setTitle(dato.getString("campo"));
-                rows.add(row);
+                itemRevision.setTitle(dato.getString("campo"));
+                itemRevisions.add(itemRevision);
             }
-            if(rows!=null&&rows.size()>0){
-                listRevision.setAdapter(new CustomArrayAdapter(getContext(), rows));
+            if(itemRevisions !=null&& itemRevisions.size()>0){
+                listRevision.setAdapter(new CustomArrayAdapter(getContext(), itemRevisions));
             }
         } catch (JSONException e) {
             e.printStackTrace();

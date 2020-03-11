@@ -16,12 +16,12 @@ import android.widget.Toast;
  * @author danielme.com
  *
  */
-public class CustomArrayAdapter extends ArrayAdapter<Row> implements
+public class CustomArrayAdapter extends ArrayAdapter<ItemRevision> implements
         View.OnClickListener {
 
     private LayoutInflater layoutInflater;
 
-    public CustomArrayAdapter(Context context, List<Row> objects) {
+    public CustomArrayAdapter(Context context, List<ItemRevision> objects) {
         super(context, 0, objects);
         layoutInflater = LayoutInflater.from(context);
     }
@@ -44,11 +44,11 @@ public class CustomArrayAdapter extends ArrayAdapter<Row> implements
             holder = (Holder) convertView.getTag();
         }
 
-        final Row row = getItem(position);
-        holder.getTextViewTitle().setText(row.getTitle());
+        final ItemRevision itemRevision = getItem(position);
+        holder.getTextViewTitle().setText(itemRevision.getTitle());
 //        holder.getTextViewSubtitle().setText(row.getSubtitle());
         holder.getCheckBox().setTag(position);
-        holder.getCheckBox().setChecked(row.isChecked());
+        holder.getCheckBox().setChecked(itemRevision.isChecked());
         holder.getCheckBox().setOnClickListener(this);
 
         changeBackground(getContext(), holder.getCheckBox());

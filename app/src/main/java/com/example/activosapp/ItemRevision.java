@@ -1,10 +1,11 @@
 package com.example.activosapp;
 
-public class Row
+public class ItemRevision
 {
     private String title;
 
     private String subtitle;
+
 
     private boolean checked;
 
