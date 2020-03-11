@@ -2,19 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="30dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="5dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Nuevo Item"
+        app:titleTextColor="#EAE1E1"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descripcion del item de revicion a ingresar:"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textSize="15sp"
+
+        android:layout_marginTop="8dp"/>
 
 
     <EditText
-        android:id="@+id/etxtItemPerso"
+        android:id="@+id/edtItemPerso"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,17 +45,20 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnOk"
+            android:id="@+id/btnGuardarItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
-            android:gravity="start|center"
+            android:background="@drawable/stylo_boton"
+            android:textColor="@drawable/stylo_text_boton"
             android:text="Guardar" />
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnCancelarItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/stylo_boton"
+            android:textColor="@drawable/stylo_text_boton"
             android:text="Cancelar" />
     </LinearLayout>
 

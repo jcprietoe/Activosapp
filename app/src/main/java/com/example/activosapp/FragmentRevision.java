@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.activosapp.ui.crear_activo.CrearActivo;
+import com.example.activosapp.ui.crear_activo.CustomDialogFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,9 +115,8 @@ public class FragmentRevision extends Fragment {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), itemPerso, Toast.LENGTH_LONG).show();
-//                ItemsPersoFragmentDialog pruebaItem = new ItemsPersoFragmentDialog();
-//                pruebaItem.showDialog(getActivity().getFragmentManager(),"View view");
+                DialogFragmentItems prueba = new DialogFragmentItems();
+                prueba.show(getActivity().getFragmentManager(), "customPicker");
 
             }
         });
