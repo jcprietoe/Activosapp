@@ -1,24 +1,23 @@
 package com.example.activosapp;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,7 +39,6 @@ public class FragmentRevision extends Fragment {
     public static final int REQUEST_UPDATE_DELETE_LAWYER = 2;
     private VolleyRP volley;
     private RequestQueue mRequest;
-    private MatrixCursor cursor;
 
 
     private static final String URL_VER_REVISION_ID = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerItems.php?item_tipid=";
@@ -53,6 +51,7 @@ public class FragmentRevision extends Fragment {
     private Button boton, btnAddItem;
     private String tipoActivo;
     private String itemPerso;
+    DialogFragmentItems prueba;
     //private FloatingActionButton mAddButton;
 
 
@@ -65,12 +64,17 @@ public class FragmentRevision extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_revision, container, false);
         volley = VolleyRP.getInstance(getContext());
         mRequest = volley.getRequestQueue();
-
         //Recibo
         SharedPreferences preferencias = getActivity().getSharedPreferences("id_tipo", Context.MODE_PRIVATE);
         tipoActivo = preferencias.getString("tipo_Activo", "");
@@ -83,12 +87,21 @@ public class FragmentRevision extends Fragment {
         boton = root.findViewById(R.id.button2);
         btnAddItem = root.findViewById(R.id.btnAgregarItem);
         //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        itemRevisions = new ArrayList<ItemRevision>(50);
+
+        listRevision.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent evento) {
+                if (prueba != null && prueba.getIsLoad()) {
+                    itemRevisions.clear();
+                    loadRevision();
+                    prueba.setIsLoad(false);
+                }
+                return false;
+            }
+        });
         // Setup
+        itemRevisions = new ArrayList<ItemRevision>(50);
 
-
-
-
+        listRevision.setAdapter(new CustomArrayAdapter(getContext(), itemRevisions));
         // Eventos
         listRevision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,16 +125,10 @@ public class FragmentRevision extends Fragment {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragmentItems prueba = new DialogFragmentItems();
+                prueba = new DialogFragmentItems();
                 prueba.show(getActivity().getFragmentManager(), "customPicker");
-                loadRevision();
-
             }
         });
-
-
-
-
 //        (new Handler()).postDelayed(new Runnable() {
 //
 //            public void run() {
@@ -134,17 +141,8 @@ public class FragmentRevision extends Fragment {
 //                showAddScreen();
 //            }
 //        });
-
-
-//        getActivity().deleteDatabase(LawyersDbHelper.DATABASE_NAME);
-
-        // Instancia de helper
-//        mLawyersDbHelper = new LawyersDbHelper(getActivity());
-
         // Carga de datos
         loadRevision();
-
-
         return root;
     }
 
@@ -176,20 +174,22 @@ public class FragmentRevision extends Fragment {
 
     private void poblarCursorAdapter(JSONObject datos) {
         try {
+            listRevision.setAdapter(null);
             for (int i = 0; i < datos.getJSONArray(CrearActivo.DATOS).length(); i++) {
                 ItemRevision itemRevision = new ItemRevision();
                 JSONObject dato = (JSONObject) datos.getJSONArray(CrearActivo.DATOS).get(i);
                 itemRevision.setTitle(dato.getString("campo"));
                 itemRevisions.add(itemRevision);
             }
-            if(itemRevisions !=null&& itemRevisions.size()>0){
-                listRevision.setAdapter(new CustomArrayAdapter(getContext(), itemRevisions));
+            if (itemRevisions != null) {
+                CustomArrayAdapter adapter = new CustomArrayAdapter(getContext(), itemRevisions);
+                listRevision.setAdapter(adapter);
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
 
 
     private class RevisionLoadTask extends AsyncTask<Void, Void, Void> {
@@ -197,7 +197,7 @@ public class FragmentRevision extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             if (tipoActivo != null && tipoActivo.trim() != "" && itemPerso != null && itemPerso.trim() != "") {
-                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo + URL_VER_REVISION_ID2 + itemPerso , null, new Response.Listener<JSONObject>() {
+                JsonObjectRequest solicitud = new JsonObjectRequest(URL_VER_REVISION_ID + tipoActivo + URL_VER_REVISION_ID2 + itemPerso, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject datos) {
                         poblarCursorAdapter(datos);
@@ -219,8 +219,8 @@ public class FragmentRevision extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-//            if (cursor != null && cursor.getCount() > 0) {
-//                activosCursorAdapter.swapCursor(cursor);
+//            if (itemRevisions.size()>0) {
+//                listRevision.setAdapter(new CustomArrayAdapter(getContext(), itemRevisions));
 //            } else {
 //                // Mostrar empty state
 //            }

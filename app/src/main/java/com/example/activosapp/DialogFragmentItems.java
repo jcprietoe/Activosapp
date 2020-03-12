@@ -33,6 +33,7 @@ public class DialogFragmentItems extends DialogFragment {
     String tipoActivo, itemPerso;
     private static final String URL_REG_ITEM_PERSO = "https://www.gerenciandomantenimiento.com/activos/mantenimientoapp/registrar_Item_Perso.php";
 
+    private boolean isLoad = false;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class DialogFragmentItems extends DialogFragment {
                         @Override
                         public void onResponse(JSONObject datos) {
                             Toast.makeText(view.getContext(), "Guardado Exitosamente!", Toast.LENGTH_SHORT).show();
+                            isLoad=true;
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -83,8 +85,6 @@ public class DialogFragmentItems extends DialogFragment {
                 } else {
                     Toast.makeText(getContext(), "LLenar todos los campos", Toast.LENGTH_SHORT).show();
                 }
-                FragmentRevision cargarDato = new FragmentRevision();
-                cargarDato.loadRevision();
 
                 dismiss();
             }
@@ -100,6 +100,14 @@ public class DialogFragmentItems extends DialogFragment {
 
 
         return builder.create();
+    }
+
+    public boolean getIsLoad(){
+        return this.isLoad;
+    }
+
+    public void setIsLoad(boolean isload){
+        this.isLoad=isload;
     }
 
     @Override

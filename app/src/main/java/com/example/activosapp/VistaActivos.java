@@ -84,7 +84,7 @@ public class VistaActivos extends Fragment {
         // Referencias UI
         listActivo = root.findViewById(R.id.activo_list);
         activosCursorAdapter = new ActivosCursorAdapter(getActivity(), null);
-        //mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+//        mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
         loadActivos();
         // Setup
