@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class VistaActivos extends Fragment {
     private RequestQueue mRequest;
     private MatrixCursor cursor;
 
+    private int tamalloCursor=0;
     private static  final String URL_VER_ACTIVOS = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerActivos.php?act_empresaid=";
     private static  final String URL_VER_AREA = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_id=";
     //private LawyersDbHelper mLawyersDbHelper;
@@ -85,7 +87,6 @@ public class VistaActivos extends Fragment {
         listActivo = root.findViewById(R.id.activo_list);
         activosCursorAdapter = new ActivosCursorAdapter(getActivity(), null);
 //        mAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-
         loadActivos();
         // Setup
         listActivo.setAdapter(activosCursorAdapter);
@@ -100,6 +101,20 @@ public class VistaActivos extends Fragment {
                 Toast.makeText(getContext(),currentLawyerId,Toast.LENGTH_SHORT).show();
 //
 //                showDetailScreen(currentLawyerId);
+            }
+        });
+        listActivo.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(view.getLastVisiblePosition()==totalItemCount-1 && tamalloCursor> totalItemCount){
+                    Log.println(Log.INFO,"scrollListener","Cargar items");
+//                 Toast.makeText(getContext(),"Cargar items",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -163,6 +178,7 @@ public class VistaActivos extends Fragment {
             }
             Log.println(Log.WARN, "CURSOR:Cantidad", String.valueOf(cursor.getCount()));
             if (cursor != null && cursor.getCount() > 0) {
+                tamalloCursor=cursor.getCount();
                 activosCursorAdapter.swapCursor(cursor);
             } else {
                 // Mostrar empty state
