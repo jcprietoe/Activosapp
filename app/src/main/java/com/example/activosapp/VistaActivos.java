@@ -8,9 +8,11 @@ import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class VistaActivos extends Fragment {
     private MatrixCursor cursor;
 
     private int tamalloCursor=0;
+    private int lanzadorEvento =0;
     private static  final String URL_VER_ACTIVOS = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerActivos.php?act_empresaid=";
     private static  final String URL_VER_AREA = "http://www.gerenciandomantenimiento.com/activos/mantenimientoapp/obtenerAreaEmpresa.php?are_id=";
     //private LawyersDbHelper mLawyersDbHelper;
@@ -111,8 +114,15 @@ public class VistaActivos extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(view.getLastVisiblePosition()==totalItemCount-1 && tamalloCursor> totalItemCount){
-                    Log.println(Log.INFO,"scrollListener","Cargar items");
+                if(view.getLastVisiblePosition()==totalItemCount-1 && tamalloCursor> totalItemCount-1){
+                    lanzadorEvento++;
+                    if(lanzadorEvento==1){
+                        lanzadorEvento=0;
+                        Log.println(Log.INFO,"scrollListener","Cargar items");
+                    }else{
+                        lanzadorEvento=0;
+                    }
+
 //                 Toast.makeText(getContext(),"Cargar items",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -215,6 +225,15 @@ public class VistaActivos extends Fragment {
 //            } else {
 //                // Mostrar empty state
 //            }
+        }
+    }
+
+    private class MyHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch(msg.what){
+
+            }
         }
     }
 
