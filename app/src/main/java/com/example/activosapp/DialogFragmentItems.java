@@ -36,7 +36,7 @@ public class DialogFragmentItems extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragmentdialog_item_perso, null);
         builder.setView(view);
@@ -57,13 +57,13 @@ public class DialogFragmentItems extends DialogFragment {
             public void onClick(final View view) {
 
 
-                if(!edtItemPerso.getText().toString().trim().equals("")) {
+                if (!edtItemPerso.getText().toString().trim().equals("")) {
                     volley = VolleyRP.getInstance(getContext());
                     mRequest = volley.getRequestQueue();
                     HashMap<String, String> hashDatos = new HashMap<>();
                     hashDatos.put("descrip_itemperso", edtItemPerso.getText().toString().trim());
                     hashDatos.put("itemperso_actid", itemPerso);
-                    hashDatos.put("itemperso_tipid",tipoActivo );
+                    hashDatos.put("itemperso_tipid", tipoActivo);
 
 
                     JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REG_ITEM_PERSO, new JSONObject(hashDatos), new Response.Listener<JSONObject>() {
@@ -80,9 +80,11 @@ public class DialogFragmentItems extends DialogFragment {
 
                     VolleyRP.addToQueue(solicitud, mRequest, getContext(), volley);
                     getFragmentManager().popBackStack();
-                }else{
+                } else {
                     Toast.makeText(getContext(), "LLenar todos los campos", Toast.LENGTH_SHORT).show();
                 }
+                FragmentRevision cargarDato = new FragmentRevision();
+                cargarDato.loadRevision();
 
                 dismiss();
             }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,9 +114,12 @@ public class FragmentRevision extends Fragment {
             public void onClick(View view) {
                 DialogFragmentItems prueba = new DialogFragmentItems();
                 prueba.show(getActivity().getFragmentManager(), "customPicker");
+                loadRevision();
 
             }
         });
+
+
 
 
 //        (new Handler()).postDelayed(new Runnable() {
@@ -140,13 +144,14 @@ public class FragmentRevision extends Fragment {
         // Carga de datos
         loadRevision();
 
+
         return root;
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        loadRevision();
+        loadRevision();
     }
 
     public void loadRevision() {
@@ -184,6 +189,8 @@ public class FragmentRevision extends Fragment {
             e.printStackTrace();
         }
     }
+
+
 
     private class RevisionLoadTask extends AsyncTask<Void, Void, Void> {
 
